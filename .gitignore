@@ -94,3 +94,4 @@ frontend/Thumbs.db
 backend/src/main/resources/application.properties
 backend/src/main/resources/application.properties
 .idea
+.vscode/
