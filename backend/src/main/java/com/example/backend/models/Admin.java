@@ -17,7 +17,8 @@ public class Admin {
     private String password;
 
     // CONSTRUCTORS
-    public Admin() {}
+    public Admin() {
+    }
 
     public Admin(String username, String password) {
         this.username = username;
