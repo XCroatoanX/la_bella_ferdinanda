@@ -16,7 +16,9 @@ public class AdminService implements UserDetailsService {
 
     private final AdminRepository adminDAO;
 
-    public AdminService(AdminRepository adminDAO) { this.adminDAO = adminDAO; }
+    public AdminService(AdminRepository adminDAO) {
+        this.adminDAO = adminDAO;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

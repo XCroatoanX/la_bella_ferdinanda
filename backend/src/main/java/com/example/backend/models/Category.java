@@ -13,8 +13,8 @@ public class Category {
     private Long id;
     private String name;
 
-//    @OneToMany(mappedBy = "category")
-//    @JsonManagedReference
-//    private Set<Cat> cats;
-//    Still need to know what the cats will have
+    // @OneToMany(mappedBy = "category")
+    // @JsonManagedReference
+    // private Set<Cat> cats;
+    // Still need to know what the cats will have
 }

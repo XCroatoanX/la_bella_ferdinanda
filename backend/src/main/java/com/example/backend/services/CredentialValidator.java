@@ -40,4 +40,3 @@ public class CredentialValidator {
         return result.isValid();
     }
 }
-

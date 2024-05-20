@@ -18,7 +18,7 @@ public class Seeder {
 
     }
 
-    public void seedAdmin(){
+    public void seedAdmin() {
         Admin admin = new Admin();
         admin.setUsername("admin");
         admin.setPassword(new BCryptPasswordEncoder().encode("testpassword"));

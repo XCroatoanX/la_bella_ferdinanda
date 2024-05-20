@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RequestMapping("/auth")
 public class AuthController {
     private final AdminRepository adminDAO;
@@ -25,7 +25,8 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private CredentialValidator validator;
 
-    public AuthController(AdminRepository adminDAO, JWTUtil jwtUtil, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, CredentialValidator validator) {
+    public AuthController(AdminRepository adminDAO, JWTUtil jwtUtil, AuthenticationManager authenticationManager,
+            PasswordEncoder passwordEncoder, CredentialValidator validator) {
         this.adminDAO = adminDAO;
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
@@ -60,7 +61,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO authenticationDTO) {
         try {
-            UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(authenticationDTO.username,
+            UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(
+                    authenticationDTO.username,
                     authenticationDTO.password);
 
             authenticationManager.authenticate(authInputToken);
