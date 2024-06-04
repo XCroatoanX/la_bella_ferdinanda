@@ -5,40 +5,40 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.UUID;
+
 @Entity(name = "Kitten")
 public class Kitten {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
-    private String age;
     private String color;
-    private String sex;
+    private String age;
     private double bornWeight;
     private double weight;
+    private String sex;
     private String article;
 
     public Kitten() {
     }
 
-    public Kitten(long id, String name, String age, String color, String sex, double bornWeight, double weight,
-            String article) {
-        this.id = id;
+    public Kitten(String name, String color, String age, double bornWeight, double weight, String sex, String article) {
         this.name = name;
-        this.age = age;
         this.color = color;
-        this.sex = sex;
+        this.age = age;
         this.bornWeight = bornWeight;
         this.weight = weight;
+        this.sex = sex;
         this.article = article;
     }
 
-    public long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
