@@ -5,12 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.UUID;
+
 @Entity(name = "Cat")
 public class Cat {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
     private String name;
     private String color;
     private String age;
@@ -22,8 +24,7 @@ public class Cat {
     public Cat() {
     }
 
-    public Cat(Long id, String name, String color, String age, double weight, String sex, String article) {
-        this.id = id;
+    public Cat(String name, String color, String age, double weight, String sex, String article) {
         this.name = name;
         this.color = color;
         this.age = age;
@@ -33,11 +34,11 @@ public class Cat {
     }
 
     // Getters and Setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
