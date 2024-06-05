@@ -2,8 +2,10 @@ package com.example.backend.dao;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
+import com.example.backend.models.Image;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -50,8 +52,8 @@ public class CatDAO {
     }
 
     @Transactional
-    public void createCat(CatDTO catDTO) {
-        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article);
+    public void createCat(CatDTO catDTO, Set<Image> images) {
+        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, images);
         this.catRepository.save(cat);
     }
 

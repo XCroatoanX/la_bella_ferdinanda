@@ -1,8 +1,9 @@
 package com.example.backend.models;
 
-import jakarta.persistence.*;
-
+import java.util.Set;
 import java.util.UUID;
+
+import jakarta.persistence.*;
 
 @Entity(name = "Cat")
 public class Cat {
@@ -17,18 +18,29 @@ public class Cat {
     private String sex;
     @Column(length = 20000)
     private String article;
+    
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "cat_images",
+    joinColumns = {
+            @JoinColumn(name = "cat_id")
+    },
+    inverseJoinColumns = {
+            @JoinColumn(name = "image_id")
+    })
+    private Set<Image> images;
 
     // Constructor
     public Cat() {
     }
 
-    public Cat(String name, String color, String age, double weight, String sex, String article) {
+    public Cat(String name, String color, String age, double weight, String sex, String article, Set<Image> images) {
         this.name = name;
         this.color = color;
         this.age = age;
         this.weight = weight;
         this.sex = sex;
         this.article = article;
+        this.images = images;
     }
 
     // Getters and Setters
@@ -88,4 +100,11 @@ public class Cat {
         this.age = age;
     }
 
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
 }
