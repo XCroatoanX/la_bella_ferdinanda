@@ -1,9 +1,6 @@
 package com.example.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -18,6 +15,7 @@ public class Cat {
     private String age;
     private double weight;
     private String sex;
+    @Column(length = 20000)
     private String article;
 
     // Constructor
