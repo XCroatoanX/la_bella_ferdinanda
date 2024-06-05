@@ -8,7 +8,9 @@ import com.example.backend.models.Cat;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Seeder {
     private AdminRepository adminRepository;
     private CatRepository catRepository;
@@ -36,8 +38,10 @@ public class Seeder {
         Cat cat = new Cat();
         cat.setName("Garfield");
         cat.setColor("black");
+        cat.setAge("6 years old");
         cat.setWeight(5.5);
         cat.setSex("male");
+        cat.setArticle("Very kind cat, loves to walk, is very friendly");
         catRepository.save(cat);
     }
 }
