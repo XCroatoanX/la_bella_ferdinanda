@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-admin-panel-header',
   standalone: true,
-  imports: [],
+  imports: [NgOptimizedImage, RouterModule],
   templateUrl: './admin-panel-header.component.html',
   styleUrl: './admin-panel-header.component.scss',
 })
 export class AdminPanelHeaderComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+  ) {}
 
   public onLogout(): void {
     this.authService.logOut();

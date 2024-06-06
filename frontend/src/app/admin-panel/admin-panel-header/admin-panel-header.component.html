@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-md rounded-bottom-4">
   <div class="container-fluid">
-    <a class="navbar-brand mb-0 h1">
+    <a class="navbar-brand mb-0 h1" [routerLink]="['/admin']">
       <img
-        src="../../../assets/Logo.png"
+        ngSrc="assets/logo.png"
         width="50"
         height="50"
         class="d-inline-block align-center ms-3"
@@ -12,9 +12,59 @@
     </a>
 
     <div class="d-flex ml-auto">
-      <button class="btn border border-black me-5 logout" (click)="onLogout()">
-        Log Out
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
       </button>
+      <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasNavbar"
+           aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                Kittens
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Add Kitten</a></li>
+                <li><a class="dropdown-item" href="#">Edit Kitten</a></li>
+                <li><a class="dropdown-item" href="#">Delete Kitten</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                Cats
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" [routerLink]="['create-cat']">Create Cat</a></li>
+                <li><a class="dropdown-item" href="#">Edit Cat</a></li>
+                <li><a class="dropdown-item" href="#">Delete Cat</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                Account
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Edit Account</a></li>
+              </ul>
+            </li>
+            <li>
+              <button class="btn border border-black ms-3 no-margin logout" (click)="onLogout()">
+                Log Out
+              </button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </div>
+
 </nav>

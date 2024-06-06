@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
 .navbar {
   background-image: linear-gradient(90deg, #fcc28c 0%, #f7deea 100%);
 }
+
 img {
   margin-right: 1vw;
 }
+
 a {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
@@ -13,5 +16,27 @@ a {
   &:hover {
     background-color: rgba($color: #000000, $alpha: 0.2);
     color: black;
+  }
+}
+
+a:active {
+  background-color: #ffdbbd;
+  color: black;
+}
+
+@media (max-width: 767px) {
+  /* Custom CSS to remove margin from button inside offcanvas */
+  .offcanvas button.btn {
+    margin-left: 0 !important; /* Remove margin for button inside offcanvas */
+    margin-top: 1rem !important;
+  }
+
+  @media(max-width: 376px) {
+    img {
+      margin-left: 0 !important;
+    }
+    .navbar-brand {
+      font-size: 1rem !important;
+    }
   }
 }

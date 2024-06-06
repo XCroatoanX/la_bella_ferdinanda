@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
 import { AdminPanelHeaderComponent } from './admin-panel-header/admin-panel-header.component';
 
 @Component({
