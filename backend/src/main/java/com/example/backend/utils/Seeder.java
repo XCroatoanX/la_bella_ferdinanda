@@ -35,8 +35,8 @@ public class Seeder {
 
     public void seedAdmin() {
         Admin admin = new Admin();
-        admin.setUsername("admin");
-        admin.setPassword(new BCryptPasswordEncoder().encode("testpassword1!"));
+        admin.setUsername("Artemka2004#");
+        admin.setPassword(new BCryptPasswordEncoder().encode("Kyryll2006@"));
         adminRepository.save(admin);
 
     }
@@ -56,7 +56,7 @@ public class Seeder {
         // image.setImageData(Files.readAllBytes(Paths.get("/home/artem/Pictures/Lze0RWKv_400x400.jpg")));
 
         // For MacOS
-        image.setImageData(Files.readAllBytes(Paths.get("/Users/artemstasyuk/Pictures/IMG_20240329_172201.jpg")));
+        image.setImageData(Files.readAllBytes(Paths.get("/Users/artemstasyuk/Pictures/garfield.jpg")));
 
         Set<Image> images = new HashSet<>();
         images.add(image);
