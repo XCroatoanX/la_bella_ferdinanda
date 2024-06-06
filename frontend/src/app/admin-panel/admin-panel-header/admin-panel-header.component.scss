@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+.navbar {
+  background-image: linear-gradient(90deg, #fcc28c 0%, #f7deea 100%);
+}
+img {
+  margin-right: 1vw;
+}
+a {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+}
+
+.logout {
+  &:hover {
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    color: black;
+  }
+}
