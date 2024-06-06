@@ -22,6 +22,9 @@ export class LoginComponent {
   loginForm: FormGroup;
   username: FormControl;
   password: FormControl;
+  alertMessage: string = '';
+  alertType: string = '';
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,

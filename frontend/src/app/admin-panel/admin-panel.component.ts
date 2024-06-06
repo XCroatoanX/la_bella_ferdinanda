@@ -1,19 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { AdminPanelHeaderComponent } from './admin-panel-header/admin-panel-header.component';
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [],
+  imports: [AdminPanelHeaderComponent],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.scss',
 })
-export class AdminPanelComponent {
-  constructor(private authService: AuthService, private router: Router) {}
-
-  public onLogout(): void {
-    this.authService.logOut();
-    this.router.navigate(['/auth/login']);
-  }
-}
+export class AdminPanelComponent {}
