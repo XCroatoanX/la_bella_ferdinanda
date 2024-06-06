@@ -1,11 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
 .header {
-  margin-top: 0vh;
   text-align: center;
   background-image: linear-gradient(90deg, #fcc28c 0%, #f7deea 100%);
   position: relative;
-  width: 90vw;
   z-index: 10;
   top: 3vh;
 }
@@ -46,7 +44,7 @@ label {
 
 form {
   padding: 20px;
-  background-image: linear-gradient(90deg, #fcc28c 0%, #f7deea 100%);
+  background-image: linear-gradient(90deg, rgba(252, 194, 140, 1) 0%, rgba(247, 222, 234, 1) 100%);
   z-index: 1;
   width: 40vw;
   min-width: 250px;
@@ -77,14 +75,27 @@ form {
   animation-delay: 0.5s;
   z-index: -1;
 }
+
 button {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
+
+  &:hover {
+    background-color: rgba($color: #000000, $alpha: 0.2);
+    color: black;
+  }
 }
+
 @keyframes blurAndDarken {
   0% {
     filter: blur(0px) brightness(1);
   }
   100% {
     filter: blur(8px) brightness(0.5);
+  }
+}
+
+@media (max-width: 323px) {
+  .header_title {
+    font-size: x-large;
   }
 }
