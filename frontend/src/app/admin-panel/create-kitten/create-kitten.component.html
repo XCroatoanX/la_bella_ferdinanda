@@ -1,0 +1,93 @@
+<body class="pb-3">
+  <app-admin-panel-header
+    xmlns="http://www.w3.org/1999/html"
+  ></app-admin-panel-header>
+  <div class="border border-black shadow-lg rounded-4 my-5 w-75 m-auto p-3">
+    <h2 class="h2">New Kitten:</h2>
+    <form [formGroup]="kittenForm" (ngSubmit)="submitKitten()">
+      <div class="mb-3">
+        <label for="kittenName" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          id="kittenName"
+          placeholder="Name of the Kitten"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="kittenColor" class="form-label">Color</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="color"
+          id="kittenColor"
+          placeholder="ex. Ginger"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="kittenAge" class="form-label">Age</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="age"
+          id="kittenAge"
+          placeholder="ex. 5 Years Old"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="kittenWeight" class="form-label">Weight (in kg)</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="weight"
+          id="kittenWeight"
+          placeholder="5.5"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="kittenSex" class="form-label">Sex</label>
+        <input
+          class="form-control"
+          list="datalistOptions"
+          formControlName="sex"
+          id="kittenSex"
+          placeholder="ex. Male"
+        />
+        <datalist id="datalistOptions">
+          <option value="Male"></option>
+          <option value="Female"></option>
+        </datalist>
+      </div>
+      <div class="mb-3">
+        <label for="kittenArticle" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          formControlName="description"
+          id="kittenArticle"
+          rows="3"
+          placeholder="Description of the kitten"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="kittenImages" class="form-label">Images</label>
+        <input
+          class="form-control"
+          type="file"
+          formControlName="images"
+          id="kittenImages"
+          multiple
+        />
+      </div>
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn disabled border-black w-100"
+          [ngClass]="{ disabled: !kittenForm.valid }"
+        >
+          Create kitten
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
