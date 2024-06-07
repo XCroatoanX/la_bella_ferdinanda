@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/kitten")
 public class KittenController {
     private final KittenDAO kittenDAO;
@@ -38,12 +38,12 @@ public class KittenController {
     }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> createKitten(@RequestPart("kitten") KittenDTO kittenDTO, @RequestPart("imagefile")MultipartFile[] file) {
+    public ResponseEntity<String> createKitten(@RequestPart("kitten") KittenDTO kittenDTO, @RequestPart("imagefile") MultipartFile[] file) {
         try {
             Set<Image> images = this.imageService.uploadImage(file);
             this.kittenDAO.createKitten(kittenDTO, images);
             return ResponseEntity.ok("Created kitten: " + kittenDTO.name);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating kitten: " + e.getMessage());
         }
     }
@@ -57,6 +57,7 @@ public class KittenController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteKitten(@PathVariable UUID id) {
+        this.imageService.deleteImages(id);
         this.kittenDAO.deleteKittenById(id);
 
         return ResponseEntity.ok("Deleted Kitten: " + id);

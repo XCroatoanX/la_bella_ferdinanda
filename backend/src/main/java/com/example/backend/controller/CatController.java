@@ -16,7 +16,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/cat")
 public class CatController {
     private final ImageService imageService;
@@ -39,7 +39,7 @@ public class CatController {
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> createCat(@RequestPart("cat") CatDTO catDTO,
-                                            @RequestPart("imagefile")MultipartFile[] file) {
+                                            @RequestPart("imagefile") MultipartFile[] file) {
 
 
         try {
@@ -60,6 +60,7 @@ public class CatController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCat(@PathVariable UUID id) {
+        this.imageService.deleteImages(id);
         this.catDAO.deleteCatById(id);
 
         return ResponseEntity.ok("Deleted Cat: " + id);
