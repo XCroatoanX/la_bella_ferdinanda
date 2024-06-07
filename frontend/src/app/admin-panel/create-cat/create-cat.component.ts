@@ -9,7 +9,6 @@ import {
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
 import { CatService } from '../../services/cat.service';
-import { Cat } from '../../models/cat.model';
 
 @Component({
   selector: 'app-create-cat',
@@ -40,9 +39,10 @@ export class CreateCatComponent implements OnInit {
   }
 
   public submitCat(): void {
-    this.catService.createCat(this.catForm.value).subscribe((cat: Cat) => {
-      console.log(cat);
-      this.router.navigate(['/admin']);
-    });
+    console.log(this.catForm.value);
+    // this.catService.createCat(this.catForm.value).subscribe((cat: Cat) => {
+    //   console.log(cat);
+    //   this.router.navigate(['/admin']);
+    // });
   }
 }

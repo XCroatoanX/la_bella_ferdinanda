@@ -56,7 +56,7 @@ public class Seeder {
         // image.setImageData(Files.readAllBytes(Paths.get("/home/artem/Pictures/Lze0RWKv_400x400.jpg")));
 
         // For MacOS
-        image.setImageData(Files.readAllBytes(Paths.get("/Users/artemstasyuk/Pictures/garfield.jpg")));
+        //image.setImageData(Files.readAllBytes(Paths.get("/Users/artemstasyuk/Pictures/garfield.jpg")));
 
         Set<Image> images = new HashSet<>();
         images.add(image);
