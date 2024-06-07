@@ -1,19 +1,17 @@
 package com.example.backend.dao;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
-
+import com.example.backend.dto.CatDTO;
+import com.example.backend.models.Cat;
 import com.example.backend.models.Image;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.example.backend.dto.CatDTO;
-import com.example.backend.models.Cat;
-
-import jakarta.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 @Component
 public class CatDAO {
@@ -35,7 +33,7 @@ public class CatDAO {
     public Cat getCatById(UUID id) {
         Optional<Cat> cat = catRepository.findById(id);
 
-        if(cat.isPresent()) {
+        if (cat.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found");
         }
         return cat.get();
