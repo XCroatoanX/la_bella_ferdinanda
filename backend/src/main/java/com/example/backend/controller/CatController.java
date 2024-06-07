@@ -40,8 +40,6 @@ public class CatController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> createCat(@RequestPart("cat") CatDTO catDTO,
                                             @RequestPart("imagefile") MultipartFile[] file) {
-
-
         try {
             Set<Image> images = this.imageService.uploadImage(file);
             this.catDAO.createCat(catDTO, images);
