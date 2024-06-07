@@ -1,6 +1,7 @@
 package com.example.backend.dao;
 
 import com.example.backend.dto.KittenDTO;
+import com.example.backend.models.Image;
 import com.example.backend.models.Kitten;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -47,8 +49,8 @@ public class KittenDAO {
     }
 
     @Transactional
-    public void createKitten(KittenDTO kittenDTO) {
-        Kitten kitten = new Kitten(kittenDTO.name, kittenDTO.color, kittenDTO.age,kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article);
+    public void createKitten(KittenDTO kittenDTO, Set<Image> images) {
+        Kitten kitten = new Kitten(kittenDTO.name, kittenDTO.color, kittenDTO.age,kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article, images);
         this.kittenRepository.save(kitten);
     }
 

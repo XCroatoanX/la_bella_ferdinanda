@@ -15,13 +15,12 @@ public class Image {
     private UUID id;
     private String name;
     private String type;
-    @Column(length = 50000000)
-    private byte[] imageData;
+    private String imageDir;
 
-    public Image(String name, String type, byte[] imageData) {
+    public Image(String name, String type, String imageDir) {
         this.name = name;
         this.type = type;
-        this.imageData = imageData;
+        this.imageDir = imageDir;
     }
 
     public Image() {
@@ -51,12 +50,11 @@ public class Image {
         this.type = type;
     }
 
-    public byte[] getImageData() {
-        return imageData;
+    public String getImageDir() {
+        return imageDir;
     }
 
-    public void setImageData(byte[] imageData) {
-        this.imageData = imageData;
+    public void setImageDir(String imageDir) {
+        this.imageDir = imageDir;
     }
-
 }

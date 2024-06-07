@@ -1,10 +1,8 @@
 package com.example.backend.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity(name = "Kitten")
@@ -21,10 +19,20 @@ public class Kitten {
     private String sex;
     private String article;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "kitten_images",
+            joinColumns = {
+                    @JoinColumn(name = "kitten_id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "image_id")
+            })
+    private Set<Image> images;
+
     public Kitten() {
     }
 
-    public Kitten(String name, String color, String age, double bornWeight, double weight, String sex, String article) {
+    public Kitten(String name, String color, String age, double bornWeight, double weight, String sex, String article, Set<Image> images) {
         this.name = name;
         this.color = color;
         this.age = age;
@@ -32,6 +40,7 @@ public class Kitten {
         this.weight = weight;
         this.sex = sex;
         this.article = article;
+        this.images = images;
     }
 
     public UUID getId() {
@@ -98,4 +107,11 @@ public class Kitten {
         this.weight = weight;
     }
 
+    public Set<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<Image> images) {
+        this.images = images;
+    }
 }
