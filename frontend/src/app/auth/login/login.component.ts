@@ -7,9 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { AuthResponse } from '../auth-response.model';
+import { AuthResponse } from '../../models/auth-response.model';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +28,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
+
   ngOnInit(): void {
     this.username = new FormControl('', [
       Validators.required,
@@ -46,6 +47,7 @@ export class LoginComponent {
       password: this.password,
     });
   }
+
   public onSubmit(): void {
     this.authService
       .login(this.loginForm.value)

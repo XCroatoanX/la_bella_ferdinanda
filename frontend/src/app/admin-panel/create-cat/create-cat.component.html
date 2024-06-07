@@ -2,7 +2,7 @@
 <app-admin-panel-header xmlns="http://www.w3.org/1999/html"></app-admin-panel-header>
 <div class="border border-black shadow-lg rounded-4 my-5 w-75 m-auto p-3">
   <h2 class="h2">New Cat:</h2>
-  <form [formGroup]="catForm">
+  <form [formGroup]="catForm" (ngSubmit)="submitCat()">
     <div class="mb-3">
       <label for="catName" class="form-label">Name</label>
       <input type="text" class="form-control" formControlName="name" id="catName" placeholder="Name of the Cat">
