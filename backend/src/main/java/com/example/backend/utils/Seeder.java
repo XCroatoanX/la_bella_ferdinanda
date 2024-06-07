@@ -1,27 +1,22 @@
 package com.example.backend.utils;
 
 import com.example.backend.dao.AdminRepository;
-import com.example.backend.dao.CatRepository;
 import com.example.backend.models.Admin;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-
 @Component
 public class Seeder {
     private final AdminRepository adminRepository;
-    private final CatRepository catRepository;
 
-    public Seeder(AdminRepository adminRepository, CatRepository catRepository) {
+    public Seeder(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
-        this.catRepository = catRepository;
     }
 
     @EventListener
-    public void seed(ContextRefreshedEvent event) throws IOException {
+    public void seed(ContextRefreshedEvent event) {
         seedAdmin();
     }
 

@@ -17,7 +17,6 @@ import java.util.UUID;
 @Service
 public class ImageService {
     private final CatDAO catDAO;
-    private final String imageDir = "src/main/resources/static/images";
 
     public ImageService(CatDAO catDAO) {
         this.catDAO = catDAO;
@@ -27,6 +26,7 @@ public class ImageService {
         Set<Image> images = new HashSet<>();
         for (MultipartFile file : multipartfiles) {
             String uniqueFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            String imageDir = "src/main/resources/static/images";
             Image image = new Image(
                     uniqueFileName,
                     file.getContentType(),
@@ -38,7 +38,7 @@ public class ImageService {
         return images;
     }
 
-    public String saveImageToStorage(String uploadDirectory, String fileName, MultipartFile file) throws IOException {
+    public void saveImageToStorage(String uploadDirectory, String fileName, MultipartFile file) throws IOException {
         Path uploadPath = Path.of(uploadDirectory);
         Path filePath = uploadPath.resolve(fileName);
 
@@ -47,7 +47,6 @@ public class ImageService {
         }
 
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-        return fileName;
     }
 
     public void deleteImages(UUID id) {
