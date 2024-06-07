@@ -12,13 +12,13 @@ import { KittenService } from '../../services/kitten.service';
   templateUrl: './create-kitten.component.html',
   styleUrl: './create-kitten.component.scss'
 })
-export class CreateKittenComponent implements OnInit{
+export class CreateKittenComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private kittenService: KittenService,
-  ) {}
+  ) { }
 
   public kittenForm: FormGroup;
 
@@ -27,13 +27,14 @@ export class CreateKittenComponent implements OnInit{
       name: ['', Validators.required],
       color: ['', Validators.required],
       age: ['', Validators.required],
+      bornWeight: ["", Validators.required],
       weight: ['', Validators.required],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
     });
   }
-  
+
   public submitKitten(): void {
     console.log("submit kitten");
   }
