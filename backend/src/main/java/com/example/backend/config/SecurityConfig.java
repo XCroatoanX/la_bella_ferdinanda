@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .userDetailsService(adminService)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/cats").permitAll()
+                        .requestMatchers("/cat").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated())

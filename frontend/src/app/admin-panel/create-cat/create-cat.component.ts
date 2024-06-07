@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { CatService } from '../../services/cat.service';
+import { Cat } from '../../models/cat.model';
 
 @Component({
   selector: 'app-create-cat',
@@ -20,6 +22,7 @@ export class CreateCatComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private catService: CatService,
   ) {}
 
   public catForm: FormGroup;
@@ -33,6 +36,13 @@ export class CreateCatComponent implements OnInit {
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
+    });
+  }
+
+  public submitCat(): void {
+    this.catService.createCat(this.catForm.value).subscribe((cat: Cat) => {
+      console.log(cat);
+      this.router.navigate(['/admin']);
     });
   }
 }
