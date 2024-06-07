@@ -1,46 +1,91 @@
 <body class="pb-3">
-<app-admin-panel-header xmlns="http://www.w3.org/1999/html"></app-admin-panel-header>
-<div class="border border-black shadow-lg rounded-4 my-5 w-75 m-auto p-3">
-  <h2 class="h2">New Cat:</h2>
-  <form [formGroup]="catForm" (ngSubmit)="submitCat()">
-    <div class="mb-3">
-      <label for="catName" class="form-label">Name</label>
-      <input type="text" class="form-control" formControlName="name" id="catName" placeholder="Name of the Cat">
-    </div>
-    <div class="mb-3">
-      <label for="catColor" class="form-label">Color</label>
-      <input type="text" class="form-control" formControlName="color" id="catColor" placeholder="ex. Ginger">
-    </div>
-    <div class="mb-3">
-      <label for="catAge" class="form-label">Age</label>
-      <input type="text" class="form-control" formControlName="age" id="catAge" placeholder="ex. 5 Years Old">
-    </div>
-    <div class="mb-3">
-      <label for="catWeight" class="form-label">Weight (in kg)</label>
-      <input type="text" class="form-control" formControlName="weight" id="catWeight" placeholder="5.5">
-    </div>
-    <div class="mb-3">
-      <label for="catSex" class="form-label">Sex</label>
-      <input class="form-control" list="datalistOptions" formControlName="sex" id="catSex" placeholder="ex. Male">
-      <datalist id="datalistOptions">
-        <option value="Male">
-        <option value="Female">
-      </datalist>
-    </div>
-    <div class="mb-3">
-      <label for="catArticle" class="form-label">Description</label>
-      <textarea class="form-control" formControlName="description" id="catArticle" rows="3"
-                placeholder="Description of the cat"></textarea>
-    </div>
-    <div class="mb-3">
-      <label for="catImages" class="form-label">Images</label>
-      <input class="form-control" type="file" formControlName="images" id="catImages" multiple>
-    </div>
-    <div class="mb-3">
-      <button type="submit" class="btn disabled border-black w-100" [ngClass]="{'disabled': !catForm.valid}">Create
-        cat
-      </button>
-    </div>
-  </form>
-</div>
+  <app-admin-panel-header></app-admin-panel-header>
+  <div class="border border-black shadow-lg rounded-4 my-5 w-75 m-auto p-3">
+    <h2 class="h2">New Cat:</h2>
+    <form [formGroup]="catForm" (ngSubmit)="submitCat()">
+      <div class="mb-3">
+        <label for="catName" class="form-label">Name</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          id="catName"
+          placeholder="Name of the Cat"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="catColor" class="form-label">Color</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="color"
+          id="catColor"
+          placeholder="ex. Ginger"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="catAge" class="form-label">Age</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="age"
+          id="catAge"
+          placeholder="ex. 5 Years Old"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="catWeight" class="form-label">Weight (in kg)</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="weight"
+          id="catWeight"
+          placeholder="5.5"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="catSex" class="form-label">Sex</label>
+        <input
+          class="form-control"
+          list="datalistOptions"
+          formControlName="sex"
+          id="catSex"
+          placeholder="ex. Male"
+        />
+        <datalist id="datalistOptions">
+          <option value="Male"></option>
+          <option value="Female"></option>
+        </datalist>
+      </div>
+      <div class="mb-3">
+        <label for="catArticle" class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          formControlName="description"
+          id="catArticle"
+          rows="3"
+          placeholder="Description of the cat"
+        ></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="catImages" class="form-label">Images</label>
+        <input
+          class="form-control"
+          type="file"
+          formControlName="images"
+          id="catImages"
+          multiple
+        />
+      </div>
+      <div class="mb-3">
+        <button
+          type="submit"
+          class="btn disabled border-black w-100"
+          [ngClass]="{ disabled: !catForm.valid }"
+        >
+          Create cat
+        </button>
+      </div>
+    </form>
+  </div>
 </body>
