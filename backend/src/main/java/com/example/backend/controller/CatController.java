@@ -49,9 +49,18 @@ public class CatController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateCat(@PathVariable UUID id, @RequestBody CatDTO catDTO) {
-        this.catDAO.updateCat(catDTO, id);
+    @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> updateCat(@PathVariable UUID id, @RequestPart("cat") CatDTO catDTO,
+                                            @RequestPart("imagefile") MultipartFile[] file) {
+        try {
+            this.imageService.deleteImages(id);
+            Set<Image> images = this.imageService.uploadImage(file);
+            this.catDAO.updateCat(catDTO, images, id);
+            ResponseEntity.ok("Updated cat: " + catDTO.name);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating cat: " + e.getMessage());
+        }
+
 
         return ResponseEntity.ok("Updated cat: " + catDTO.name);
     }
