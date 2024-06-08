@@ -37,6 +37,11 @@ public class CatController {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
     }
 
+    @GetMapping("/{sex}")
+    public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
+        return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
+    }
+
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> createCat(@RequestPart("cat") CatDTO catDTO,
                                             @RequestPart("imagefile") MultipartFile[] file) {
