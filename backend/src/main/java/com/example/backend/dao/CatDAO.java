@@ -6,8 +6,13 @@ import com.example.backend.models.Image;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -55,7 +60,7 @@ public class CatDAO {
         this.catRepository.save(cat);
     }
 
-    public void updateCat(CatDTO catDTO, UUID id) {
+    public void updateCat(CatDTO catDTO, Set<Image> newImages, UUID id) {
         Optional<Cat> cat = this.catRepository.findById(id);
 
         if (cat.isPresent()) {
@@ -65,10 +70,22 @@ public class CatDAO {
             cat.get().setWeight(catDTO.weight);
             cat.get().setSex(catDTO.sex);
             cat.get().setArticle(catDTO.article);
+            cat.get().setImages(newImages);
             this.catRepository.save(cat.get());
             return;
         }
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found");
+    }
+
+    public void uploadImageSet(String uploadDirectory, String fileName, MultipartFile file) throws IOException {
+        Path uploadPath = Path.of(uploadDirectory);
+        Path filePath = uploadPath.resolve(fileName);
+
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
     }
 
     public void deleteCatById(UUID id) {

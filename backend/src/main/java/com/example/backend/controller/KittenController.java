@@ -48,9 +48,16 @@ public class KittenController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateKitten(@PathVariable UUID id, @RequestBody KittenDTO kittenDTO) {
-        this.kittenDAO.updateKitten(kittenDTO, id);
+    @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<String> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
+                                               @RequestPart("imagefile") MultipartFile[] file) {
+        try {
+            this.imageService.deleteImages(id);
+            Set<Image> images = this.imageService.uploadImage(file);
+            this.kittenDAO.updateKitten(kittenDTO, images, id);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating kitten: " + e.getMessage());
+        }
 
         return ResponseEntity.ok("Updated kitten: " + kittenDTO.name);
     }

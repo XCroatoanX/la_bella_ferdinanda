@@ -50,11 +50,11 @@ public class KittenDAO {
 
     @Transactional
     public void createKitten(KittenDTO kittenDTO, Set<Image> images) {
-        Kitten kitten = new Kitten(kittenDTO.name, kittenDTO.color, kittenDTO.age,kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article, images);
+        Kitten kitten = new Kitten(kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article, images);
         this.kittenRepository.save(kitten);
     }
 
-    public void updateKitten(KittenDTO kittenDTO, UUID id) {
+    public void updateKitten(KittenDTO kittenDTO, Set<Image> newImages, UUID id) {
         Optional<Kitten> kitten = this.kittenRepository.findById(id);
 
         if (kitten.isPresent()) {
@@ -65,6 +65,7 @@ public class KittenDAO {
             kitten.get().setWeight(kittenDTO.weight);
             kitten.get().setSex(kittenDTO.sex);
             kitten.get().setArticle(kittenDTO.article);
+            kitten.get().setImages(newImages);
             this.kittenRepository.save(kitten.get());
             return;
         }
