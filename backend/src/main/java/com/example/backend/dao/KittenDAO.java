@@ -29,16 +29,6 @@ public class KittenDAO {
         return kittenRepository.findAll();
     }
 
-    public List<Kitten> getKittensBySex(String sex) {
-        Optional<List<Kitten>> kittensList = this.kittenRepository.findBySex(sex);
-
-        if (kittensList.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Kittens with this sex not found");
-        }
-        return kittensList.get();
-    }
-
     @Transactional
     public Kitten getKittenById(UUID kittenID) {
         Optional<Kitten> kitten = this.kittenRepository.findById(kittenID);
