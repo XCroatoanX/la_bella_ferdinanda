@@ -37,7 +37,7 @@ public class CatController {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
     }
 
-    @GetMapping("/{sex}")
+    @GetMapping("/sex/{sex}")
     public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
         return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
     }
