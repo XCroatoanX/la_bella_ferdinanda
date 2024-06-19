@@ -57,17 +57,16 @@
       </div>
       <div class="mb-3">
         <label for="kittenSex" class="form-label">Sex</label>
-        <input
-          class="form-control"
-          list="datalistOptions"
-          formControlName="sex"
+        <select
           id="kittenSex"
-          placeholder="ex. Male"
-        />
-        <datalist id="datalistOptions">
-          <option value="Male"></option>
-          <option value="Female"></option>
-        </datalist>
+          formControlName="sex"
+          class="form-select"
+          aria-label="Select cat sex"
+        >
+          <option selected>Sex</option>
+          <option value="1">Male</option>
+          <option value="2">Female</option>
+        </select>
       </div>
       <div class="mb-3">
         <label for="kittenArticle" class="form-label">Description</label>
