@@ -10,6 +10,7 @@ img {
 
 a {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
+  border-radius: 5px;
 }
 
 .logout {
@@ -22,6 +23,7 @@ a {
 a:active {
   background-color: #ffdbbd;
   color: black;
+  border-radius: 5px;
 }
 
 @media (max-width: 767px) {
