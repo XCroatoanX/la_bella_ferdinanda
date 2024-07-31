@@ -1,12 +1,145 @@
 <body>
-<div class="pt-3 ms-3 me-3">
-  <app-header></app-header>
-</div>
-<div class="shadow bg-white ms-3 me-3 mt-4 rounded-3">
-  <h1 class="display-4 text-center"><b>Contact Us</b></h1>
-  
-</div>
-<div class="ms-3 me-3 mt-4 mb-4 rounded-3 pb-3">
-  <app-footer></app-footer>
-</div>
+  <div class="pt-3 ms-3 me-3">
+    <app-header></app-header>
+  </div>
+  <div class="shadow bg-white ms-3 me-3 mt-4 rounded-3">
+    <h1 class="display-4 text-center pt-4"><b>Contact Us</b></h1>
+    <div class="container text-center pb-5">
+      <div class="row">
+        <div class="col align-content-center contacts-container">
+          <p class="lead">
+            For all questions, feel free to call us or send a message!
+          </p>
+          <ul class="ps-0 mt-3">
+            <li>
+              <a
+                class="instagram-gif-container d-inline-flex text-decoration-none align-items-center"
+                (mouseover)="instagramhover = true"
+                (mouseout)="instagramhover = false"
+                href="https://www.instagram.com/la_bella_ferdinanda/"
+                target="_blank"
+              >
+                <img
+                  [src]="
+                    instagramhover
+                      ? '/assets/icons/instagram.gif'
+                      : '/assets/icons/instagram.png'
+                  "
+                  alt="Our instagram"
+                  height="30"
+                  width="30"
+                />
+                <p class="ms-1 text-black mb-0 p ms-4" id="instagram">
+                  &commat;la_bella_ferdinanda
+                </p>
+              </a>
+            </li>
+            <li>
+              <a
+                class="facebook-gif-container d-inline-flex text-decoration-none align-items-center mt-2"
+                (mouseover)="facebookhover = true"
+                (mouseout)="facebookhover = false"
+                href="https://www.facebook.com/share/tgmJXZD43s7fPTik/?mibextid=LQQJ4d"
+                target="_blank"
+              >
+                <img
+                  [src]="
+                    facebookhover
+                      ? '/assets/icons/facebook-circled.gif'
+                      : '/assets/icons/facebook-circled.png'
+                  "
+                  alt="Our Facebook"
+                  height="30"
+                  width="30"
+                />
+                <p class="ms-1 text-black mb-0 p ms-4" id="facebook">
+                  Our facebook
+                </p>
+              </a>
+            </li>
+            <li>
+              <a
+                class="tiktok-gif-container d-inline-flex text-decoration-none align-items-center mt-2"
+                (mouseover)="tiktokhover = true"
+                (mouseout)="tiktokhover = false"
+                href="https://www.tiktok.com/@labellaferdinanda"
+                target="_blank"
+              >
+                <img
+                  [src]="
+                    tiktokhover
+                      ? '/assets/icons/tiktok.gif'
+                      : '/assets/icons/tiktok.png'
+                  "
+                  alt="Our tiktok"
+                  height="30"
+                  width="30"
+                />
+                <p class="ms-1 text-black mb-0 p ms-4" id="tiktok">
+                  &commat;labellaferdinanda
+                </p>
+              </a>
+            </li>
+            <li>
+              <a
+                class="mail-gif-container d-inline-flex text-decoration-none align-items-center mt-2"
+                (mouseover)="mailhover = true"
+                (mouseout)="mailhover = false"
+                href="
+mailto:sinyaka@gmail.com"
+                target="_blank"
+              >
+                <img
+                  [src]="
+                    mailhover
+                      ? '/assets/icons/gmail-logo.gif'
+                      : '/assets/icons/gmail-logo.png'
+                  "
+                  alt="Mail us"
+                  height="30"
+                  width="30"
+                />
+                <p class="ms-1 text-black mb-0 p ms-4" id="mail">
+                  sinyaka&commat;gmail.com
+                </p>
+              </a>
+            </li>
+            <li>
+              <a
+                class="phone-gif-container d-inline-flex text-decoration-none align-items-center mt-2"
+                (mouseover)="phonehover = true"
+                (mouseout)="phonehover = false"
+                href="tel:+31641378375"
+                target="_blank"
+              >
+                <img
+                  [src]="
+                    phonehover
+                      ? '/assets/icons/phone-ringing.gif'
+                      : '/assets/icons/phone-ringing.png'
+                  "
+                  alt="Call us"
+                  height="30"
+                  width="30"
+                />
+                <p class="ms-1 text-black mb-0 p ms-4" id="phone">
+                  +31641378375
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col d-flex justify-content-center image-container">
+          <img
+            src="/assets/img/contact.jpeg"
+            alt="Side image"
+            class="img-fluid rounded-3"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ms-3 me-3 mt-4 rounded-3 pb-4">
+    <app-footer></app-footer>
+  </div>
 </body>

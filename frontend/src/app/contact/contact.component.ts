@@ -8,4 +8,10 @@ import { CoreModule } from '../core/core.module';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
-export class ContactComponent {}
+export class ContactComponent {
+  instagramhover: boolean = false;
+  facebookhover: boolean = false;
+  mailhover: boolean = false;
+  phonehover: boolean = false;
+  tiktokhover: boolean = false;
+}
