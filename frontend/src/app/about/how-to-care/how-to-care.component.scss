@@ -8,11 +8,38 @@ h2,
 h3,
 h4,
 h5,
-h6 i li {
+h6,
+i,
+li {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   color: black;
 }
 
 body {
   background-color: #ffe0c0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.icon-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.icon {
+  margin-right: 10px;
+  height: 24px;
+  width: auto;
 }

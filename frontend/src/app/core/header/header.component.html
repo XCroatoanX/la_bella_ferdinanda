@@ -1,4 +1,4 @@
-<header class="rounded-3 shadow d-inline-flex w-100 align-items-center">
+<header class="rounded-3 shadow d-inline-flex w-100 align-items-center header">
   <nav
     class="navbar navbar-expand-md w-100 d-flex justify-content-between align-items-center"
   >
@@ -103,6 +103,11 @@
                     >How to care</a
                   >
                 </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/about/about-food']"
+                    >About Food</a
+                  >
+                </li>
               </ul>
             </li>
             <li class="nav-item">
@@ -121,7 +126,7 @@
                 id="instagram"
               >
                 <img
-                  ngSrc="assets/icons/Instagram%20Square%20Icon.png"
+                  ngSrc="assets/icons/instagram-square-icon.png"
                   height="40"
                   width="40"
                   class="rounded-3"
@@ -133,7 +138,7 @@
                 target="_blank"
               >
                 <img
-                  ngSrc="assets/icons/Tiktok%20Square%20Icon.png"
+                  ngSrc="assets/icons/tiktok-square-icon.png"
                   height="40"
                   width="40"
                   class="rounded-3"
@@ -145,7 +150,7 @@
                 target="_blank"
               >
                 <img
-                  ngSrc="assets/icons/Facebook%20Generic%20Square.png"
+                  ngSrc="assets/icons/facebook-generic-square.png"
                   height="40"
                   width="40"
                   class="rounded-3"

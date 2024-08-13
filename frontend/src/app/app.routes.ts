@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about/about-us/about-us.component';
 import { AboutBreedComponent } from './about/about-breed/about-breed.component';
 import { HowToCareComponent } from './about/how-to-care/how-to-care.component';
+import { AboutFoodComponent } from './about/about-food/about-food.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ export const routes: Routes = [
         path: 'how-to-care',
         component: HowToCareComponent,
       },
+      { path: 'about-food', component: AboutFoodComponent },
     ],
   },
   { path: 'auth/login', component: LoginComponent },
