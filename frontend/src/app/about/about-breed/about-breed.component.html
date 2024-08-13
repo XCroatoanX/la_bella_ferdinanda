@@ -1,12 +1,12 @@
 <body>
-  <div class="pt-3 ms-3 me-3">
+  <div class="pt-3 mx-3">
     <app-header></app-header>
   </div>
-  <div class="shadow bg-white ms-3 me-3 mt-4 rounded-3 p-5 pt-4">
+  <div class="shadow bg-white mx-3 my-4 rounded-3 p-5">
     <h1 class="display-4 text-center"><strong>About breed</strong></h1>
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col-md">
           <h3 class="h3">Short Info</h3>
           <div class="container">
             <div class="row">
@@ -110,14 +110,14 @@
           </div>
         </div>
 
-        <div class="col my-auto">
+        <div class="col-md my-auto">
           <div
             id="breedCarousel"
             class="carousel slide w-100 mx-auto"
             data-bs-ride="carousel"
             data-bs-interval="3000"
           >
-            <div class="carousel-inner rounded-3">
+            <div class="carousel-inner rounded-3 shadow">
               <div class="carousel-item active">
                 <img
                   src="assets/img/dummyAboutImage.jpg"
@@ -244,32 +244,73 @@
         </p>
         <div class="mt-4">
           <h2 class="sub-heading">Detailed Information</h2>
-          <button class="btn">
-            <a
-              href="assets/pdf/CFA_NL.pdf"
-              class="btn btn-custom"
-              target="_blank"
-              >CFA - Cat Fanciers Association&trade; Standards</a
-            >
-          </button>
-          <button class="btn">
-            <a href="assets/pdf/MCO.pdf" class="btn btn-custom" target="_blank"
-              >MCO - Breed Standards</a
-            >
-          </button>
-          <button class="btn">
-            <a
-              href="assets/pdf/TICA_EN.pdf"
-              class="btn btn-custom"
-              target="_blank"
-              >TICA - The International Cat Association&trade; Standards</a
-            >
-          </button>
+          <ul class="ps-0">
+            <li>
+              <button
+                class="btn btn-custom"
+                (mouseover)="CFAhover = true"
+                (mouseout)="CFAhover = false"
+              >
+                <img
+                  alt="PDF"
+                  id="file_icon"
+                  [src]="
+                    CFAhover
+                      ? '/assets/icons/file.gif'
+                      : '/assets/icons/file.png'
+                  "
+                />
+                <a href="assets/pdf/CFA_NL.pdf" class="btn" target="_blank"
+                  >CFA - Cat Fanciers Association&trade; Standards</a
+                >
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-custom"
+                (mouseover)="MCOhover = true"
+                (mouseout)="MCOhover = false"
+              >
+                <img
+                  alt="PDF"
+                  id="file_icon"
+                  [src]="
+                    MCOhover
+                      ? '/assets/icons/file.gif'
+                      : '/assets/icons/file.png'
+                  "
+                />
+                <a href="assets/pdf/MCO.pdf" class="btn" target="_blank"
+                  >MCO - Breed Standards</a
+                >
+              </button>
+            </li>
+            <li>
+              <button
+                class="btn btn-custom"
+                (mouseover)="TICAhover = true"
+                (mouseout)="TICAhover = false"
+              >
+                <img
+                  alt="PDF"
+                  id="file_icon"
+                  [src]="
+                    TICAhover
+                      ? '/assets/icons/file.gif'
+                      : '/assets/icons/file.png'
+                  "
+                />
+                <a href="assets/pdf/TICA_EN.pdf" class="btn" target="_blank"
+                  >TICA - The International Cat Association&trade; Standards</a
+                >
+              </button>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
-  <div class="ms-3 me-3 mt-4 rounded-3 pb-4">
+  <div class="mx-3 mt-4 rounded-3 pb-3">
     <app-footer></app-footer>
   </div>
 </body>

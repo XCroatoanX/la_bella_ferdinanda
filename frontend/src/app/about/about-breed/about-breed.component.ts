@@ -8,4 +8,8 @@ import { CoreModule } from '../../core/core.module';
   templateUrl: './about-breed.component.html',
   styleUrl: './about-breed.component.scss',
 })
-export class AboutBreedComponent {}
+export class AboutBreedComponent {
+  public CFAhover: boolean = false;
+  public TICAhover: boolean = false;
+  public MCOhover: boolean = false;
+}
