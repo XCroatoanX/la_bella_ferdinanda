@@ -8,6 +8,7 @@ a {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   border-radius: 5px;
   transition: background-color 0.2s, color 0.2s;
+
 }
 
 a:active {
@@ -22,6 +23,10 @@ h1 {
 
 .social-link {
   margin-left: 1.5vw;
+}
+.social-img{
+  height: 40px;
+  width: 40px;
 }
 
 .navbar-brand {
