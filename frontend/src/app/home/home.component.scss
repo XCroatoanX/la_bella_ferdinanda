@@ -8,66 +8,72 @@ h4,
 h5,
 p,
 i {
-    font-family: Montserrat, Arial, Helvetica, sans-serif;
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
 body {
-    background: linear-gradient(-45deg, #fcc28c, #f7deea);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+  background: linear-gradient(-45deg, #fcc28c, #f7deea);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
 }
 
 @keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
 .col,
 .col-5 {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-end;
-    transition:
-        transform 0.2s,
-        filter 0.2s,
-        box-shadow 0.2s;
-    height: 20rem;
-    background-size: cover;
-    background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  transition: transform 0.2s,
+  box-shadow 0.2s;
+  height: 20rem;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
 }
 
 p {
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.cat-categories {
-    margin-right: 1vw;
-    &.light {
-        color: white;
-    }
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .col:hover,
 .col-5:hover {
-    transform: scale(1.03);
-    filter: brightness(0.8);
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
+  transform: scale(1.03);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 
-a {
-    cursor: pointer;
+.text-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+  color: white;
+  text-align: right;
+  box-sizing: border-box;
 }
 
-.cat-categories {
-    filter: none;
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.2s;
+}
+
+img:hover {
+  filter: brightness(0.6) blur(1px)
 }

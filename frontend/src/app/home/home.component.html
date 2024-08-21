@@ -1,61 +1,47 @@
 <body>
-    <div class="pt-3 mx-3">
-        <app-header></app-header>
+<div class="pt-3 mx-3">
+  <app-header></app-header>
+</div>
+<div class="shadow bg-white mx-3 my-4 p-2 rounded-3">
+  <h1 class="display-4 text-center">
+    <strong>Welcome to La Bella Ferdinanda</strong>
+  </h1>
+  <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
+</div>
+<div class="row my-4 justify-content-center mx-0">
+  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3" id="males">
+    <img alt="Check out our beautiful males" class="rounded-3 cat-img" src="assets/img/dummyAboutImage1.jpg"/>
+    <div class="text-overlay">
+      <p class="cat-categories light">Check out our beautiful</p>
+      <h1 class="cat-categories light"><strong>Males</strong></h1>
     </div>
-    <div class="shadow bg-white mx-3 my-4 p-2 rounded-3">
-        <h1 class="display-4 text-center">
-            <strong>Welcome to La Bella Ferdinanda</strong>
-        </h1>
-        <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
+  </div>
+  <div [routerLink]="['']" class="col-5 bg-white rounded-3 p-0 shadow mx-3" id="kittens">
+    <img alt="Check out our cute kittens" class="rounded-3 cat-img" src="assets/img/maine-coon-kitten-brown.jpg"/>
+    <div class="text-overlay">
+      <p class="cat-categories">Check out our cute</p>
+      <h1 class="cat-categories"><strong>Kittens</strong></h1>
     </div>
-    <div class="row my-4 justify-content-center mx-0">
-        <div
-            class="col bg-white rounded-3 shadow p-0 mx-3"
-            id="males"
-            style="
-                background-image: url(&quot;assets/img/dummyAboutImage1.jpg&quot;);
-            "
-            [routerLink]="['']"
-        >
-            <p class="cat-categories light">Check out our beautiful</p>
-            <h1 class="cat-categories light"><strong>Males</strong></h1>
-        </div>
-        <div
-            class="col-5 bg-white rounded-3 p-0 shadow mx-3"
-            id="kittens"
-            style="
-                background-image: url(&quot;assets/img/maine-coon-kitten-brown.jpg&quot;);
-            "
-            [routerLink]="['']"
-        >
-            <p class="cat-categories">Check out our cute</p>
-            <h1 class="cat-categories"><strong>Kittens</strong></h1>
-        </div>
+  </div>
+</div>
+<div class="row my-4 justify-content-center mx-0">
+  <div [routerLink]="['']" class="col-5 bg-white rounded-3 shadow p-0 mx-3" id="offsprings">
+    <img alt="Check out our offsprings" class="rounded-3 cat-img" src="assets/img/maine-coon.jpg"/>
+    <div class="text-overlay">
+      <h1 class="cat-categories light">
+        <strong>Our Offsprings</strong>
+      </h1>
     </div>
-    <div class="row my-4 justify-content-center mx-0">
-        <div
-            class="col-5 bg-white rounded-3 shadow p-0 mx-3"
-            id="offsprings"
-            style="background-image: url(&quot;assets/img/maine-coon.jpg&quot;)"
-            [routerLink]="['']"
-        >
-            <h1 class="cat-categories light">
-                <strong>Our Offsprings</strong>
-            </h1>
-        </div>
-        <div
-            class="col bg-white rounded-3 shadow p-0 mx-3"
-            id="females"
-            style="
-                background-image: url(&quot;assets/img/dummyAboutImage2.jpg&quot;);
-            "
-            [routerLink]="['']"
-        >
-            <p class="cat-categories">Check out our elegant</p>
-            <h1 class="cat-categories"><strong>Females</strong></h1>
-        </div>
+  </div>
+  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3" id="females">
+    <img alt="Check out our Females" class="rounded-3 cat-img" src="assets/img/dummyAboutImage2.jpg"/>
+    <div class="text-overlay">
+      <p class="cat-categories">Check out our elegant</p>
+      <h1 class="cat-categories"><strong>Females</strong></h1>
     </div>
-    <div class="mx-3 pb-3 rounded-3">
-        <app-footer></app-footer>
-    </div>
+  </div>
+</div>
+<div class="mx-3 pb-3 rounded-3">
+  <app-footer></app-footer>
+</div>
 </body>
