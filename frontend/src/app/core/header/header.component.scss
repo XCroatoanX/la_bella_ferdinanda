@@ -7,6 +7,12 @@ header {
 a {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+a:active {
+  background-color: rgba(130, 130, 130, 0.2);
+  color: black;
 }
 
 p,
@@ -18,9 +24,16 @@ h1 {
   margin-left: 1.5vw;
 }
 
-a:active {
-  background-color: rgba($color: #828282, $alpha: 0.2);
-  color: black;
+.navbar-brand {
+  img {
+    transition: transform 0.2s ease;
+    max-width: 60px;
+    max-height: 60px;
+  }
+
+  img:hover {
+    transform: scale(1.1);
+  }
 }
 
 @media (max-width: 767px) {

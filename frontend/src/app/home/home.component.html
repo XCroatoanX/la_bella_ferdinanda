@@ -9,15 +9,17 @@
   <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
 </div>
 <div class="row my-4 justify-content-center mx-0">
-  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3" id="males">
-    <img alt="Check out our beautiful males" class="rounded-3 cat-img" src="assets/img/dummyAboutImage1.jpg"/>
+  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3 cat-page" id="males">
+    <img alt="Check out our beautiful males" class="rounded-3 cat-img" height="1440"
+         ngSrc="assets/img/dummyAboutImage1.jpg" width="3440"/>
     <div class="text-overlay">
       <p class="cat-categories light">Check out our beautiful</p>
       <h1 class="cat-categories light"><strong>Males</strong></h1>
     </div>
   </div>
-  <div [routerLink]="['']" class="col-5 bg-white rounded-3 p-0 shadow mx-3" id="kittens">
-    <img alt="Check out our cute kittens" class="rounded-3 cat-img" src="assets/img/maine-coon-kitten-brown.jpg"/>
+  <div [routerLink]="['']" class="col-5 bg-white rounded-3 p-0 shadow mx-3 cat-page" id="kittens">
+    <img alt="Check out our cute kittens" class="rounded-3 cat-img" height="1125"
+         ngSrc="assets/img/maine-coon-kitten-brown.jpg" width="1688"/>
     <div class="text-overlay">
       <p class="cat-categories">Check out our cute</p>
       <h1 class="cat-categories"><strong>Kittens</strong></h1>
@@ -25,19 +27,37 @@
   </div>
 </div>
 <div class="row my-4 justify-content-center mx-0">
-  <div [routerLink]="['']" class="col-5 bg-white rounded-3 shadow p-0 mx-3" id="offsprings">
-    <img alt="Check out our offsprings" class="rounded-3 cat-img" src="assets/img/maine-coon.jpg"/>
+  <div [routerLink]="['']" class="col-5 bg-white rounded-3 shadow p-0 mx-3 cat-page" id="offsprings">
+    <img alt="Check out our offsprings" class="rounded-3 cat-img" height="446" ngSrc="assets/img/maine-coon.jpg"
+         width="1000"/>
     <div class="text-overlay">
+      <p class="cat-categories">Check out our happy</p>
       <h1 class="cat-categories light">
-        <strong>Our Offsprings</strong>
+        <strong>Offsprings</strong>
       </h1>
     </div>
   </div>
-  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3" id="females">
-    <img alt="Check out our Females" class="rounded-3 cat-img" src="assets/img/dummyAboutImage2.jpg"/>
+  <div [routerLink]="['']" class="col bg-white rounded-3 shadow p-0 mx-3 cat-page" id="females">
+    <img alt="Check out our Females" class="rounded-3 cat-img" height="1440" ngSrc="assets/img/dummyAboutImage2.jpg"
+         width="3440"/>
     <div class="text-overlay">
       <p class="cat-categories">Check out our elegant</p>
       <h1 class="cat-categories"><strong>Females</strong></h1>
+    </div>
+  </div>
+</div>
+<div class="mx-3 my-3 rounded-3 bg-white shadow p-5">
+  <div class="row">
+    <div class="col d-flex flex-column justify-content-center align-items-center text-center">
+      <h1>A small loving cattery</h1>
+      <p class="lead">At our charming cattery, we pride ourselves on creating a loving and comfortable environment for
+        our beautiful
+        cats. Each feline receives the utmost care and affection in our warm, home-like setting. Discover the joy of
+        having a new furry friend with us!</p>
+    </div>
+    <div class="col d-flex justify-content-center align-items-center">
+      <img alt="Paragraph image" class="we-are rounded-3 shadow" height="600" ngSrc="assets/img/home-dummy-image.jpg"
+           width="600">
     </div>
   </div>
 </div>
