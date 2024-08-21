@@ -14,7 +14,21 @@ h6 {
 }
 
 body {
-  background-color: #ffe0c0;
+    background: linear-gradient(-45deg, #fcc28c, #f7deea);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 li {

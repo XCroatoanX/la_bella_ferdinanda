@@ -1,15 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-p, h3 {
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
+p,
+h3,
+a {
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    color: unset;
+    text-decoration: none;
 }
 
 ul {
-  list-style: none;
-}
-
-a {
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
-  color: black;
-  text-decoration: none;
+    list-style: none;
 }
