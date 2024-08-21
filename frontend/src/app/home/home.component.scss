@@ -1,9 +1,73 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-a {
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+i {
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
 body {
-  background-color: #ffe0c0;
+    background: linear-gradient(-45deg, #fcc28c, #f7deea);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.col,
+.col-5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    transition:
+        transform 0.2s,
+        filter 0.2s,
+        box-shadow 0.2s;
+    height: 20rem;
+    background-size: cover;
+    background-position: center;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.cat-categories {
+    margin-right: 1vw;
+    &.light {
+        color: white;
+    }
+}
+
+.col:hover,
+.col-5:hover {
+    transform: scale(1.03);
+    filter: brightness(0.8);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+a {
+    cursor: pointer;
+}
+
+.cat-categories {
+    filter: none;
 }
