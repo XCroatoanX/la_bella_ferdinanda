@@ -3,10 +3,13 @@ package com.example.backend.services;
 import com.example.backend.dao.CatDAO;
 import com.example.backend.models.Cat;
 import com.example.backend.models.Image;
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -48,6 +51,20 @@ public class ImageService {
 
         Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
     }
+
+    public byte[] downloadImage(String filename) throws IOException {
+        String imageDir = "src/main/resources/static/images";
+        Path imagePath = Path.of(imageDir, filename);
+
+        if (!Files.exists(imagePath)) {
+            throw new FileNotFoundException("Image not found: " + filename);
+        }
+
+        try (InputStream imageInputStream = Files.newInputStream(imagePath)) {
+            return IOUtils.toByteArray(imageInputStream);
+        }
+    }
+
 
     public void deleteImages(UUID id) {
         Cat cat = this.catDAO.getCatById(id);

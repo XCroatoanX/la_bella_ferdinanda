@@ -2,29 +2,29 @@ package com.example.backend.dao;
 
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
+import com.example.backend.models.CatWithImages;
 import com.example.backend.models.Image;
+import com.example.backend.services.ImageService;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 @Component
 public class CatDAO {
 
     // Initialisation
     private final CatRepository catRepository;
+    private final ImageService imageService;
 
-    public CatDAO(CatRepository catRepository) {
+    public CatDAO(CatRepository catRepository, ImageService imageService) {
         this.catRepository = catRepository;
+        this.imageService = imageService;
     }
 
-
-    // DAO
     public List<Cat> getAllCats() {
         return catRepository.findAll();
     }
@@ -37,6 +37,26 @@ public class CatDAO {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found");
         }
         return cat.get();
+    }
+
+    @Transactional
+    public CatWithImages getCatByIdWithImages(UUID id) {
+        Optional<Cat> catOptional = catRepository.findById(id);
+        Cat cat = catOptional.get();
+        Set<byte[]> imageBytesSet = new HashSet<>();
+        for (Image image : catOptional.get().getImages()) {
+            try {
+                byte[] imageBytes = imageService.downloadImage(image.getImageDir());
+                if (imageBytes != null) {
+                    imageBytesSet.add(imageBytes);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Error downloading image: " + image.getImageDir(), e);
+            }
+        }
+        return new CatWithImages(
+                cat.getName(), cat.getColor(), cat.getAge(), cat.getWeight(), cat.getSex(), cat.getArticle(), imageBytesSet
+        );
     }
 
     public List<Cat> getCatsBySex(String sex) {
