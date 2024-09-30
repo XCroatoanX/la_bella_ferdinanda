@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
+import com.example.backend.models.CatWithImages;
 import com.example.backend.models.Image;
 import com.example.backend.services.ImageService;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,13 @@ public class CatController {
     public ResponseEntity<Cat> getCatById(@PathVariable UUID id) {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
     }
+
+    @GetMapping("/catWithImages/{id}")
+    public ResponseEntity<CatWithImages> getCatWithImagesById(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.catDAO.getCatByIdWithImages(id));
+    }
+
+
 
     @GetMapping("/sex/{sex}")
     public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
