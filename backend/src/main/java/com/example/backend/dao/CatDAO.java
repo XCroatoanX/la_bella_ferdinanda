@@ -61,7 +61,7 @@ public class CatDAO {
             }
             return catsList.get();
         } else {
-            return Collections.emptyList(); // Return an empty list if no cats are found
+            return Collections.emptyList();
         }
     }
 
