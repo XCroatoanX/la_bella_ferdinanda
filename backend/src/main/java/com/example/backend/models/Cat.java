@@ -32,8 +32,7 @@ public class Cat {
     private String sex;
     @Getter
     @Setter
-    @Lob
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
     private String article;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
