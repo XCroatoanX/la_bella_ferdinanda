@@ -2,81 +2,89 @@ package com.example.backend.dao;
 
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
-import com.example.backend.models.CatWithImages;
 import com.example.backend.models.Image;
 import com.example.backend.services.ImageService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.zip.DataFormatException;
 
 @Component
+@RequiredArgsConstructor
 public class CatDAO {
-
-    // Initialisation
     private final CatRepository catRepository;
     private final ImageService imageService;
 
-    public CatDAO(CatRepository catRepository, ImageService imageService) {
-        this.catRepository = catRepository;
-        this.imageService = imageService;
-    }
-
     public List<Cat> getAllCats() {
-        return catRepository.findAll();
+        List<Cat> cats = catRepository.findAll();
+
+        for (Cat cat : cats) {
+            imageService.decompressImagesForEntity(cat.getImages());
+        }
+
+        return cats;
     }
 
     @Transactional
     public Cat getCatById(UUID id) {
         Optional<Cat> cat = catRepository.findById(id);
 
-        if (cat.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found");
-        }
-        return cat.get();
-    }
-
-    @Transactional
-    public CatWithImages getCatByIdWithImages(UUID id) {
-        Optional<Cat> catOptional = catRepository.findById(id);
-        Cat cat = catOptional.get();
-        Set<byte[]> imageBytesSet = new HashSet<>();
-        for (Image image : catOptional.get().getImages()) {
-            try {
-                byte[] imageBytes = imageService.downloadImage(image.getImageDir());
-                if (imageBytes != null) {
-                    imageBytesSet.add(imageBytes);
-                }
-            } catch (IOException e) {
-                throw new RuntimeException("Error downloading image: " + image.getImageDir(), e);
-            }
-        }
-        return new CatWithImages(
-                cat.getName(), cat.getColor(), cat.getAge(), cat.getWeight(), cat.getSex(), cat.getArticle(), imageBytesSet
-        );
+        return cat.map(value -> {
+            imageService.decompressImagesForEntity(value.getImages());
+            return value;
+        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found"));
     }
 
     public List<Cat> getCatsBySex(String sex) {
         Optional<List<Cat>> catsList = this.catRepository.findBySex(sex);
 
-        if (catsList.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Cats with this sex not found");
+        if (catsList.isPresent()) {
+            for (Cat cat : catsList.get()) {
+                for (Image image : cat.getImages()) {
+                    byte[] decompressedImage;
+                    try {
+                        decompressedImage = this.imageService.decompressImage(image.getImage());
+                    } catch (IOException | DataFormatException e) {
+                        throw new RuntimeException(e);
+                    }
+                    image.setImage(decompressedImage);
+                }
+            }
+            return catsList.get();
+        } else {
+            return Collections.emptyList(); // Return an empty list if no cats are found
         }
-        return catsList.get();
     }
 
     @Transactional
-    public void createCat(CatDTO catDTO, Set<Image> images) {
-        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, images);
+    public void createCat(CatDTO catDTO, MultipartFile[] images) throws IOException {
+        List<Image> imageList = this.imageService.imagesToByte(images);
+        for (Image image : imageList) {
+            byte[] compressedImage = this.imageService.compressImage(image.getImage());
+            image.setImage(compressedImage);
+        }
+
+        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, imageList);
         this.catRepository.save(cat);
     }
 
-    public void updateCat(CatDTO catDTO, Set<Image> newImages, UUID id) {
+    public void updateCat(CatDTO catDTO, MultipartFile[] images, UUID id) throws IOException {
         Optional<Cat> cat = this.catRepository.findById(id);
+
+        List<Image> imageList = this.imageService.imagesToByte(images);
+        for (Image image : imageList) {
+            byte[] compressedImage = this.imageService.compressImage(image.getImage());
+            image.setImage(compressedImage);
+        }
 
         if (cat.isPresent()) {
             cat.get().setName(catDTO.name);
@@ -85,7 +93,7 @@ public class CatDAO {
             cat.get().setWeight(catDTO.weight);
             cat.get().setSex(catDTO.sex);
             cat.get().setArticle(catDTO.article);
-            cat.get().setImages(newImages);
+            cat.get().setImages(imageList);
             this.catRepository.save(cat.get());
             return;
         }

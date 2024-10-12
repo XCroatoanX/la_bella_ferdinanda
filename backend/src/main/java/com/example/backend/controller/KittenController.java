@@ -2,9 +2,8 @@ package com.example.backend.controller;
 
 import com.example.backend.dao.KittenDAO;
 import com.example.backend.dto.KittenDTO;
-import com.example.backend.models.Image;
 import com.example.backend.models.Kitten;
-import com.example.backend.services.ImageService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,20 +11,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/kitten")
+@AllArgsConstructor
 public class KittenController {
     private final KittenDAO kittenDAO;
-    private final ImageService imageService;
-
-    public KittenController(KittenDAO kittenDAO, ImageService imageService) {
-        this.kittenDAO = kittenDAO;
-        this.imageService = imageService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Kitten>> getAllKittens() {
@@ -40,8 +33,7 @@ public class KittenController {
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<String> createKitten(@RequestPart("kitten") KittenDTO kittenDTO, @RequestPart("imagefile") MultipartFile[] file) {
         try {
-            Set<Image> images = this.imageService.uploadImage(file);
-            this.kittenDAO.createKitten(kittenDTO, images);
+            this.kittenDAO.createKitten(kittenDTO, file);
             return ResponseEntity.ok("Created kitten: " + kittenDTO.name);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating kitten: " + e.getMessage());
@@ -52,9 +44,7 @@ public class KittenController {
     public ResponseEntity<String> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
                                                @RequestPart("imagefile") MultipartFile[] file) {
         try {
-            this.imageService.deleteImages(id);
-            Set<Image> images = this.imageService.uploadImage(file);
-            this.kittenDAO.updateKitten(kittenDTO, images, id);
+            this.kittenDAO.updateKitten(kittenDTO, file, id);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating kitten: " + e.getMessage());
         }
@@ -64,9 +54,7 @@ public class KittenController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteKitten(@PathVariable UUID id) {
-        this.imageService.deleteImages(id);
         this.kittenDAO.deleteKittenById(id);
-
         return ResponseEntity.ok("Deleted Kitten: " + id);
     }
 }

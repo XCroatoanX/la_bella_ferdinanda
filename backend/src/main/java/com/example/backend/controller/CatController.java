@@ -3,30 +3,21 @@ package com.example.backend.controller;
 import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
-import com.example.backend.models.CatWithImages;
-import com.example.backend.models.Image;
-import com.example.backend.services.ImageService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RequestMapping("/cat")
+@AllArgsConstructor
 public class CatController {
-    private final ImageService imageService;
     private final CatDAO catDAO;
-
-    public CatController(ImageService imageService, CatDAO catDAO) {
-        this.imageService = imageService;
-        this.catDAO = catDAO;
-    }
 
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
@@ -38,13 +29,6 @@ public class CatController {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
     }
 
-    @GetMapping("/catWithImages/{id}")
-    public ResponseEntity<CatWithImages> getCatWithImagesById(@PathVariable UUID id) {
-        return ResponseEntity.ok(this.catDAO.getCatByIdWithImages(id));
-    }
-
-
-
     @GetMapping("/sex/{sex}")
     public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
         return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
@@ -54,8 +38,7 @@ public class CatController {
     public ResponseEntity<String> createCat(@RequestPart("cat") CatDTO catDTO,
                                             @RequestPart("imagefile") MultipartFile[] file) {
         try {
-            Set<Image> images = this.imageService.uploadImage(file);
-            this.catDAO.createCat(catDTO, images);
+            this.catDAO.createCat(catDTO, file);
             return ResponseEntity.ok("Created cat: " + catDTO.name);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating cat: " + e.getMessage());
@@ -66,9 +49,7 @@ public class CatController {
     public ResponseEntity<String> updateCat(@PathVariable UUID id, @RequestPart("cat") CatDTO catDTO,
                                             @RequestPart("imagefile") MultipartFile[] file) {
         try {
-            this.imageService.deleteImages(id);
-            Set<Image> images = this.imageService.uploadImage(file);
-            this.catDAO.updateCat(catDTO, images, id);
+            this.catDAO.updateCat(catDTO, file, id);
             ResponseEntity.ok("Updated cat: " + catDTO.name);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating cat: " + e.getMessage());
@@ -80,9 +61,7 @@ public class CatController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCat(@PathVariable UUID id) {
-        this.imageService.deleteImages(id);
         this.catDAO.deleteCatById(id);
-
         return ResponseEntity.ok("Deleted Cat: " + id);
     }
 }
