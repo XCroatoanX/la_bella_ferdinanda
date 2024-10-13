@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^18.0.3",
+    "@angular/animations": "^18.2.8",
     "@angular/common": "^18.0.2",
     "@angular/compiler": "^18.0.2",
     "@angular/core": "^18.0.2",
@@ -21,6 +21,7 @@
     "@npmcli/package-json": "^5.2.0",
     "bootstrap": "^5.3.3",
     "frontend": "file:",
+    "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "socket.io": "^4.5.4",
     "socket.io-adapter": "^2.5.1",
