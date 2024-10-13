@@ -8,6 +8,9 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class CatService {
+
+  private apiUrl = 'http://localhost:8080/api/cat';
+
   constructor(private http: HttpClient) { }
 
   public getAllCats(): Observable<Cat[]> {
@@ -18,14 +21,7 @@ export class CatService {
     return this.http.get<Cat>(environment.base_url + '/cat/' + id);
   }
 
-  // createCat(formData: FormData): Observable<any> {
-  //   return this.http.post<any>(environment.base_url + '/cat', formData);
-  // }
   createCat(formData: FormData): Observable<any> {
-    // const headers = new HttpHeaders({
-    //   'Content-Type': 'application/json'
-    // });
-
-    return this.http.post(`${environment.base_url}/cats`, formData,);
+    return this.http.post(this.apiUrl, formData);  // No headers needed here
   }
 }

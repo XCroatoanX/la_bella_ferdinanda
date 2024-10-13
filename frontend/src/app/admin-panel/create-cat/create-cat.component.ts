@@ -43,8 +43,8 @@ export class CreateCatComponent implements OnInit {
 
   public handleFileInput(event: any): void {
     const files: File[] = Array.from(event.target.files);
-    this.selectedFiles = files; // Store the selected files
-    this.imagePreviews = []; // Reset image previews
+    this.selectedFiles = files;
+    this.imagePreviews = [];
 
     files.forEach((file) => {
       const reader = new FileReader();
@@ -58,31 +58,26 @@ export class CreateCatComponent implements OnInit {
   public submitCat(): void {
     if (this.catForm.invalid) {
       console.error('Form is invalid');
-      return; // Prevent submission if the form is invalid
+      return;
     }
 
     const formData = new FormData();
 
-    // Destructure form values
     const { name, color, age, weight, sex, description } = this.catForm.value;
 
-    // Convert the numeric value (1 or 2) to the appropriate string (male or female)
     const sexValue = sex === '1' ? 'male' : 'female';
 
-    // Prepare the cat object
     const cat = {
       name,
       color,
       age,
       weight,
-      sex: sexValue, // Use the converted value here
+      sex: sexValue,
       article: description
     };
 
-    // Append the cat JSON to FormData
-    formData.append('cat', JSON.stringify(cat));
+    formData.append('cat', new Blob([JSON.stringify(cat)], { type: 'application/json' }));
 
-    // Append image files
     this.selectedFiles.forEach((file) => {
       formData.append('imagefile', file, file.name);
     });
@@ -92,16 +87,19 @@ export class CreateCatComponent implements OnInit {
       console.log(`${key}:`, value);
     });
 
-    // Send the form data via service with custom headers
-    this.catService.createCat(formData).subscribe(
-      (response) => {
-        console.log(response);
-        // Optionally navigate or show a success message here
+    this.catService.createCat(formData).subscribe({
+      next: (response) => {
+        console.log('Cat created successfully:', response);
         this.router.navigate(['/cats']); // Navigate to the cats list after submission
       },
-      (error) => {
+      error: (error) => {
         console.error('Error creating cat:', error);
-      }
-    );
+        // Optionally, handle different types of errors here
+        if (error.status === 400) {
+          console.error('Bad Request:', error.error); // Handle specific error response
+        }
+      },
+    });
   }
+
 }
