@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -35,8 +36,8 @@ public class CatController {
     }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> createCat(@RequestPart("cat") CatDTO catDTO,
-                                            @RequestPart("imagefile") MultipartFile[] file) {
+    public ResponseEntity<?> createCat(@RequestPart("cat") CatDTO catDTO,
+                                       @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.catDAO.createCat(catDTO, file);
             return ResponseEntity.ok("Created cat: " + catDTO.name);
