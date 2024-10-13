@@ -35,7 +35,7 @@ public class Cat {
     @Column(columnDefinition = "TEXT")
     private String article;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "cat_images", joinColumns = {
             @JoinColumn(name = "cat_id")
     }, inverseJoinColumns = {

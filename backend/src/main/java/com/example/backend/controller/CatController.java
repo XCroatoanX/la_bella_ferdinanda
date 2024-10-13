@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -40,7 +42,9 @@ public class CatController {
                                        @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.catDAO.createCat(catDTO, file);
-            return ResponseEntity.ok("Created cat: " + catDTO.name);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Created cat: " + catDTO.name);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating cat: " + e.getMessage());
         }
