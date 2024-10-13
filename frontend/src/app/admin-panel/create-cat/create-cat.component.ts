@@ -7,16 +7,22 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgClass, CommonModule } from '@angular/common'; // Import CommonModule
+import { CommonModule, NgClass } from '@angular/common';
 import { CatService } from '../../services/cat.service';
+import { ToastrService } from 'ngx-toastr';
 import { Cat } from '../../models/cat.model';
 
 @Component({
   selector: 'app-create-cat',
   standalone: true,
-  imports: [AdminPanelHeaderComponent, ReactiveFormsModule, NgClass, CommonModule], // Add CommonModule here
+  imports: [
+    AdminPanelHeaderComponent,
+    ReactiveFormsModule,
+    NgClass,
+    CommonModule,
+  ],
   templateUrl: './create-cat.component.html',
-  styleUrls: ['./create-cat.component.scss'], // Fixed styleUrl to styleUrls
+  styleUrls: ['./create-cat.component.scss'],
 })
 export class CreateCatComponent implements OnInit {
   public catForm: FormGroup;
@@ -27,7 +33,8 @@ export class CreateCatComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private catService: CatService,
-  ) { }
+    private toastr: ToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
@@ -65,18 +72,20 @@ export class CreateCatComponent implements OnInit {
 
     const { name, color, age, weight, sex, description } = this.catForm.value;
 
-    const sexValue = sex === '1' ? 'male' : 'female';
+    const sexValue = sex === '1' ? 'Male' : 'Female';
 
-    const cat = {
-      name,
-      color,
-      age,
-      weight,
-      sex: sexValue,
-      article: description
-    };
+    const cat = new Cat();
+    cat.name = name;
+    cat.color = color;
+    cat.age = age;
+    cat.weight = weight;
+    cat.sex = sexValue as 'Male' | 'Female';
+    cat.article = description;
 
-    formData.append('cat', new Blob([JSON.stringify(cat)], { type: 'application/json' }));
+    formData.append(
+      'cat',
+      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
+    );
 
     this.selectedFiles.forEach((file) => {
       formData.append('imagefile', file, file.name);
@@ -90,16 +99,64 @@ export class CreateCatComponent implements OnInit {
     this.catService.createCat(formData).subscribe({
       next: (response) => {
         console.log('Cat created successfully:', response);
-        this.router.navigate(['/cats']); // Navigate to the cats list after submission
+        this.toastr.success(cat.name + ' created successfully', '', {
+          timeOut: 3000,
+        });
       },
       error: (error) => {
         console.error('Error creating cat:', error);
-        // Optionally, handle different types of errors here
-        if (error.status === 400) {
-          console.error('Bad Request:', error.error); // Handle specific error response
+        switch (error.status) {
+          case 400:
+            this.toastr.error(
+              'Bad Request: ' + (error.error || 'Please check your input.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 401:
+            this.toastr.error(
+              'Unauthorized: Please log in to continue.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 413:
+            this.toastr.error(
+              'File too large: Please upload files smaller than 15 MB.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 500:
+            this.toastr.error(
+              'Internal Server Error: Please try again later.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          default:
+            this.toastr.error(
+              'An unexpected error occurred: ' +
+                (error.error || 'Please try again later.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
         }
       },
     });
+    this.catForm.reset();
+    this.imagePreviews = [];
+    this.selectedFiles = [];
   }
-
 }
