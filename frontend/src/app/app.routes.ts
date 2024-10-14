@@ -8,6 +8,9 @@ import { ContactComponent } from './contact/contact.component';
 import { AboutUsComponent } from './about/about-us/about-us.component';
 import { AboutBreedComponent } from './about/about-breed/about-breed.component';
 import { HowToCareComponent } from './about/how-to-care/how-to-care.component';
+import { CreateKittenComponent } from './admin-panel/create-kitten/create-kitten.component';
+import { KittensListComponent } from './admin-panel/kittens-list/kittens-list.component';
+import { CatsListComponent } from './admin-panel/cats-list/cats-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -39,6 +42,9 @@ export const routes: Routes = [
         path: 'create-cat',
         component: CreateCatComponent,
       },
+      { path: 'cats-list', component: CatsListComponent },
+      { path: 'create-kitten', component: CreateKittenComponent },
+      { path: 'kittens-list', component: KittensListComponent },
     ],
   },
 ];
