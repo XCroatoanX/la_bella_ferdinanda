@@ -4,6 +4,7 @@ import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
 import com.example.backend.models.Image;
 import com.example.backend.services.ImageService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -72,8 +73,9 @@ public class CatDAO {
             byte[] compressedImage = this.imageService.compressImage(image.getImage());
             image.setImage(compressedImage);
         }
+        UUID catId = UUID.randomUUID();
 
-        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, imageList);
+        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, imageList);
         this.catRepository.save(cat);
     }
 
@@ -101,6 +103,9 @@ public class CatDAO {
     }
 
     public void deleteCatById(UUID id) {
+        if (!catRepository.existsById(id)) {
+            throw new EntityNotFoundException("Cat with ID " + id + " does not exist.");
+        }
         this.catRepository.deleteById(id);
     }
 }

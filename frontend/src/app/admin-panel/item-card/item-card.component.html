@@ -1,0 +1,26 @@
+<div class="card shadow-lg border-3 m-3 p-3 w-100">
+  <div class="card-header">
+    <div>
+      @if (animal.image?.length) {
+      <img
+        [src]="getImageSrc(animal.image[0].image)"
+        alt="{{ animal.name }}"
+        class="animal-image"
+      />
+      }
+    </div>
+  </div>
+  <div class="card-body">
+    <h3>Name: {{ animal.name }}</h3>
+    <p><strong>Color:</strong> {{ animal.color }}</p>
+    <p><strong>Age:</strong> {{ animal.age }} years old</p>
+    <p><strong>Weight:</strong> {{ animal.weight }} Kg</p>
+    <p><strong>Sex:</strong> {{ animal.sex }}</p>
+  </div>
+  <div class="d-inline-flex">
+    <button type="button" class="btn btn-danger" (click)="deleteAnimal()">
+      Delete
+    </button>
+    <button type="button" class="btn btn-primary">Edit</button>
+  </div>
+</div>

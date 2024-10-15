@@ -26,20 +26,6 @@ public class SecurityConfig {
     private final AdminService adminService;
 
     @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
-                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);
-            }
-        };
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -50,7 +36,9 @@ public class SecurityConfig {
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/cat").permitAll()
+                        .requestMatchers("/cat/**").permitAll()
                         .requestMatchers("/kitten").permitAll()
+                        .requestMatchers("/kitten/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated())

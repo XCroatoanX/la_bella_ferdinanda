@@ -10,10 +10,10 @@
         <relativePath/>
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>la_bella_ferdinanda</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>la_bella_ferdinanda</name>
+    <description>backend for La Bella Ferdinanda</description>
     <properties>
         <java.version>23</java.version>
     </properties>
@@ -31,6 +31,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+            <version>3.3.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
             <version>3.3.4</version>
         </dependency>
         <dependency>

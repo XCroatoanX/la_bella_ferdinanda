@@ -34,7 +34,7 @@ export class CreateCatComponent implements OnInit {
     private router: Router,
     private catService: CatService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
@@ -145,7 +145,7 @@ export class CreateCatComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-                (error.error || 'Please try again later.'),
+              (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

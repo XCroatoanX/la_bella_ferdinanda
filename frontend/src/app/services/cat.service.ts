@@ -8,17 +8,21 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class CatService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getAllCats(): Observable<Cat[]> {
     return this.http.get<Cat[]>(environment.base_url + '/cat');
   }
 
-  public getCatById(id: number): Observable<Cat> {
+  public getCatById(id: string): Observable<Cat> {
     return this.http.get<Cat>(environment.base_url + '/cat/' + id);
   }
 
   public createCat(formData: FormData): Observable<any> {
     return this.http.post(environment.base_url + '/cat', formData);
+  }
+
+  public deleteCat(id: string): Observable<any> {
+    return this.http.delete(environment.base_url + '/cat/' + id);
   }
 }
