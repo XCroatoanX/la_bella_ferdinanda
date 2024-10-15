@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -65,8 +66,16 @@ public class CatController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCat(@PathVariable UUID id) {
-        this.catDAO.deleteCatById(id);
-        return ResponseEntity.ok("Deleted Cat: " + id);
+    public ResponseEntity<Map<String, String>> deleteCat(@PathVariable UUID id) {
+        try {
+            this.catDAO.deleteCatById(id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Deleted Cat: " + id);
+            return ResponseEntity.ok(response);
+        } catch (EntityNotFoundException e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
     }
 }

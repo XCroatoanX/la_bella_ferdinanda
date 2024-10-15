@@ -1,1 +1,8 @@
-<app-admin-panel-header></app-admin-panel-header>
+<body class="pb-3">
+  <app-admin-panel-header></app-admin-panel-header>
+  <div class="kittens-list">
+    @for (kitten of kittens; track $index) {
+    <app-item-card [animal]="kitten"></app-item-card>
+    }
+  </div>
+</body>

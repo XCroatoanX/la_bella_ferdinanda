@@ -10,27 +10,22 @@ import java.util.UUID;
 
 @Entity(name = "Cat")
 @NoArgsConstructor
+@Getter
 public class Cat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Getter
     @Setter
     private String name;
-    @Getter
     @Setter
     private String color;
-    @Getter
     @Setter
     private String age;
-    @Getter
     @Setter
     private double weight;
-    @Getter
     @Setter
     private String sex;
-    @Getter
     @Setter
     @Column(columnDefinition = "TEXT")
     private String article;
@@ -45,7 +40,8 @@ public class Cat {
     @Setter
     private List<Image> images;
 
-    public Cat(String name, String color, String age, double weight, String sex, String article, List<Image> images) {
+    public Cat(UUID id, String name, String color, String age, double weight, String sex, String article, List<Image> images) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.age = age;

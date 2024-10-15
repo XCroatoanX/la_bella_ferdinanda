@@ -1,1 +1,9 @@
-<app-admin-panel-header></app-admin-panel-header>
+<body class="pb-3">
+  <app-admin-panel-header></app-admin-panel-header>
+  <div class="cats-list">
+    @for (cat of cats; track $index) {
+    <app-item-card [animal]="cat"></app-item-card>
+    }
+    <!-- <app-item-card *ngFor="let cat of cats" [animal]="cat"></app-item-card> -->
+  </div>
+</body>

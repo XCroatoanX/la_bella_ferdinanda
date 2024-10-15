@@ -8,17 +8,21 @@ import { Kitten } from '../models/kitten.model';
   providedIn: 'root',
 })
 export class KittenService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getAllKittens(): Observable<Kitten[]> {
     return this.http.get<Kitten[]>(environment.base_url + '/kitten');
   }
 
-  public getKittenById(id: number): Observable<Kitten> {
+  public getKittenById(id: string): Observable<Kitten> {
     return this.http.get<Kitten>(environment.base_url + '/kitten/' + id);
   }
 
   public createKitten(formData: FormData): Observable<any> {
     return this.http.post(environment.base_url + '/kitten', formData);
+  }
+
+  public deleteKitten(id: string): Observable<any> {
+    return this.http.delete(environment.base_url + '/kitten/' + id);
   }
 }

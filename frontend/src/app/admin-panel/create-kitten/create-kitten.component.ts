@@ -35,13 +35,13 @@ export class CreateKittenComponent implements OnInit {
     private router: Router,
     private kittenService: KittenService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.kittenForm = this.fb.group({
       name: ['', Validators.required],
       color: ['', Validators.required],
-      age: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
+      age: ['', [Validators.required]],
       bornWeight: [
         '',
         [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)],
@@ -50,6 +50,11 @@ export class CreateKittenComponent implements OnInit {
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
+    });
+
+    // Add a subscription to log form status
+    this.kittenForm.statusChanges.subscribe(status => {
+      console.log('Form status:', status);
     });
   }
 
@@ -155,7 +160,7 @@ export class CreateKittenComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-                (error.error || 'Please try again later.'),
+              (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

@@ -1,6 +1,7 @@
 import { Image } from './image.model';
 
 export class Cat {
+  public id: string;
   public name: string;
   public color: string;
   public age: string;
