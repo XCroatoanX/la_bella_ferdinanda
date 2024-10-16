@@ -29,6 +29,7 @@ export class CreateKittenComponent implements OnInit {
   public kittenForm: FormGroup;
   public imagePreviews: string[] = [];
   public selectedFiles: File[] = [];
+  public isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -39,22 +40,14 @@ export class CreateKittenComponent implements OnInit {
 
   ngOnInit(): void {
     this.kittenForm = this.fb.group({
-      name: ['', Validators.required],
-      color: ['', Validators.required],
-      age: ['', [Validators.required]],
-      bornWeight: [
-        '',
-        [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)],
-      ],
-      weight: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      color: ['', [Validators.required, Validators.maxLength(100)]],
+      age: ['', [Validators.required, Validators.maxLength(50)]],
+      bornWeight: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^\d+(\.\d+)?$/)]],
+      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
-    });
-
-    // Add a subscription to log form status
-    this.kittenForm.statusChanges.subscribe(status => {
-      console.log('Form status:', status);
     });
   }
 
@@ -73,11 +66,7 @@ export class CreateKittenComponent implements OnInit {
   }
 
   public submitKitten(): void {
-    if (this.kittenForm.invalid) {
-      console.error('Form is invalid');
-      return;
-    }
-
+    this.isLoading = true;
     const formData = new FormData();
 
     const { name, color, age, bornWeight, weight, sex, description } =
@@ -110,6 +99,7 @@ export class CreateKittenComponent implements OnInit {
 
     this.kittenService.createKitten(formData).subscribe({
       next: (response) => {
+        this.isLoading = false;
         console.log('Cat created successfully:', response);
         this.toastr.success(kitten.name + ' created successfully', '', {
           timeOut: 3000,
@@ -119,6 +109,7 @@ export class CreateKittenComponent implements OnInit {
         this.selectedFiles = [];
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error creating cat:', error);
         switch (error.status) {
           case 400:

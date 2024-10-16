@@ -11,7 +11,7 @@ public class CatDTO {
     public UUID id;
     public String name;
     public String color;
-    public String age;
+    public double age;
     public double weight;
     public String sex;
     public String article;

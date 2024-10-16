@@ -8,5 +8,5 @@ export class Cat {
   public weight: number;
   public sex: 'Male' | 'Female';
   public article: string;
-  public image?: Image[];
+  public images?: Image[];
 }

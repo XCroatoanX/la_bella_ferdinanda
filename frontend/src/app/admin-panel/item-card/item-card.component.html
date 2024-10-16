@@ -1,26 +1,44 @@
-<div class="card shadow-lg border-3 m-3 p-3 w-100">
+<div class="card shadow-lg border-3 p-3" style="width: 18rem">
   <div class="card-header">
-    <div>
-      @if (animal.image?.length) {
-      <img
-        [src]="getImageSrc(animal.image[0].image)"
-        alt="{{ animal.name }}"
-        class="animal-image"
-      />
-      }
+    <div *ngIf="animal && animal.images && animal.images.length > 0">
+      <img [src]="getImageSrc()" alt="Animal image" />
+    </div>
+    <div *ngIf="!animal || !animal.images || animal.images.length === 0">
+      <p>No image available for this animal.</p>
     </div>
   </div>
   <div class="card-body">
-    <h3>Name: {{ animal.name }}</h3>
-    <p><strong>Color:</strong> {{ animal.color }}</p>
-    <p><strong>Age:</strong> {{ animal.age }} years old</p>
-    <p><strong>Weight:</strong> {{ animal.weight }} Kg</p>
-    <p><strong>Sex:</strong> {{ animal.sex }}</p>
+    <h3 class="card-title">{{ animal.name }}</h3>
+    <h6 class="card-subtitle mb-4 text-muted">Cat Information</h6>
+    <p class="card-text my-1"><strong>Color:</strong> {{ animal.color }}</p>
+    <p class="card-text my-1">
+      <strong>Age:</strong> {{ animal.age }} years old
+    </p>
+    <p class="card-text my-1">
+      <strong>Weight:</strong> {{ animal.weight }} Kg
+    </p>
+    <p class="card-text my-1"><strong>Sex:</strong> {{ animal.sex }}</p>
   </div>
   <div class="d-inline-flex">
-    <button type="button" class="btn btn-danger" (click)="deleteAnimal()">
-      Delete
+    <button
+      type="button"
+      class="btn btn-danger delete-button"
+      [ngClass]="{ disabled: isLoading }"
+      [disabled]="isLoading"
+      (click)="deleteAnimal()"
+    >
+      <div class="d-flex align-items-center justify-content-center">
+        <strong *ngIf="isLoading" role="status">
+          Loading, please don't close page
+        </strong>
+        <div
+          *ngIf="isLoading"
+          class="spinner-border ms-2"
+          aria-hidden="true"
+        ></div>
+        <span *ngIf="!isLoading">Delete</span>
+      </div>
     </button>
-    <button type="button" class="btn btn-primary">Edit</button>
+    <button type="button" class="btn btn-primary ms-2">Edit</button>
   </div>
 </div>

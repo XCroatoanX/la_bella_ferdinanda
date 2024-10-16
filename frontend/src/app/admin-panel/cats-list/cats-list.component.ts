@@ -4,6 +4,7 @@ import { CatService } from '../../services/cat.service';
 import { Cat } from '../../models/cat.model';
 import { ItemCardComponent } from "../item-card/item-card.component";
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cats-list',
@@ -14,16 +15,21 @@ import { CommonModule } from '@angular/common';
 })
 export class CatsListComponent implements OnInit {
   cats: Cat[] = [];
-  constructor(private catService: CatService) { }
+  loading: boolean = false;
+
+  constructor(private catService: CatService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.loading = true;
+
     this.catService.getAllCats().subscribe({
       next: (cats) => {
-        console.log("Cats fetched successfully", cats);
         this.cats = cats;
+        this.loading = false;
       },
       error: (error) => {
-        console.log("Error fetching cats", error);
+        this.toastr.error("Error fetching cats", "Error");
+        this.loading = false;
       }
     });
   }
