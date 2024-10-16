@@ -21,7 +21,7 @@ public class Cat {
     @Setter
     private String color;
     @Setter
-    private String age;
+    private double age;
     @Setter
     private double weight;
     @Setter
@@ -40,7 +40,7 @@ public class Cat {
     @Setter
     private List<Image> images;
 
-    public Cat(UUID id, String name, String color, String age, double weight, String sex, String article, List<Image> images) {
+    public Cat(UUID id, String name, String color, double age, double weight, String sex, String article, List<Image> images) {
         this.id = id;
         this.name = name;
         this.color = color;

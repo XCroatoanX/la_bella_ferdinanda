@@ -10,6 +10,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { AuthResponse } from '../../models/auth-response.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,8 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-  ) {}
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.username = new FormControl('', [
@@ -49,11 +51,18 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    this.authService
-      .login(this.loginForm.value)
-      .subscribe((authReponse: AuthResponse) => {
-        console.log('AuthResponse: ', authReponse);
+    this.authService.login(this.loginForm.value).subscribe(
+      (authResponse: AuthResponse) => {
+        console.log('AuthResponse: ', authResponse);
         this.router.navigate(['/admin']);
-      });
+      },
+      (error) => {
+        if (error.status === 403) {
+          this.toastr.error('Username or password is incorrect', 'Login Failed');
+        } else {
+          this.toastr.error('An unexpected error occurred', 'Error');
+        }
+      }
+    );
   }
 }

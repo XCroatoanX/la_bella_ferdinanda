@@ -28,6 +28,7 @@ export class CreateCatComponent implements OnInit {
   public catForm: FormGroup;
   public imagePreviews: string[] = [];
   public selectedFiles: File[] = [];
+  public isLoading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -38,10 +39,10 @@ export class CreateCatComponent implements OnInit {
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
-      name: ['', Validators.required],
-      color: ['', Validators.required],
-      age: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-      weight: ['', [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      color: ['', [Validators.required, Validators.maxLength(100)]],
+      age: ['', [Validators.required, Validators.maxLength(50)]],
+      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
@@ -63,10 +64,7 @@ export class CreateCatComponent implements OnInit {
   }
 
   public submitCat(): void {
-    if (this.catForm.invalid) {
-      console.error('Form is invalid');
-      return;
-    }
+    this.isLoading = true;
 
     const formData = new FormData();
 
@@ -98,12 +96,17 @@ export class CreateCatComponent implements OnInit {
 
     this.catService.createCat(formData).subscribe({
       next: (response) => {
+        this.isLoading = false;
         console.log('Cat created successfully:', response);
         this.toastr.success(cat.name + ' created successfully', '', {
           timeOut: 3000,
         });
+        this.catForm.reset();
+        this.imagePreviews = [];
+        this.selectedFiles = [];
       },
       error: (error) => {
+        this.isLoading = false;
         console.error('Error creating cat:', error);
         switch (error.status) {
           case 400:
@@ -155,8 +158,6 @@ export class CreateCatComponent implements OnInit {
         }
       },
     });
-    this.catForm.reset();
-    this.imagePreviews = [];
-    this.selectedFiles = [];
+
   }
 }

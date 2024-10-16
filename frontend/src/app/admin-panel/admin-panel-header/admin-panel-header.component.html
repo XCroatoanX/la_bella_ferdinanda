@@ -8,7 +8,7 @@
         class="d-inline-block align-center ms-3"
         alt="header-logo"
       />
-      La Bella Ferdinanda
+      Administrator Panel
     </a>
 
     <div class="d-flex ml-auto">
@@ -40,21 +40,33 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link" (click)="homePage()">Homepage</a>
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 Kittens
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/create-kitten']">Create...</a>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/admin/create-kitten']"
+                    >Create...</a
+                  >
                 </li>
                 <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/kittens-list']">View/Edit/Delete...</a>
+                  <a
+                    class="dropdown-item"
+                    [routerLink]="['/admin/kittens-list']"
+                    >View/Edit/Delete...</a
+                  >
                 </li>
               </ul>
             </li>
@@ -65,14 +77,21 @@
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 Cats
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/create-cat']">Create...</a>
+                  <a class="dropdown-item" [routerLink]="['/admin/create-cat']"
+                    >Create...</a
+                  >
                 </li>
-                <li><a class="dropdown-item" [routerLink]="['/admin/cats-list']">View/Edit/Delete...</a></li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admin/cats-list']"
+                    >View/Edit/Delete...</a
+                  >
+                </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -86,7 +105,11 @@
                 Account
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Edit Account</a></li>
+                <li>
+                  <a class="dropdown-item" (click)="showNotification()"
+                    >Edit Account</a
+                  >
+                </li>
               </ul>
             </li>
             <li>

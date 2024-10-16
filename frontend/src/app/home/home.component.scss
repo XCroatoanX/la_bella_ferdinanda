@@ -34,8 +34,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  transition: transform 0.2s,
-  box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   height: 20rem;
   background-size: cover;
   background-position: center;
@@ -53,10 +52,11 @@ body {
     height: 100%;
     object-fit: cover;
     transition: filter 0.2s;
+  }
 
-    &:hover {
-      filter: brightness(0.6) blur(1px)
-    }
+  &:hover .cat-img,
+  .text-overlay:hover ~ .cat-img {
+    filter: brightness(0.6) blur(1px);
   }
 
   p {
@@ -73,6 +73,10 @@ body {
   color: white;
   text-align: right;
   box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .we-are {

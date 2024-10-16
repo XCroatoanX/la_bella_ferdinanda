@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/kitten")
 @AllArgsConstructor
 public class KittenController {

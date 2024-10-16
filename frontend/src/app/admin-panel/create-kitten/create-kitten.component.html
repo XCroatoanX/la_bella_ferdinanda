@@ -41,7 +41,7 @@
           id="catBornWeight"
           placeholder="5.5"
         />
-        <label for="catBornWeight">Born weight (in kg)</label>
+        <label for="catBornWeight">Born weight (in grams)</label>
       </div>
       <div class="form-floating mb-3">
         <input
@@ -114,10 +114,18 @@
       <div class="mb-3">
         <button
           type="submit"
-          class="btn disabled border-black w-100"
-          [ngClass]="{ disabled: !kittenForm.valid }"
+          class="btn border-black w-100"
+          [ngClass]="{ disabled: !kittenForm.valid || isLoading }"
+          [disabled]="!kittenForm.valid || isLoading"
         >
-          Create kitten
+          <div class="d-flex align-items-center justify-content-center">
+            @if (isLoading == true) {
+            <strong role="status">Loading, please don't close page</strong>
+            <div class="spinner-border ms-2" aria-hidden="true"></div>
+            } @if (isLoading == false) {
+            <span>Create cat</span>
+            }
+          </div>
         </button>
       </div>
     </form>
