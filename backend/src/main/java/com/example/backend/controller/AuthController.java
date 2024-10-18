@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://192.168.1.118:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://172.30.16.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/auth")
 public class AuthController {
     private final AdminRepository adminDAO;

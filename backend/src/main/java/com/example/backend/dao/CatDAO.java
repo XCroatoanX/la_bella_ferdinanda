@@ -27,52 +27,28 @@ public class CatDAO {
 
     public List<Cat> getAllCats() {
         List<Cat> cats = catRepository.findAll();
-
-        for (Cat cat : cats) {
-            imageService.decompressImagesForEntity(cat.getImages());
-        }
-
         return cats;
     }
 
     @Transactional
     public Cat getCatById(UUID id) {
         Optional<Cat> cat = catRepository.findById(id);
-
-        return cat.map(value -> {
-            imageService.decompressImagesForEntity(value.getImages());
-            return value;
-        }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found"));
+        if (cat.isPresent()) {
+            return cat.get();
+        } else {
+            throw new EntityNotFoundException("Cat with ID " + id + " does not exist.");
+        }
     }
 
     public List<Cat> getCatsBySex(String sex) {
         Optional<List<Cat>> catsList = this.catRepository.findBySex(sex);
 
-        if (catsList.isPresent()) {
-            for (Cat cat : catsList.get()) {
-                for (Image image : cat.getImages()) {
-                    byte[] decompressedImage;
-                    try {
-                        decompressedImage = this.imageService.decompressImage(image.getImage());
-                    } catch (IOException | DataFormatException e) {
-                        throw new RuntimeException(e);
-                    }
-                    image.setImage(decompressedImage);
-                }
-            }
-            return catsList.get();
-        } else {
-            return Collections.emptyList();
-        }
+        return catsList.orElse(Collections.emptyList());
     }
 
     @Transactional
     public void createCat(CatDTO catDTO, MultipartFile[] images) throws IOException {
         List<Image> imageList = this.imageService.imagesToByte(images);
-        for (Image image : imageList) {
-            byte[] compressedImage = this.imageService.compressImage(image.getImage());
-            image.setImage(compressedImage);
-        }
         UUID catId = UUID.randomUUID();
 
         Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article, imageList);
@@ -83,11 +59,6 @@ public class CatDAO {
         Optional<Cat> cat = this.catRepository.findById(id);
 
         List<Image> imageList = this.imageService.imagesToByte(images);
-        for (Image image : imageList) {
-            byte[] compressedImage = this.imageService.compressImage(image.getImage());
-            image.setImage(compressedImage);
-        }
-
         if (cat.isPresent()) {
             cat.get().setName(catDTO.name);
             cat.get().setColor(catDTO.color);
