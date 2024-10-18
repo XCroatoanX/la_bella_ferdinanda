@@ -2,6 +2,8 @@
 
 La Bella Ferdinanda Website, built on Angular and Spring Boot.
 
+![Website homepage](https://github.com/XCroatoanX/la_bella_ferdinanda/blob/release/Website-image.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -9,6 +11,7 @@ La Bella Ferdinanda Website, built on Angular and Spring Boot.
 - [Technologies](#technologies)
 - [Contributing](#contributing)
 - [License](#license)
+- [Logo](#logo)
 
 ## Introduction
 
@@ -46,3 +49,7 @@ Contributions not needed!
 ## License
 
 This project is licensed under the MIT License.
+
+## Logo
+![La Bella Ferdinanda Logo](https://github.com/XCroatoanX/la_bella_ferdinanda/blob/release/logo.png)
+
