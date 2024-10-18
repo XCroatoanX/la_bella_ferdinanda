@@ -7,42 +7,167 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { CatService } from '../../services/cat.service';
+import { ToastrService } from 'ngx-toastr';
+import { Cat } from '../../models/cat.model';
 
 @Component({
   selector: 'app-create-cat',
   standalone: true,
-  imports: [AdminPanelHeaderComponent, ReactiveFormsModule, NgClass],
+  imports: [
+    AdminPanelHeaderComponent,
+    ReactiveFormsModule,
+    NgClass,
+    CommonModule,
+  ],
   templateUrl: './create-cat.component.html',
-  styleUrl: './create-cat.component.scss',
+  styleUrls: ['./create-cat.component.scss'],
 })
 export class CreateCatComponent implements OnInit {
+  public catForm: FormGroup;
+  public imagePreviews: string[] = [];
+  public selectedFiles: File[] = [];
+  public isLoading: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private catService: CatService,
-  ) {}
-
-  public catForm: FormGroup;
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
-      name: ['', Validators.required],
-      color: ['', Validators.required],
-      age: ['', Validators.required],
-      weight: ['', Validators.required],
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      color: ['', [Validators.required, Validators.maxLength(100)]],
+      age: ['', [Validators.required, Validators.maxLength(50)]],
+      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
     });
   }
 
+  public handleFileInput(event: any): void {
+    const files: File[] = Array.from(event.target.files);
+
+    // Concatenate new files to the existing selectedFiles array
+    this.selectedFiles = [...this.selectedFiles, ...files];
+
+    // Iterate through new files to create previews
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // Concatenate new image previews to the existing imagePreviews array
+        this.imagePreviews.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  public removeImage(index: number): void {
+    // Remove from image previews
+    this.imagePreviews.splice(index, 1);
+    // Remove from selected files
+    this.selectedFiles.splice(index, 1);
+  }
+
   public submitCat(): void {
-    console.log(this.catForm.value);
-    // this.catService.createCat(this.catForm.value).subscribe((cat: Cat) => {
-    //   console.log(cat);
-    //   this.router.navigate(['/admin']);
-    // });
+    this.isLoading = true;
+
+    const formData = new FormData();
+    const { name, color, age, weight, sex, description } = this.catForm.value;
+
+    const sexValue = sex === '1' ? 'Male' : 'Female';
+
+    const cat = new Cat();
+    cat.name = name;
+    cat.color = color;
+    cat.age = age;
+    cat.weight = weight;
+    cat.sex = sexValue as 'Male' | 'Female';
+    cat.article = description;
+
+    // Append the cat data
+    formData.append(
+      'cat',
+      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
+    );
+
+    // Append all selected files
+    this.selectedFiles.forEach((file) => {
+      formData.append('imagefile', file, file.name);
+    });
+
+    console.log('Form Data:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    this.catService.createCat(formData).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        console.log('Cat created successfully:', response);
+        this.toastr.success(cat.name + ' created successfully', '', {
+          timeOut: 3000,
+        });
+        this.catForm.reset();
+        this.imagePreviews = [];
+        this.selectedFiles = [];
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error creating cat:', error);
+        switch (error.status) {
+          case 400:
+            this.toastr.error(
+              'Bad Request: ' + (error.error || 'Please check your input.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 401:
+            this.toastr.error(
+              'Unauthorized: Please log in to continue.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 413:
+            this.toastr.error(
+              'File too large: Please upload files smaller than 15 MB.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 500:
+            this.toastr.error(
+              'Internal Server Error: Please try again later.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          default:
+            this.toastr.error(
+              'An unexpected error occurred: ' +
+              (error.error || 'Please try again later.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+        }
+      },
+    });
   }
 }

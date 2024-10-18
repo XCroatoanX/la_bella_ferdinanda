@@ -34,8 +34,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-end;
-  transition: transform 0.2s,
-  box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   height: 20rem;
   background-size: cover;
   background-position: center;
@@ -53,10 +52,11 @@ body {
     height: 100%;
     object-fit: cover;
     transition: filter 0.2s;
+  }
 
-    &:hover {
-      filter: brightness(0.6) blur(1px)
-    }
+  &:hover .cat-img,
+  .text-overlay:hover ~ .cat-img {
+    filter: brightness(0.6) blur(1px);
   }
 
   p {
@@ -73,6 +73,10 @@ body {
   color: white;
   text-align: right;
   box-sizing: border-box;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .we-are {
@@ -80,9 +84,37 @@ body {
   max-width: 300px;
 }
 
+img {
+  object-fit: cover;
+}
+
 @media (max-width: 400px) {
   .we-are {
     max-height: 250px;
     max-width: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  .cat-page {
+    height: 15rem;
+  }
+
+  .text-overlay {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .we-are {
+    max-height: 200px;
+    max-width: 200px;
   }
 }

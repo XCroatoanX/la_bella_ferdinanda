@@ -1,9 +1,11 @@
 package com.example.backend.dto;
 
 import com.example.backend.models.Image;
+import lombok.AllArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
+@AllArgsConstructor
 public class KittenDTO {
     public String name;
     public String color;
@@ -12,17 +14,6 @@ public class KittenDTO {
     public double weight;
     public String sex;
     public String article;
-    public Set<Image> images;
+    public List<Image> images;
 
-    public KittenDTO(String name, String age, String color, String sex, double bornWeight, double weight,
-            String article, Set<Image> images) {
-        this.name = name;
-        this.age = age;
-        this.color = color;
-        this.sex = sex;
-        this.bornWeight = bornWeight;
-        this.weight = weight;
-        this.article = article;
-        this.images = images;
-    }
 }

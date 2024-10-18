@@ -1,7 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
+a,
+h1,
+p,
+span,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  color: black;
+}
+
 .navbar {
-  background-image: linear-gradient(90deg, #fcc28c 0%, #f7deea 100%);
+  background: linear-gradient(-90deg, #fcc28c, #f7deea);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+.nav-item {
+  cursor: pointer;
 }
 
 img {
@@ -9,13 +27,12 @@ img {
 }
 
 a {
-  font-family: Montserrat, Arial, Helvetica, sans-serif;
   border-radius: 5px;
 }
 
 .logout {
   &:hover {
-    background-color: rgba($color: #000000, $alpha: 0.2);
+    background-color: rgba($color: #000000, $alpha: 0.05);
     color: black;
   }
 }
@@ -26,14 +43,22 @@ a:active {
   border-radius: 5px;
 }
 
+@media (max-width: 804px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+}
+
 @media (max-width: 767px) {
-  /* Custom CSS to remove margin from button inside offcanvas */
+  .navbar-brand {
+    font-size: 1.25rem;
+  }
   .offcanvas button.btn {
-    margin-left: 0 !important; /* Remove margin for button inside offcanvas */
+    margin-left: 0 !important;
     margin-top: 1rem !important;
   }
 
-  @media(max-width: 376px) {
+  @media (max-width: 376px) {
     img {
       margin-left: 0 !important;
     }
@@ -41,4 +66,19 @@ a:active {
       font-size: 1rem !important;
     }
   }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+button:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
