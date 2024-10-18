@@ -16,7 +16,6 @@ import java.util.zip.Inflater;
 @Service
 @AllArgsConstructor
 public class ImageService {
-
     public List<Image> imagesToByte(MultipartFile[] images) throws IOException {
         List<Image> imagesList = new ArrayList<>();
         for (MultipartFile image : images) {
