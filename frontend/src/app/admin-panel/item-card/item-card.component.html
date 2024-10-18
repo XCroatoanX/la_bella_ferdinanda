@@ -1,0 +1,49 @@
+<div class="card shadow-lg border rounded-3">
+  <div class="card-header">
+    <div *ngIf="imageSrc; else noImage" class="image-container rounded-top-3">
+      <img [src]="imageSrc" *ngIf="imageSrc" alt="{{ animal.name }}" />
+    </div>
+    <ng-template #noImage>
+      <p>No image available for this animal.</p>
+    </ng-template>
+  </div>
+  <div class="card-body">
+    <h3 class="card-title">{{ animal.name }}</h3>
+    <h6 class="card-subtitle mb-4 text-muted">Cat Information</h6>
+    <p class="card-text my-1"><strong>Color:</strong> {{ animal.color }}</p>
+    <p class="card-text my-1">
+      <strong>Age:</strong> {{ animal.age }} years old
+    </p>
+    <p class="card-text my-1">
+      <strong>Weight:</strong> {{ animal.weight }} Kg
+    </p>
+    <p class="card-text my-1"><strong>Sex:</strong> {{ animal.sex }}</p>
+  </div>
+  <div class="d-inline-flex p-3">
+    <button
+      type="button"
+      class="btn btn-danger delete-button"
+      [ngClass]="{ disabled: isLoading }"
+      [disabled]="isLoading"
+      (click)="deleteAnimal()"
+    >
+      <div class="d-flex align-items-center justify-content-center">
+        <strong *ngIf="isLoading" role="status">
+          Loading, please don't close page
+        </strong>
+        <div
+          *ngIf="isLoading"
+          class="spinner-border ms-2"
+          aria-hidden="true"
+        ></div>
+        <span *ngIf="!isLoading">Delete</span>
+      </div>
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary ms-2"
+      [routerLink]="['/admin', isKitten ? 'edit-kitten' : 'edit-cat', animal.id]">
+      Edit
+    </button>
+  </div>
+</div>

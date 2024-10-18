@@ -3,59 +3,64 @@ package com.example.backend.dao;
 import com.example.backend.dto.KittenDTO;
 import com.example.backend.models.Image;
 import com.example.backend.models.Kitten;
+import com.example.backend.services.ImageService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class KittenDAO {
-
-    // Initialisation
     private final KittenRepository kittenRepository;
+    private final ImageService imageService;
 
-    public KittenDAO(KittenRepository kittenRepository) {
-        this.kittenRepository = kittenRepository;
-    }
-
-
-    // DAO
     public List<Kitten> getAllKittens() {
-        return kittenRepository.findAll();
+        List<Kitten> kittens = kittenRepository.findAll();
+        return kittens;
     }
 
     @Transactional
-    public Kitten getKittenById(UUID kittenID) {
-        Optional<Kitten> kitten = this.kittenRepository.findById(kittenID);
-        if (kitten.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Kitten with this id not found");
+    public Kitten getKittenById(UUID id) {
+        Optional<Kitten> kitten = kittenRepository.findById(id);
+        try {
+            return kitten.orElseThrow(() -> new EntityNotFoundException("Kitten with ID " + id + " does not exist."));
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
-        return kitten.get();
     }
 
     @Transactional
-    public void createKitten(KittenDTO kittenDTO, Set<Image> images) {
-        Kitten kitten = new Kitten(kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article, images);
+    public void createKitten(KittenDTO kittenDTO, MultipartFile[] images) throws IOException {
+        List<Image> imageList = this.imageService.imagesToByte(images);
+
+        UUID kittenId = UUID.randomUUID();
+        
+        Kitten kitten = new Kitten(kittenId, kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.bornWeight, kittenDTO.weight, kittenDTO.sex, kittenDTO.article, imageList);
         this.kittenRepository.save(kitten);
     }
 
-    public void updateKitten(KittenDTO kittenDTO, Set<Image> newImages, UUID id) {
+    public void updateKitten(KittenDTO kittenDTO, MultipartFile[] images, UUID id) throws IOException {
         Optional<Kitten> kitten = this.kittenRepository.findById(id);
+
+        List<Image> imageList = this.imageService.imagesToByte(images);
 
         if (kitten.isPresent()) {
             kitten.get().setName(kittenDTO.name);
             kitten.get().setColor(kittenDTO.color);
             kitten.get().setAge(kittenDTO.age);
-            kitten.get().setBornWeight(kittenDTO.bornWeight);
             kitten.get().setWeight(kittenDTO.weight);
             kitten.get().setSex(kittenDTO.sex);
             kitten.get().setArticle(kittenDTO.article);
-            kitten.get().setImages(newImages);
+            kitten.get().setImages(imageList);
             this.kittenRepository.save(kitten.get());
             return;
         }
@@ -63,7 +68,9 @@ public class KittenDAO {
     }
 
     public void deleteKittenById(UUID id) {
+        if (!kittenRepository.existsById(id)) {
+            throw new EntityNotFoundException("Kitten with ID " + id + " does not exist.");
+        }
         this.kittenRepository.deleteById(id);
     }
-
 }

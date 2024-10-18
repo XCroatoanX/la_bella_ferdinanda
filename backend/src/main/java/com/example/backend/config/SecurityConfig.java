@@ -1,7 +1,7 @@
 package com.example.backend.config;
 
-import com.example.backend.models.Admin;
 import com.example.backend.services.AdminService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,17 +15,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final JWTFilter filter;
     private final AdminService adminService;
-
-    public SecurityConfig(JWTFilter filter, AdminService adminService) {
-        this.filter = filter;
-        this.adminService = adminService;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -38,6 +36,9 @@ public class SecurityConfig {
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/cat").permitAll()
+                        .requestMatchers("/cat/**").permitAll()
+                        .requestMatchers("/kitten").permitAll()
+                        .requestMatchers("/kitten/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated())

@@ -2,6 +2,7 @@ package com.example.backend.services;
 
 import com.example.backend.dao.AdminRepository;
 import com.example.backend.models.Admin;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,13 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 
 @Service
+@AllArgsConstructor
 public class AdminService implements UserDetailsService {
 
     private final AdminRepository adminDAO;
-
-    public AdminService(AdminRepository adminDAO) {
-        this.adminDAO = adminDAO;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

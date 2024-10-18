@@ -96,3 +96,6 @@ backend/src/main/resources/application.properties
 .idea
 .vscode/
 documents/
+/frontend/src/environments
+/frontend/.angular
+/.env

@@ -1,11 +1,10 @@
 package com.example.backend.dto;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class AuthenticationDTO {
     public String username;
     public String password;
 
-    public AuthenticationDTO(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
 }
