@@ -84,9 +84,37 @@ body {
   max-width: 300px;
 }
 
+img {
+  object-fit: cover;
+}
+
 @media (max-width: 400px) {
   .we-are {
     max-height: 250px;
     max-width: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 0.8rem;
+  }
+
+  .cat-page {
+    height: 15rem;
+  }
+
+  .text-overlay {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .we-are {
+    max-height: 200px;
+    max-width: 200px;
   }
 }

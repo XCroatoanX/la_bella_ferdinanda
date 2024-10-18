@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-about-breed',
   standalone: true,
-  imports: [CoreModule],
+  imports: [CoreModule, NgOptimizedImage],
   templateUrl: './about-breed.component.html',
   styleUrl: './about-breed.component.scss',
 })
