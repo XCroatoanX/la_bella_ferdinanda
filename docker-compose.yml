@@ -1,11 +1,12 @@
+
 services:
   postgres:
     image: postgres:latest
     container_name: postgres
     environment:
-      POSTGRES_USER: artemstasyuk
-      POSTGRES_PASSWORD: Croatoan00404
-      POSTGRES_DB: la_bella_ferdinanda
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
@@ -15,13 +16,13 @@ services:
     image: elestio/pgadmin:latest
     container_name: pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: stasyukartem2@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: Croatoan00404
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
     ports:
       - "8000:80"
     depends_on:
       - postgres
-# TODO: CHECK IF IMAGE IS CORRECT
+
   java-api:
     build:
       context: ./backend
