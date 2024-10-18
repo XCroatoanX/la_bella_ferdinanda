@@ -57,8 +57,7 @@
                 Our Kittens
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Current Nest</a></li>
-                <li><a class="dropdown-item" href="#">Buy Kitten</a></li>
+                <li><a class="dropdown-item" href="#">All kittens</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -72,9 +71,8 @@
                 Our Cats
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Boys</a></li>
-                <li><a class="dropdown-item" href="#">Girls</a></li>
-                <li><a class="dropdown-item" href="#">Buy Cat</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/cats-list/male']">Boys</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/cats-list/female']">Girls</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
