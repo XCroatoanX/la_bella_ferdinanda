@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://192.168.1.118:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://172.30.16.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/kitten")
 @AllArgsConstructor
 public class KittenController {
@@ -46,10 +46,13 @@ public class KittenController {
     }
 
     @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<String> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
-                                               @RequestPart("imagefile") MultipartFile[] file) {
+    public ResponseEntity<?> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
+                                          @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.kittenDAO.updateKitten(kittenDTO, file, id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Updated kitten: " + kittenDTO.name);
+            ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating kitten: " + e.getMessage());
         }
