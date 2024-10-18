@@ -51,23 +51,32 @@ export class CreateCatComponent implements OnInit {
 
   public handleFileInput(event: any): void {
     const files: File[] = Array.from(event.target.files);
-    this.selectedFiles = files;
-    this.imagePreviews = [];
 
+    // Concatenate new files to the existing selectedFiles array
+    this.selectedFiles = [...this.selectedFiles, ...files];
+
+    // Iterate through new files to create previews
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
+        // Concatenate new image previews to the existing imagePreviews array
         this.imagePreviews.push(e.target.result);
       };
       reader.readAsDataURL(file);
     });
   }
 
+  public removeImage(index: number): void {
+    // Remove from image previews
+    this.imagePreviews.splice(index, 1);
+    // Remove from selected files
+    this.selectedFiles.splice(index, 1);
+  }
+
   public submitCat(): void {
     this.isLoading = true;
 
     const formData = new FormData();
-
     const { name, color, age, weight, sex, description } = this.catForm.value;
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
@@ -80,11 +89,13 @@ export class CreateCatComponent implements OnInit {
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
 
+    // Append the cat data
     formData.append(
       'cat',
       new Blob([JSON.stringify(cat)], { type: 'application/json' }),
     );
 
+    // Append all selected files
     this.selectedFiles.forEach((file) => {
       formData.append('imagefile', file, file.name);
     });
@@ -158,6 +169,5 @@ export class CreateCatComponent implements OnInit {
         }
       },
     });
-
   }
 }

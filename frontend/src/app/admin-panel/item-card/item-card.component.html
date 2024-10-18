@@ -1,11 +1,11 @@
-<div class="card shadow-lg border-3 p-3" style="width: 18rem">
+<div class="card shadow-lg border rounded-3">
   <div class="card-header">
-    <div *ngIf="animal && animal.images && animal.images.length > 0">
-      <img [src]="getImageSrc()" alt="Animal image" />
+    <div *ngIf="imageSrc; else noImage" class="image-container rounded-top-3">
+      <img [src]="imageSrc" *ngIf="imageSrc" alt="{{ animal.name }}" />
     </div>
-    <div *ngIf="!animal || !animal.images || animal.images.length === 0">
+    <ng-template #noImage>
       <p>No image available for this animal.</p>
-    </div>
+    </ng-template>
   </div>
   <div class="card-body">
     <h3 class="card-title">{{ animal.name }}</h3>
@@ -19,7 +19,7 @@
     </p>
     <p class="card-text my-1"><strong>Sex:</strong> {{ animal.sex }}</p>
   </div>
-  <div class="d-inline-flex">
+  <div class="d-inline-flex p-3">
     <button
       type="button"
       class="btn btn-danger delete-button"
@@ -39,6 +39,11 @@
         <span *ngIf="!isLoading">Delete</span>
       </div>
     </button>
-    <button type="button" class="btn btn-primary ms-2">Edit</button>
+    <button
+      type="button"
+      class="btn btn-primary ms-2"
+      [routerLink]="['/admin', isKitten ? 'edit-kitten' : 'edit-cat', animal.id]">
+      Edit
+    </button>
   </div>
 </div>

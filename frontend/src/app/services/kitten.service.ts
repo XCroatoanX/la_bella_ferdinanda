@@ -22,7 +22,12 @@ export class KittenService {
     return this.http.post(environment.base_url + '/kitten', formData);
   }
 
+  public updateKitten(formData: FormData, id: string): Observable<any> {
+    return this.http.put(environment.base_url + '/kitten/' + id, formData);
+  }
+
   public deleteKitten(id: string): Observable<any> {
     return this.http.delete(environment.base_url + '/kitten/' + id);
   }
+
 }

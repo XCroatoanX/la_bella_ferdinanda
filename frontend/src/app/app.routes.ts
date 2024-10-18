@@ -11,6 +11,8 @@ import { HowToCareComponent } from './about/how-to-care/how-to-care.component';
 import { CreateKittenComponent } from './admin-panel/create-kitten/create-kitten.component';
 import { KittensListComponent } from './admin-panel/kittens-list/kittens-list.component';
 import { CatsListComponent } from './admin-panel/cats-list/cats-list.component';
+import {EditCatComponent} from "./admin-panel/edit-cat/edit-cat.component";
+import {EditKittenComponent} from "./admin-panel/edit-kitten/edit-kitten.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,6 +47,8 @@ export const routes: Routes = [
       { path: 'cats-list', component: CatsListComponent },
       { path: 'create-kitten', component: CreateKittenComponent },
       { path: 'kittens-list', component: KittensListComponent },
+      { path: 'edit-cat/:id', component: EditCatComponent },
+      { path: 'edit-kitten/:id', component: EditKittenComponent },
     ],
   },
 ];
