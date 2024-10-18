@@ -94,21 +94,21 @@
         </ul>
       </div>
       @if (imagePreviews.length > 0) {
-      <div class="mb-3">
-        <label class="form-label">Image Preview:</label>
-        <div class="d-flex flex-wrap">
-          <div class="me-2">
-            @for (preview of imagePreviews; track preview) {
-            <img
-              [src]="preview"
-              class="img-thumbnail"
-              alt="Image preview"
-              width="100"
-            />
+        <div class="mb-3">
+          <label class="form-label">Image Preview:</label>
+          <div class="row g-3">
+            @for (preview of imagePreviews; track $index){
+              <div class="col-auto">
+                <div class="position-relative">
+                  <img [src]="preview" class="img-fluid img-thumbnail shadow-sm" alt="Image preview" width="100" />
+                  <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 px-1 py-0" (click)="removeImage($index)">
+                    <i class="bi bi-x-circle"></i>
+                  </button>
+                </div>
+              </div>
             }
           </div>
         </div>
-      </div>
       }
 
       <div class="mb-3">

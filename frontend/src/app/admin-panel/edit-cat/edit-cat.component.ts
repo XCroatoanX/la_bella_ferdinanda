@@ -1,53 +1,82 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { Router } from '@angular/router';
-import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
-import { Kitten } from '../../models/kitten.model';
+import { AdminPanelHeaderComponent } from "../admin-panel-header/admin-panel-header.component";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CatService } from "../../services/cat.service";
+import { ToastrService } from "ngx-toastr";
+import { Cat } from "../../models/cat.model";
+import { CommonModule } from "@angular/common";
 
 @Component({
-  selector: 'app-create-kitten',
+  selector: 'app-edit-cat',
   standalone: true,
   imports: [
     AdminPanelHeaderComponent,
+    FormsModule,
     ReactiveFormsModule,
-    NgClass,
-    NgForOf,
-    NgIf,
+    CommonModule
   ],
-  templateUrl: './create-kitten.component.html',
-  styleUrl: './create-kitten.component.scss',
+  templateUrl: './edit-cat.component.html',
+  styleUrls: ['./edit-cat.component.scss']
 })
-export class CreateKittenComponent implements OnInit {
-  public kittenForm: FormGroup;
+export class EditCatComponent implements OnInit {
+  public catForm: FormGroup;
   public imagePreviews: string[] = [];
   public selectedFiles: File[] = [];
   public isLoading: boolean = false;
+  catId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private kittenService: KittenService,
+    private catService: CatService,
     private toastr: ToastrService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.kittenForm = this.fb.group({
+    this.route.paramMap.subscribe(params => {
+      this.catId = params.get('id');
+      this.initializeForm();
+      if (this.catId) {
+        this.fetchCatData(this.catId);  // Fetch cat data when the component initializes
+      }
+    });
+  }
+
+  private initializeForm(): void {
+    this.catForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       color: ['', [Validators.required, Validators.maxLength(100)]],
       age: ['', [Validators.required, Validators.maxLength(50)]],
-      bornWeight: ['', [Validators.required, Validators.maxLength(50), Validators.pattern(/^\d+(\.\d+)?$/)]],
       weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
+    });
+  }
+
+  private fetchCatData(catId: string): void {
+    this.catService.getCatById(catId).subscribe({
+      next: (cat: Cat) => {
+        this.catForm.patchValue({
+          name: cat.name,
+          color: cat.color,
+          age: cat.age,
+          weight: cat.weight,
+          sex: cat.sex === 'Male' ? '1' : '2', // Assuming 1 for Male, 2 for Female
+          description: cat.article,
+          // Handle images if you want to prepopulate them
+        });
+        // You may also need to set image previews here if the API returns image data
+        this.imagePreviews = cat.images.map(image => `data:${image.type};base64,${image.image}`);
+      },
+      error: (error) => {
+        console.error('Error fetching cat data:', error);
+        this.toastr.error('Could not fetch cat data. Please try again.', 'Error', {
+          timeOut: 3000,
+        });
+      }
     });
   }
 
@@ -75,27 +104,25 @@ export class CreateKittenComponent implements OnInit {
     this.selectedFiles.splice(index, 1);
   }
 
-  public submitKitten(): void {
+  public submitCat(): void {
     this.isLoading = true;
-    const formData = new FormData();
 
-    const { name, color, age, bornWeight, weight, sex, description } =
-      this.kittenForm.value;
+    const formData = new FormData();
+    const { name, color, age, weight, sex, description } = this.catForm.value;
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
-    const kitten = new Kitten();
-    kitten.name = name;
-    kitten.color = color;
-    kitten.age = age;
-    kitten.bornWeight = bornWeight;
-    kitten.weight = weight;
-    kitten.sex = sexValue as 'Male' | 'Female';
-    kitten.article = description;
+    const cat = new Cat();
+    cat.name = name;
+    cat.color = color;
+    cat.age = age;
+    cat.weight = weight;
+    cat.sex = sexValue as 'Male' | 'Female';
+    cat.article = description;
 
     formData.append(
-      'kitten',
-      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
+      'cat',
+      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
     );
 
     this.selectedFiles.forEach((file) => {
@@ -107,14 +134,14 @@ export class CreateKittenComponent implements OnInit {
       console.log(`${key}:`, value);
     });
 
-    this.kittenService.createKitten(formData).subscribe({
+    this.catService.updateCat(formData, this.catId).subscribe({
       next: (response) => {
         this.isLoading = false;
         console.log('Cat created successfully:', response);
-        this.toastr.success(kitten.name + ' created successfully', '', {
+        this.toastr.success(cat.name + ' created successfully', '', {
           timeOut: 3000,
         });
-        this.kittenForm.reset();
+        this.catForm.reset();
         this.imagePreviews = [];
         this.selectedFiles = [];
       },

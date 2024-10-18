@@ -1,0 +1,135 @@
+<body class="pb-3">
+<app-admin-panel-header></app-admin-panel-header>
+<div class="border border-black shadow-lg rounded-4 my-5 w-75 m-auto p-3">
+  <h2 class="h2">Edit Kitten:</h2>
+  <form [formGroup]="kittenForm" (ngSubmit)="submitKitten()">
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        id="kittenName"
+        placeholder="Name of the Kitten"
+      />
+      <label for="kittenName">Name</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="color"
+        id="kittenColor"
+        placeholder="ex. Ginger"
+      />
+      <label for="kittenColor">Color</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="age"
+        id="kittenAge"
+        placeholder="Age"
+      />
+      <label for="kittenAge">Age</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="bornWeight"
+        id="catBornWeight"
+        placeholder="5.5"
+      />
+      <label for="catBornWeight">Born weight (in grams)</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="weight"
+        id="kittenWeight"
+        placeholder="5.5"
+      />
+      <label for="kittenWeight">Weight (in kg)</label>
+    </div>
+    <div class="form-floating mb-3">
+      <select
+        id="kittenSex"
+        formControlName="sex"
+        class="form-select"
+        aria-label="Select kitten sex"
+      >
+        <option value="" disabled selected>Select an option</option>
+        <option value="1">Male</option>
+        <option value="2">Female</option>
+      </select>
+      <label for="kittenSex" class="form-label">Sex</label>
+    </div>
+    <div class="form-floating mb-3">
+        <textarea
+          class="form-control"
+          formControlName="description"
+          id="kittenArticle"
+          rows="3"
+          placeholder="Description of the kitten"
+        ></textarea>
+      <label for="kittenArticle" class="form-label">Description</label>
+    </div>
+    <div class="mb-3">
+      <label for="kittenImages" class="form-label">Images</label>
+      <input
+        class="form-control"
+        type="file"
+        formControlName="images"
+        id="kittenImages"
+        (change)="handleFileInput($event)"
+        multiple
+        accept=".jpg, .jpeg, .png"
+      />
+      <ul>
+        <li>Max size of image: 15MB</li>
+        <li>Max size of all images: 250MB</li>
+        <li>Supported formats: .jpeg .jpg .png</li>
+      </ul>
+    </div>
+    @if (imagePreviews.length > 0) {
+      <div class="mb-3">
+        <label class="form-label">Image Preview:</label>
+        <div class="row g-3">
+          @for (preview of imagePreviews; track $index){
+            <div class="col-auto">
+              <div class="position-relative">
+                <img [src]="preview" class="img-fluid img-thumbnail shadow-sm" alt="Image preview" width="100" />
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 px-1 py-0" (click)="removeImage($index)">
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+
+    <div class="mb-3">
+      <button
+        type="submit"
+        class="btn border-black w-100"
+        [ngClass]="{ disabled: !kittenForm.valid || isLoading }"
+        [disabled]="!kittenForm.valid || isLoading"
+      >
+        <div class="d-flex align-items-center justify-content-center">
+          @if (isLoading == true) {
+            <strong role="status">Loading, please don't close page</strong>
+            <div class="spinner-border ms-2" aria-hidden="true"></div>
+          } @if (isLoading == false) {
+          <span>Edit kitten</span>
+        }
+        </div>
+      </button>
+      <button class="btn btn-danger w-100 mt-3" [routerLink]="['/admin/kittens-list']">Cancel</button>
+    </div>
+  </form>
+</div>
+</body>

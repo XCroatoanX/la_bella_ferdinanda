@@ -22,6 +22,10 @@ export class CatService {
     return this.http.post(environment.base_url + '/cat', formData);
   }
 
+  public updateCat(formData: FormData, id): Observable<any> {
+    return this.http.put<Cat>(environment.base_url + '/cat/' + id, formData);
+  }
+
   public deleteCat(id: string): Observable<any> {
     return this.http.delete(environment.base_url + '/cat/' + id);
   }

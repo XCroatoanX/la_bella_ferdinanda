@@ -8,8 +8,7 @@ h2,
 h3,
 h4,
 h5,
-h6,
-li {
+h6 {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
@@ -27,6 +26,15 @@ body {
 .border-black:hover {
   background-color: rgba($color: #000000, $alpha: 0.05);
   color: black;
+}
+
+.img-thumbnail {
+  transition: all 0.3s ease;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {

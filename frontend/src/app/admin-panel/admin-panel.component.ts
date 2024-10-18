@@ -4,11 +4,12 @@ import { CatService } from '../services/cat.service';
 import { KittenService } from '../services/kitten.service';
 import { Kitten } from '../models/kitten.model';
 import { Cat } from '../models/cat.model';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [AdminPanelHeaderComponent],
+  imports: [AdminPanelHeaderComponent, RouterLink],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.scss',
 })
