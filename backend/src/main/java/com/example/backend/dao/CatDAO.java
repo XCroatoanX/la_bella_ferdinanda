@@ -40,10 +40,10 @@ public class CatDAO {
         }
     }
 
+    @Transactional
     public List<Cat> getCatsBySex(String sex) {
-        Optional<List<Cat>> catsList = this.catRepository.findBySex(sex);
-
-        return catsList.orElse(Collections.emptyList());
+        return this.catRepository.findBySexIgnoreCase(sex)
+                .orElse(Collections.emptyList());
     }
 
     @Transactional

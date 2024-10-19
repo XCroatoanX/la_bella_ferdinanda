@@ -23,6 +23,11 @@ import java.util.UUID;
 public class CatController {
     private final CatDAO catDAO;
 
+    @GetMapping("/sex/{sex}")
+    public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
+        return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
+    }
+
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
         return ResponseEntity.ok(this.catDAO.getAllCats());
@@ -31,11 +36,6 @@ public class CatController {
     @GetMapping("/{id}")
     public ResponseEntity<Cat> getCatById(@PathVariable UUID id) {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
-    }
-
-    @GetMapping("/sex/{sex}")
-    public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
-        return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
     }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

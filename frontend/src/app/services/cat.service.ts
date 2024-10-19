@@ -18,6 +18,10 @@ export class CatService {
     return this.http.get<Cat>(environment.base_url + '/cat/' + id);
   }
 
+  public getCatBySex(sex: string): Observable<Cat[]> {
+    return this.http.get<Cat[]>(environment.base_url + '/cat/sex/' + sex);
+  }
+
   public createCat(formData: FormData): Observable<any> {
     return this.http.post(environment.base_url + '/cat', formData);
   }
@@ -29,4 +33,5 @@ export class CatService {
   public deleteCat(id: string): Observable<any> {
     return this.http.delete(environment.base_url + '/cat/' + id);
   }
+
 }

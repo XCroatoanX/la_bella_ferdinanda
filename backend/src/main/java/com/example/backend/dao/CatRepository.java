@@ -8,5 +8,5 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CatRepository extends JpaRepository<Cat, UUID> {
-    Optional<List<Cat>> findBySex(String sex);
+    Optional<List<Cat>> findBySexIgnoreCase(String sex);
 }
