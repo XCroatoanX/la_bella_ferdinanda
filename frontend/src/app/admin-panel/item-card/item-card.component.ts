@@ -15,9 +15,9 @@ import { RouterLink } from "@angular/router";
   styleUrls: ['./item-card.component.scss'],
 })
 export class ItemCardComponent implements OnInit {
-  @Input() animal!: Cat | Kitten;  // Input animal
+  @Input() animal!: Cat | Kitten;
   public isLoading: boolean = false;
-  public imageSrc: string = '';    // Holds the image Blob URL
+  public imageSrc: string = '';
   public isKitten: boolean = false;
 
   constructor(
@@ -27,32 +27,30 @@ export class ItemCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Component Initialized');  // Log component initialization
-    console.log('Received animal:', this.animal);  // Log the input animal object
+    console.log('Component Initialized');
+    console.log('Received animal:', this.animal);
 
-    // Check if the animal is a kitten based on the presence of bornWeight
     this.isKitten = (this.animal as Kitten).bornWeight !== undefined;
 
     if (this.animal && this.animal.images && this.animal.images.length > 0 && this.animal.images[0].image) {
       const imageData = this.animal.images[0].image;
       this.setImageSrc(imageData);
     } else {
-      console.error('No image data found for the animal');  // Log missing image data
+      console.error('No image data found for the animal');
     }
   }
 
   setImageSrc(imageBase64: string): void {
     if (!imageBase64) {
-      console.error('Image data is undefined or null');  // Log missing imageBase64
+      console.error('Image data is undefined or null');
       return;
     }
 
     // Check if imageBase64 is already a full Data URL
     if (imageBase64.startsWith('data:image/')) {
-      this.imageSrc = imageBase64; // Use it as is
+      this.imageSrc = imageBase64;
     } else {
-      // If it's not a full Data URL, construct one with the correct type
-      const mimeType = this.animal.images[0].type; // Get MIME type from the image model
+      const mimeType = this.animal.images[0].type;
       this.imageSrc = `data:${mimeType};base64,${imageBase64}`;
     }
   }
@@ -74,23 +72,23 @@ export class ItemCardComponent implements OnInit {
 
     deleteRequest.subscribe({
       next: () => {
-        console.log('Delete request successful');  // Log success
+        console.log('Delete request successful');
         this.toastr.success(successMessage, 'Success!', { timeOut: 3000 });
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       },
       error: (error) => {
-        console.error('Delete request error:', error);  // Log the error
+        console.error('Delete request error:', error);
         let message = error.error?.message || 'An unexpected error occurred.';
         if (error.status === 404) {
           message = 'Animal not found.';
-          console.error('Animal not found (404)');  // Log 404 specific error
+          console.error('Animal not found (404)');
         }
         this.toastr.error(`${errorMessage} ${message}`, 'Error', { timeOut: 3000 });
       },
       complete: () => {
-        console.log('Delete request complete');  // Log request completion
+        console.log('Delete request complete');
         this.isLoading = false;
       },
     });

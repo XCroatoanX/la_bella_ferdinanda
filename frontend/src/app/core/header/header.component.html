@@ -57,7 +57,7 @@
                 Our Kittens
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">All kittens</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/kittens-list']">All kittens</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
@@ -71,8 +71,8 @@
                 Our Cats
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" [routerLink]="['/cats-list/male']">Boys</a></li>
-                <li><a class="dropdown-item" [routerLink]="['/cats-list/female']">Girls</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/boys-list']">Males</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/girls-list']">Females</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">
