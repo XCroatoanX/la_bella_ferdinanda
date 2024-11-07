@@ -5,8 +5,6 @@ export class Kitten {
   public name: string;
   public color: string;
   public age: string;
-  public bornWeight: number;
-  public weight: number;
   public sex: 'Male' | 'Female';
   public article: string;
   public images?: Image[];

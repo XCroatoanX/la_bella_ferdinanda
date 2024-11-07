@@ -35,14 +35,13 @@ export class CreateCatComponent implements OnInit {
     private router: Router,
     private catService: CatService,
     private toastr: ToastrService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
       color: ['', [Validators.required, Validators.maxLength(100)]],
       age: ['', [Validators.required, Validators.maxLength(50)]],
-      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
@@ -77,7 +76,7 @@ export class CreateCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, weight, sex, description } = this.catForm.value;
+    const { name, color, age, sex, description } = this.catForm.value;
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
@@ -85,7 +84,6 @@ export class CreateCatComponent implements OnInit {
     cat.name = name;
     cat.color = color;
     cat.age = age;
-    cat.weight = weight;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
 
@@ -159,7 +157,7 @@ export class CreateCatComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-              (error.error || 'Please try again later.'),
+                (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

@@ -4,7 +4,7 @@ import { CatService } from '../services/cat.service';
 import { KittenService } from '../services/kitten.service';
 import { Kitten } from '../models/kitten.model';
 import { Cat } from '../models/cat.model';
-import {RouterLink} from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-panel',
@@ -16,8 +16,6 @@ import {RouterLink} from "@angular/router";
 export class AdminPanelComponent implements OnInit {
   public catsNumber: number;
   public kittensNumber: number;
-  public kittensList: Array<Kitten>;
-  public catsList: Array<Cat>;
 
   constructor(
     private catService: CatService,
