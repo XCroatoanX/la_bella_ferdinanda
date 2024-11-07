@@ -51,18 +51,17 @@ export class LoginComponent {
   }
 
   public onSubmit(): void {
-    this.authService.login(this.loginForm.value).subscribe(
-      (authResponse: AuthResponse) => {
-        console.log('AuthResponse: ', authResponse);
+    this.authService.login(this.loginForm.value).subscribe({
+      next: (authResponse: AuthResponse) => {
         this.router.navigate(['/admin']);
       },
-      (error) => {
+      error: (error) => {
         if (error.status === 403) {
           this.toastr.error('Username or password is incorrect', 'Login Failed');
         } else {
           this.toastr.error('An unexpected error occurred', 'Error');
         }
       }
-    );
+    });
   }
 }
