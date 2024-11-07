@@ -34,26 +34,6 @@
       <label for="kittenAge">Age</label>
     </div>
     <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control"
-        formControlName="bornWeight"
-        id="catBornWeight"
-        placeholder="5.5"
-      />
-      <label for="catBornWeight">Born weight (in grams)</label>
-    </div>
-    <div class="form-floating mb-3">
-      <input
-        type="text"
-        class="form-control"
-        formControlName="weight"
-        id="kittenWeight"
-        placeholder="5.5"
-      />
-      <label for="kittenWeight">Weight (in kg)</label>
-    </div>
-    <div class="form-floating mb-3">
       <select
         id="kittenSex"
         formControlName="sex"
@@ -97,11 +77,12 @@
       <div class="mb-3">
         <label class="form-label">Image Preview:</label>
         <div class="row g-3">
-          @for (preview of imagePreviews; track $index){
+          @for (preview of imagePreviews; track $index) {
             <div class="col-auto">
               <div class="position-relative">
-                <img [src]="preview" class="img-fluid img-thumbnail shadow-sm" alt="Image preview" width="100" />
-                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 px-1 py-0" (click)="removeImage($index)">
+                <img [src]="preview" class="img-fluid img-thumbnail shadow-sm" alt="Image preview" width="100"/>
+                <button type="button" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 px-1 py-0"
+                        (click)="removeImage($index)">
                   <i class="bi bi-x-circle"></i>
                 </button>
               </div>
@@ -123,9 +104,10 @@
           @if (isLoading == true) {
             <strong role="status">Loading, please don't close page</strong>
             <div class="spinner-border ms-2" aria-hidden="true"></div>
-          } @if (isLoading == false) {
-          <span>Edit kitten</span>
-        }
+          }
+          @if (isLoading == false) {
+            <span>Edit kitten</span>
+          }
         </div>
       </button>
       <button class="btn btn-danger w-100 mt-3" [routerLink]="['/admin/kittens-list']">Cancel</button>

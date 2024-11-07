@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from "../admin-panel-header/admin-panel-header.component";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { CatService } from "../../services/cat.service";
-import { ToastrService } from "ngx-toastr";
-import { Cat } from "../../models/cat.model";
-import { CommonModule } from "@angular/common";
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CatService } from '../../services/cat.service';
+import { ToastrService } from 'ngx-toastr';
+import { Cat } from '../../models/cat.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-cat',
@@ -14,10 +20,10 @@ import { CommonModule } from "@angular/common";
     AdminPanelHeaderComponent,
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './edit-cat.component.html',
-  styleUrls: ['./edit-cat.component.scss']
+  styleUrls: ['./edit-cat.component.scss'],
 })
 export class EditCatComponent implements OnInit {
   public catForm: FormGroup;
@@ -31,15 +37,15 @@ export class EditCatComponent implements OnInit {
     private router: Router,
     private catService: CatService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.catId = params.get('id');
       this.initializeForm();
       if (this.catId) {
-        this.fetchCatData(this.catId);  // Fetch cat data when the component initializes
+        this.fetchCatData(this.catId); // Fetch cat data when the component initializes
       }
     });
   }
@@ -49,7 +55,6 @@ export class EditCatComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       color: ['', [Validators.required, Validators.maxLength(100)]],
       age: ['', [Validators.required, Validators.maxLength(50)]],
-      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
@@ -63,20 +68,25 @@ export class EditCatComponent implements OnInit {
           name: cat.name,
           color: cat.color,
           age: cat.age,
-          weight: cat.weight,
           sex: cat.sex === 'Male' ? '1' : '2', // Assuming 1 for Male, 2 for Female
           description: cat.article,
           // Handle images if you want to prepopulate them
         });
         // You may also need to set image previews here if the API returns image data
-        this.imagePreviews = cat.images.map(image => `data:${image.type};base64,${image.image}`);
+        this.imagePreviews = cat.images.map(
+          (image) => `data:${image.type};base64,${image.image}`,
+        );
       },
       error: (error) => {
         console.error('Error fetching cat data:', error);
-        this.toastr.error('Could not fetch cat data. Please try again.', 'Error', {
-          timeOut: 3000,
-        });
-      }
+        this.toastr.error(
+          'Could not fetch cat data. Please try again.',
+          'Error',
+          {
+            timeOut: 3000,
+          },
+        );
+      },
     });
   }
 
@@ -108,7 +118,7 @@ export class EditCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, weight, sex, description } = this.catForm.value;
+    const { name, color, age, sex, description } = this.catForm.value;
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
@@ -116,7 +126,6 @@ export class EditCatComponent implements OnInit {
     cat.name = name;
     cat.color = color;
     cat.age = age;
-    cat.weight = weight;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
 
@@ -188,7 +197,7 @@ export class EditCatComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-              (error.error || 'Please try again later.'),
+                (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

@@ -1,11 +1,14 @@
 <div class="card shadow-lg border rounded-3">
   <div class="card-header">
-    <div *ngIf="imageSrc; else noImage" class="image-container rounded-top-3">
-      <img [src]="imageSrc" *ngIf="imageSrc" alt="{{ animal.name }}" />
-    </div>
-    <ng-template #noImage>
-      <p>No image available for this animal.</p>
-    </ng-template>
+    @if (imageSrc) {
+      <div class="image-container rounded-top-3">
+        <img [src]="imageSrc" alt="{{ animal.name }}"/>
+      </div>
+    } @else {
+      <div class="image-container rounded-top-3">
+        <p>No image available for this animal.</p>
+      </div>
+    }
   </div>
   <div class="card-body">
     <h3 class="card-title">{{ animal.name }}</h3>
@@ -13,9 +16,6 @@
     <p class="card-text my-1"><strong>Color:</strong> {{ animal.color }}</p>
     <p class="card-text my-1">
       <strong>Age:</strong> {{ animal.age }} years old
-    </p>
-    <p class="card-text my-1">
-      <strong>Weight:</strong> {{ animal.weight }} Kg
     </p>
     <p class="card-text my-1"><strong>Sex:</strong> {{ animal.sex }}</p>
   </div>
@@ -28,15 +28,17 @@
       (click)="deleteAnimal()"
     >
       <div class="d-flex align-items-center justify-content-center">
-        <strong *ngIf="isLoading" role="status">
-          Loading, please don't close page
-        </strong>
-        <div
-          *ngIf="isLoading"
-          class="spinner-border ms-2"
-          aria-hidden="true"
-        ></div>
-        <span *ngIf="!isLoading">Delete</span>
+        @if (isLoading) {
+          <strong role="status">
+            Loading, please don't close page
+          </strong>
+          <div
+            class="spinner-border ms-2"
+            aria-hidden="true"
+          ></div>
+        } @else {
+          <span>Delete</span>
+        }
       </div>
     </button>
     <button

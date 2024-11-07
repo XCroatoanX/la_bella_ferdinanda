@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from "../admin-panel-header/admin-panel-header.component";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import { KittenService } from "../../services/kitten.service";
-import { ToastrService } from "ngx-toastr";
-import { Kitten } from "../../models/kitten.model";
-import { CommonModule } from "@angular/common";
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { KittenService } from '../../services/kitten.service';
+import { ToastrService } from 'ngx-toastr';
+import { Kitten } from '../../models/kitten.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-kitten',
@@ -15,10 +21,10 @@ import { CommonModule } from "@angular/common";
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './edit-kitten.component.html',
-  styleUrls: ['./edit-kitten.component.scss']
+  styleUrls: ['./edit-kitten.component.scss'],
 })
 export class EditKittenComponent implements OnInit {
   public kittenForm: FormGroup;
@@ -32,15 +38,15 @@ export class EditKittenComponent implements OnInit {
     private router: Router,
     private kittenService: KittenService,
     private toastr: ToastrService,
-    private route: ActivatedRoute
-  ) { }
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.kittenId = params.get('id');
       this.initializeForm();
       if (this.kittenId) {
-        this.fetchKittenData(this.kittenId);  // Fetch kitten data when the component initializes
+        this.fetchKittenData(this.kittenId); // Fetch kitten data when the component initializes
       }
     });
   }
@@ -50,11 +56,9 @@ export class EditKittenComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(50)]],
       color: ['', [Validators.required, Validators.maxLength(100)]],
       age: ['', [Validators.required, Validators.maxLength(50)]],
-      weight: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
       images: ['', Validators.required],
-      bornWeight: ['', [Validators.required]], // Add any additional fields for kittens
     });
   }
 
@@ -65,21 +69,23 @@ export class EditKittenComponent implements OnInit {
           name: kitten.name,
           color: kitten.color,
           age: kitten.age,
-          weight: kitten.weight,
-          sex: kitten.sex === 'Male' ? '1' : '2', // Assuming 1 for Male, 2 for Female
+          sex: kitten.sex === 'Male' ? '1' : '2',
           description: kitten.article,
-          bornWeight: kitten.bornWeight, // Populate additional fields if needed
-          // Handle images if you want to prepopulate them
         });
-        // You may also need to set image previews here if the API returns image data
-        this.imagePreviews = kitten.images.map(image => `data:${image.type};base64,${image.image}`);
+        this.imagePreviews = kitten.images.map(
+          (image) => `data:${image.type};base64,${image.image}`,
+        );
       },
       error: (error) => {
         console.error('Error fetching kitten data:', error);
-        this.toastr.error('Could not fetch kitten data. Please try again.', 'Error', {
-          timeOut: 3000,
-        });
-      }
+        this.toastr.error(
+          'Could not fetch kitten data. Please try again.',
+          'Error',
+          {
+            timeOut: 3000,
+          },
+        );
+      },
     });
   }
 
@@ -111,7 +117,7 @@ export class EditKittenComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, weight, sex, description, bornWeight } = this.kittenForm.value;
+    const { name, color, age, sex, description } = this.kittenForm.value;
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
@@ -119,10 +125,8 @@ export class EditKittenComponent implements OnInit {
     kitten.name = name;
     kitten.color = color;
     kitten.age = age;
-    kitten.weight = weight;
     kitten.sex = sexValue as 'Male' | 'Female';
     kitten.article = description;
-    kitten.bornWeight = bornWeight; // Ensure to include this in the kitten object
 
     formData.append(
       'kitten',
@@ -192,7 +196,7 @@ export class EditKittenComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-              (error.error || 'Please try again later.'),
+                (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

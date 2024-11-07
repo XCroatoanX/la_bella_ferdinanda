@@ -5,7 +5,7 @@ import { CatService } from '../../services/cat.service';
 import { KittenService } from '../../services/kitten.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-item-card',
@@ -23,8 +23,8 @@ export class ItemCardComponent implements OnInit {
   constructor(
     private catService: CatService,
     private kittenService: KittenService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+  ) { }
 
   ngOnInit(): void {
     console.log('Component Initialized');
@@ -84,7 +84,9 @@ export class ItemCardComponent implements OnInit {
           message = 'Animal not found.';
           console.error('Animal not found (404)');
         }
-        this.toastr.error(`${errorMessage} ${message}`, 'Error', { timeOut: 3000 });
+        this.toastr.error(`${errorMessage} ${message}`, 'Error', {
+          timeOut: 3000,
+        });
       },
       complete: () => {
         console.log('Delete request complete');
