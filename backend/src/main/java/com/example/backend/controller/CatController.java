@@ -17,11 +17,16 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://172.30.16.1:4200", "http://192.168.1.118:4200"})
+@CrossOrigin(origins = {"http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/cat")
 @AllArgsConstructor
 public class CatController {
     private final CatDAO catDAO;
+
+    @GetMapping("/sex/{sex}")
+    public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
+        return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
+    }
 
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
@@ -31,11 +36,6 @@ public class CatController {
     @GetMapping("/{id}")
     public ResponseEntity<Cat> getCatById(@PathVariable UUID id) {
         return ResponseEntity.ok(this.catDAO.getCatById(id));
-    }
-
-    @GetMapping("/sex/{sex}")
-    public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {
-        return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
     }
 
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})

@@ -25,6 +25,7 @@ export class CatsListComponent implements OnInit {
     this.catService.getAllCats().subscribe({
       next: (cats) => {
         this.cats = cats;
+        console.log(this.cats);
         this.loading = false;
       },
       error: (error) => {

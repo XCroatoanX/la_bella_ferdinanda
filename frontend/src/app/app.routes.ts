@@ -13,10 +13,22 @@ import { KittensListComponent } from './admin-panel/kittens-list/kittens-list.co
 import { CatsListComponent } from './admin-panel/cats-list/cats-list.component';
 import {EditCatComponent} from "./admin-panel/edit-cat/edit-cat.component";
 import {EditKittenComponent} from "./admin-panel/edit-kitten/edit-kitten.component";
+import {GirlsListComponent} from "./girls-list/girls-list.component";
+import {BoysListComponent} from "./boys-list/boys-list.component";
+import {UserKittensListComponent} from "./user-kittens-list/user-kittens-list.component";
+import {UserCatsListComponent} from "./user-cats-list/user-cats-list.component";
+import {CatPreviewComponent} from "./cat-preview/cat-preview.component";
+import {KittenPreviewComponent} from "./kitten-preview/kitten-preview.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'girls-list', component: GirlsListComponent },
+  { path: 'boys-list', component: BoysListComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'kittens-list', component: UserKittensListComponent },
+  { path: 'cats-list', component: UserCatsListComponent },
+  { path: 'cat/:id', component: CatPreviewComponent },
+  { path: 'kitten/:id', component: KittenPreviewComponent },
   {
     path: 'about',
     children: [

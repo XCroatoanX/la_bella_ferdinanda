@@ -1,0 +1,51 @@
+<body>
+<div class="pt-3 mx-3">
+  <app-header></app-header>
+</div>
+
+<div class="shadow bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
+  <h1 *ngIf="!isLoading && kitten" class="display-4 text-center"><b>{{ kitten.name }}</b></h1>
+</div>
+
+<div class="mx-3 my-4 shadow-lg">
+  <div *ngIf="isLoading" class="text-center bg-white p-3 rounded-3">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <h2>Loading kitten details...</h2>
+  </div>
+
+  <div *ngIf="!isLoading && !kitten" class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
+    <h2 class="display-4 text-center"><b>No kitten details found!</b></h2>
+  </div>
+
+  <div *ngIf="!isLoading && kitten" class="kitten-profile">
+    <div id="kittenCarousel" class="carousel slide shadow-lg" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let image of kitten.images; let i = index" class="carousel-item" [class.active]="i === 0">
+          <img [src]="getImageSrc(image)" class="d-block w-100" alt="kitten Image {{ i + 1 }}">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#kittenCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#kittenCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+
+    <div class="kitten-details shadow-lg bg-white rounded-3 p-3 mt-4 text-center">
+      <p class="kitten-breed">Age: {{ kitten.age }}</p>
+      <p class="kitten-diversity">Fur color: {{ kitten.color }}</p>
+      <p class="kitten-health">Weight: {{ kitten.weight }} Kg</p>
+      <p class="kitten-description">{{ kitten.article }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="mx-3 rounded-3 pb-3">
+  <app-footer></app-footer>
+</div>
+</body>
