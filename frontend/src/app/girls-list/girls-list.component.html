@@ -16,31 +16,37 @@
     </div>
   } @else {
     <div class="mx-3 my-4">
-      @for (girl of girlsList; track $index) {
-        @if (isMobile){
-          <div class="d-flex my-4 cat-profile" [routerLink]="['']">
-            <div class="cat-image">
-              <img [src]="girl.images[0].image" alt="{{ girl.name }}" class="img-fluid rounded-top-3 cat-photo" />
+      @if (girlsList.length == 0) {
+        <div class="shadow bg-white mx-3 my-4 p-3 rounded-3 text-center">
+          <h2 class="display-4"><b>No females found, stay tuned!</b></h2>
+        </div>
+      } @else {
+        @for (girl of girlsList; track $index) {
+          @if (isMobile) {
+            <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', girl.id]">
+              <div class="cat-image">
+                <img [src]="girl.images[0].image" alt="{{ girl.name }}" class="img-fluid rounded-top-3 cat-photo" />
+              </div>
+              <div class="cat-details shadow bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center">
+                <h2 class="cat-name">{{ girl.name }}</h2>
+                <p class="cat-breed">Age: {{ girl.age }}</p>
+                <p class="cat-diversity">Fur color: {{ girl.color }}</p>
+                <p class="cat-health">Weight: {{ girl.weight }} Kg</p>
+              </div>
             </div>
-            <div class="cat-details shadow bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center">
-              <h2 class="cat-name">{{ girl.name }}</h2>
-              <p class="cat-breed">Age: {{ girl.age }}</p>
-              <p class="cat-diversity">Fur color: {{ girl.color }}</p>
-              <p class="cat-health">Weight: {{ girl.weight }} Kg</p>
+          } @else {
+            <div class="d-flex my-4 cat-profile shadow-lg" [routerLink]="['/cat', girl.id]">
+              <div class="shadow bg-white rounded-start-3 p-3 flex-fill text-center align-content-center">
+                <h2 class="cat-name">{{ girl.name }}</h2>
+                <p class="cat-breed">Age: {{ girl.age }}</p>
+                <p class="cat-diversity">Fur color: {{ girl.color }}</p>
+                <p class="cat-health">Weight: {{ girl.weight }} Kg</p>
+              </div>
+              <div class="w-50 image-container">
+                <img [src]="girl.images[0].image" alt="{{ girl.name }}" class="img-fluid rounded-end-3 w-100" />
+              </div>
             </div>
-          </div>
-        } @else {
-          <div class="d-flex my-4 cat-profile shadow-lg" [routerLink]="['']">
-            <div class="shadow bg-white rounded-start-3 p-3 me-3 flex-fill text-center align-content-center">
-              <h2 class="cat-name">{{ girl.name }}</h2>
-              <p class="cat-breed">Age: {{ girl.age }}</p>
-              <p class="cat-diversity">Fur color: {{ girl.color }}</p>
-              <p class="cat-health">Weight: {{ girl.weight }} Kg</p>
-            </div>
-            <div class="w-50 image-container">
-              <img [src]="girl.images[0].image" alt="{{ girl.name }}" class="img-fluid rounded-end-3 w-100" />
-            </div>
-          </div>
+          }
         }
       }
     </div>
