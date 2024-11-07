@@ -24,7 +24,7 @@
         <div class="mx-3 my-4">
           @for (boy of boysList; track $index) {
             @if (isMobile){
-              <div class="d-flex my-4 cat-profile" [routerLink]="['']">
+              <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', boy.id]">
               <div class="cat-image">
                 <img [src]="boy.images[0].image" alt="{{ boy.name }}" class="img-fluid rounded-top-3 cat-photo" />
               </div>
@@ -36,7 +36,7 @@
               </div>
             </div>
             } @else {
-              <div class="d-flex my-4 cat-profile shadow-lg" [routerLink]="['']">
+              <div class="d-flex my-4 cat-profile shadow-lg" [routerLink]="['/cat', boy.id]">
                 <div class="shadow bg-white rounded-start-3 p-3 flex-fill text-center align-content-center">
                   <h2 class="cat-name">{{ boy.name }}</h2>
                   <p class="cat-breed">Age: {{ boy.age }}</p>

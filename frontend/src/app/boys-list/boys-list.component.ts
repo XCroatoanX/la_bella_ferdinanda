@@ -45,7 +45,7 @@ export class BoysListComponent implements OnInit {
   }
 
   private checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768; // Adjust the value as needed
+    this.isMobile = window.innerWidth <= 768;
   }
 
   setImageSrc(boy: Cat): void {

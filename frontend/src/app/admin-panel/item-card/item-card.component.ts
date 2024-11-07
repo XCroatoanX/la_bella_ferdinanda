@@ -46,7 +46,6 @@ export class ItemCardComponent implements OnInit {
       return;
     }
 
-    // Check if imageBase64 is already a full Data URL
     if (imageBase64.startsWith('data:image/')) {
       this.imageSrc = imageBase64;
     } else {
