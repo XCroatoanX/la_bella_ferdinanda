@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Cat } from '../../models/cat.model';
-import { Kitten } from '../../models/kitten.model';
+import { CatKit } from '../../models/catkit.model';
 import { CatService } from '../../services/cat.service';
 import { KittenService } from '../../services/kitten.service';
 import { ToastrService } from 'ngx-toastr';
@@ -15,10 +14,10 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./item-card.component.scss'],
 })
 export class ItemCardComponent implements OnInit {
-  @Input() animal!: Cat | Kitten;
+  @Input() animal: CatKit;
   public isLoading: boolean = false;
   public imageSrc: string = '';
-  public isKitten: boolean = false;
+  public isKitten: boolean;
 
   constructor(
     private catService: CatService,
@@ -29,8 +28,6 @@ export class ItemCardComponent implements OnInit {
   ngOnInit(): void {
     console.log('Component Initialized');
     console.log('Received animal:', this.animal);
-
-    this.isKitten = (this.animal as Kitten).bornWeight !== undefined;
 
     if (this.animal && this.animal.images && this.animal.images.length > 0 && this.animal.images[0].image) {
       const imageData = this.animal.images[0].image;
@@ -58,14 +55,10 @@ export class ItemCardComponent implements OnInit {
     this.isLoading = true;
     console.log('Delete Animal called. Animal ID:', this.animal.id);
 
-    const successMessage = this.isKitten
-      ? 'Kitten deleted successfully! Page will soon reload'
-      : 'Cat deleted successfully! Page will soon reload';
-    const errorMessage = this.isKitten
-      ? 'Failed to delete kitten.'
-      : 'Failed to delete cat.';
+    const successMessage = this.animal.name + ' deleted successfully! Page will soon reload';
+    const errorMessage = 'Failed to delete ' + this.animal.name + '.';
 
-    const deleteRequest = this.isKitten
+    const deleteRequest = this.animal.isKitten
       ? this.kittenService.deleteKitten(this.animal.id)
       : this.catService.deleteCat(this.animal.id);
 

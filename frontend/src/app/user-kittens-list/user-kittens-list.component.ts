@@ -1,11 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {Cat} from "../models/cat.model";
-import {CatService} from "../services/cat.service";
-import {ToastrService} from "ngx-toastr";
-import {KittenService} from "../services/kitten.service";
-import {RouterLink} from "@angular/router";
-import {Kitten} from "../models/kitten.model";
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { ToastrService } from "ngx-toastr";
+import { KittenService } from "../services/kitten.service";
+import { RouterLink } from "@angular/router";
+import { CatKit } from '../models/catkit.model';
 
 @Component({
   selector: 'app-user-kittens-list',
@@ -17,12 +15,12 @@ import {Kitten} from "../models/kitten.model";
   templateUrl: './user-kittens-list.component.html',
   styleUrl: './user-kittens-list.component.scss'
 })
-export class UserKittensListComponent implements OnInit{
-  kittensList: Kitten[] = [];
+export class UserKittensListComponent implements OnInit {
+  kittensList: CatKit[] = [];
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private kittenService: KittenService, private toastr: ToastrService) {}
+  constructor(private kittenService: KittenService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.kittenService.getAllKittens().subscribe({
@@ -46,10 +44,10 @@ export class UserKittensListComponent implements OnInit{
   }
 
   private checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768; // Adjust the value as needed
+    this.isMobile = window.innerWidth <= 768;
   }
 
-  setImageSrc(kitten: Kitten): void {
+  setImageSrc(kitten: CatKit): void {
     if (!kitten.images || kitten.images.length === 0 || !kitten.images[0].image) {
       console.error('No image data found for the kitten:', kitten);
       return;

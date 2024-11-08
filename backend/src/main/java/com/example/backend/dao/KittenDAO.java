@@ -46,7 +46,7 @@ public class KittenDAO {
         UUID kittenId = UUID.randomUUID();
 
         Kitten kitten = new Kitten(kittenId, kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.sex,
-                kittenDTO.article, kittenDTO.status, imageList);
+                kittenDTO.article, kittenDTO.status, true, imageList);
         this.kittenRepository.save(kitten);
     }
 

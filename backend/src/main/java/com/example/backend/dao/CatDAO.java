@@ -51,7 +51,7 @@ public class CatDAO {
         List<Image> imageList = this.imageService.imagesToByte(images);
         UUID catId = UUID.randomUUID();
 
-        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.status, catDTO.article,
+        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status, false,
                 imageList);
         this.catRepository.save(cat);
     }

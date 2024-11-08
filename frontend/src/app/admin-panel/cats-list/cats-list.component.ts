@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
 import { CatService } from '../../services/cat.service';
-import { Cat } from '../../models/cat.model';
+import { CatKit } from '../../models/catkit.model';
 import { ItemCardComponent } from "../item-card/item-card.component";
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './cats-list.component.scss',
 })
 export class CatsListComponent implements OnInit {
-  cats: Cat[] = [];
+  cats: CatKit[] = [];
   loading: boolean = false;
 
   constructor(private catService: CatService, private toastr: ToastrService) { }

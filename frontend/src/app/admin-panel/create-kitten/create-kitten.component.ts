@@ -10,7 +10,7 @@ import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { KittenService } from '../../services/kitten.service';
 import { ToastrService } from 'ngx-toastr';
-import { Kitten } from '../../models/kitten.model';
+import { CatKit } from '../../models/catkit.model';
 
 @Component({
   selector: 'app-create-kitten',
@@ -36,7 +36,7 @@ export class CreateKittenComponent implements OnInit {
     private router: Router,
     private kittenService: KittenService,
     private toastr: ToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.kittenForm = this.fb.group({
@@ -52,14 +52,11 @@ export class CreateKittenComponent implements OnInit {
   public handleFileInput(event: any): void {
     const files: File[] = Array.from(event.target.files);
 
-    // Concatenate new files to the existing selectedFiles array
     this.selectedFiles = [...this.selectedFiles, ...files];
 
-    // Iterate through new files to create previews
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // Concatenate new image previews to the existing imagePreviews array
         this.imagePreviews.push(e.target.result);
       };
       reader.readAsDataURL(file);
@@ -67,9 +64,6 @@ export class CreateKittenComponent implements OnInit {
   }
 
   public removeImage(index: number): void {
-    // Remove from image previews
-    this.imagePreviews.splice(index, 1);
-    // Remove from selected files
     this.selectedFiles.splice(index, 1);
   }
 
@@ -81,7 +75,7 @@ export class CreateKittenComponent implements OnInit {
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
-    const kitten = new Kitten();
+    const kitten = new CatKit();
     kitten.name = name;
     kitten.color = color;
     kitten.age = age;
@@ -156,7 +150,7 @@ export class CreateKittenComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-                (error.error || 'Please try again later.'),
+              (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

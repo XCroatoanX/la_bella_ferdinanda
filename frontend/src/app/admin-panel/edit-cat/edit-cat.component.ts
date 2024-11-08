@@ -10,7 +10,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { CatService } from '../../services/cat.service';
 import { ToastrService } from 'ngx-toastr';
-import { Cat } from '../../models/cat.model';
+import { CatKit } from '../../models/catkit.model';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -38,14 +38,14 @@ export class EditCatComponent implements OnInit {
     private catService: CatService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.catId = params.get('id');
       this.initializeForm();
       if (this.catId) {
-        this.fetchCatData(this.catId); // Fetch cat data when the component initializes
+        this.fetchCatData(this.catId);
       }
     });
   }
@@ -63,16 +63,14 @@ export class EditCatComponent implements OnInit {
 
   private fetchCatData(catId: string): void {
     this.catService.getCatById(catId).subscribe({
-      next: (cat: Cat) => {
+      next: (cat: CatKit) => {
         this.catForm.patchValue({
           name: cat.name,
           color: cat.color,
           age: cat.age,
-          sex: cat.sex === 'Male' ? '1' : '2', // Assuming 1 for Male, 2 for Female
+          sex: cat.sex === 'Male' ? '1' : '2',
           description: cat.article,
-          // Handle images if you want to prepopulate them
         });
-        // You may also need to set image previews here if the API returns image data
         this.imagePreviews = cat.images.map(
           (image) => `data:${image.type};base64,${image.image}`,
         );
@@ -93,14 +91,11 @@ export class EditCatComponent implements OnInit {
   public handleFileInput(event: any): void {
     const files: File[] = Array.from(event.target.files);
 
-    // Concatenate new files to the existing selectedFiles array
     this.selectedFiles = [...this.selectedFiles, ...files];
 
-    // Iterate through new files to create previews
     files.forEach((file) => {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // Concatenate new image previews to the existing imagePreviews array
         this.imagePreviews.push(e.target.result);
       };
       reader.readAsDataURL(file);
@@ -108,9 +103,6 @@ export class EditCatComponent implements OnInit {
   }
 
   public removeImage(index: number): void {
-    // Remove from image previews
-    this.imagePreviews.splice(index, 1);
-    // Remove from selected files
     this.selectedFiles.splice(index, 1);
   }
 
@@ -122,7 +114,7 @@ export class EditCatComponent implements OnInit {
 
     const sexValue = sex === '1' ? 'Male' : 'Female';
 
-    const cat = new Cat();
+    const cat = new CatKit();
     cat.name = name;
     cat.color = color;
     cat.age = age;
@@ -197,7 +189,7 @@ export class EditCatComponent implements OnInit {
           default:
             this.toastr.error(
               'An unexpected error occurred: ' +
-                (error.error || 'Please try again later.'),
+              (error.error || 'Please try again later.'),
               'Error',
               {
                 timeOut: 3000,

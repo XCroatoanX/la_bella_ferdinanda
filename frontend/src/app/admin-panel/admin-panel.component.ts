@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdminPanelHeaderComponent } from './admin-panel-header/admin-panel-header.component';
 import { CatService } from '../services/cat.service';
 import { KittenService } from '../services/kitten.service';
-import { Kitten } from '../models/kitten.model';
-import { Cat } from '../models/cat.model';
+import { CatKit } from '../models/catkit.model';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -20,13 +19,13 @@ export class AdminPanelComponent implements OnInit {
   constructor(
     private catService: CatService,
     private kittenService: KittenService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.catService.getAllCats().subscribe((cats: Cat[]) => {
+    this.catService.getAllCats().subscribe((cats: CatKit[]) => {
       this.catsNumber = cats.length;
     });
-    this.kittenService.getAllKittens().subscribe((kittens: Kitten[]) => {
+    this.kittenService.getAllKittens().subscribe((kittens: CatKit[]) => {
       this.kittensNumber = kittens.length;
     });
   }
