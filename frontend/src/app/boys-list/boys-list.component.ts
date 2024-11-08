@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CoreModule } from "../core/core.module";
-import { Cat } from "../models/cat.model";
+import { CatKit } from "../models/catkit.model";
 import { CatService } from "../services/cat.service";
 import { ToastrService } from "ngx-toastr";
-import {RouterLink} from "@angular/router";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-boys-list',
@@ -16,11 +16,11 @@ import {RouterLink} from "@angular/router";
   styleUrls: ['./boys-list.component.scss']
 })
 export class BoysListComponent implements OnInit {
-  boysList: Cat[] = [];
+  boysList: CatKit[] = [];
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private catService: CatService, private toastr: ToastrService) {}
+  constructor(private catService: CatService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.checkScreenSize();
@@ -48,7 +48,7 @@ export class BoysListComponent implements OnInit {
     this.isMobile = window.innerWidth <= 768;
   }
 
-  setImageSrc(boy: Cat): void {
+  setImageSrc(boy: CatKit): void {
     if (!boy.images || boy.images.length === 0 || !boy.images[0].image) {
       console.error('No image data found for the male:', boy);
       return;

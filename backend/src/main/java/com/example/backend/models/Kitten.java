@@ -39,6 +39,7 @@ public class Kitten {
         private String article;
         @Setter
         private String status;
+        private boolean isKitten;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         @JoinTable(name = "kitten_images", joinColumns = {

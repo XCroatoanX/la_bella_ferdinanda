@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { CatService } from "../services/cat.service";
-import { Cat } from "../models/cat.model";
-import {CommonModule} from "@angular/common";
-import {CoreModule} from "../core/core.module";
+import { CatKit } from "../models/catkit.model";
+import { CommonModule } from "@angular/common";
+import { CoreModule } from "../core/core.module";
 
 @Component({
   selector: 'app-cat-preview',
@@ -18,14 +18,14 @@ import {CoreModule} from "../core/core.module";
 })
 export class CatPreviewComponent implements OnInit {
   catId: string | null = null;
-  cat: Cat | null = null;
+  cat: CatKit | null = null;
   isLoading: boolean = true;
 
   constructor(
     private catService: CatService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

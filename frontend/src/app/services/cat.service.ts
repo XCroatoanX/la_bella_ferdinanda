@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Cat } from '../models/cat.model';
+import { CatKit } from '../models/catkit.model';
 import { environment } from '../../environments/environment.development';
 
 @Injectable({
@@ -10,16 +10,16 @@ import { environment } from '../../environments/environment.development';
 export class CatService {
   constructor(private http: HttpClient) { }
 
-  public getAllCats(): Observable<Cat[]> {
-    return this.http.get<Cat[]>(environment.base_url + '/cat');
+  public getAllCats(): Observable<CatKit[]> {
+    return this.http.get<CatKit[]>(environment.base_url + '/cat');
   }
 
-  public getCatById(id: string): Observable<Cat> {
-    return this.http.get<Cat>(environment.base_url + '/cat/' + id);
+  public getCatById(id: string): Observable<CatKit> {
+    return this.http.get<CatKit>(environment.base_url + '/cat/' + id);
   }
 
-  public getCatBySex(sex: string): Observable<Cat[]> {
-    return this.http.get<Cat[]>(environment.base_url + '/cat/sex/' + sex);
+  public getCatBySex(sex: string): Observable<CatKit[]> {
+    return this.http.get<CatKit[]>(environment.base_url + '/cat/sex/' + sex);
   }
 
   public createCat(formData: FormData): Observable<any> {
@@ -27,7 +27,7 @@ export class CatService {
   }
 
   public updateCat(formData: FormData, id): Observable<any> {
-    return this.http.put<Cat>(environment.base_url + '/cat/' + id, formData);
+    return this.http.put<CatKit>(environment.base_url + '/cat/' + id, formData);
   }
 
   public deleteCat(id: string): Observable<any> {

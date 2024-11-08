@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {Cat} from "../models/cat.model";
-import {CatService} from "../services/cat.service";
-import {ToastrService} from "ngx-toastr";
-import {RouterLink} from "@angular/router";
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { CatKit } from "../models/catkit.model";
+import { CatService } from "../services/cat.service";
+import { ToastrService } from "ngx-toastr";
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-girls-list',
@@ -15,12 +15,12 @@ import {RouterLink} from "@angular/router";
   templateUrl: './girls-list.component.html',
   styleUrl: './girls-list.component.scss'
 })
-export class GirlsListComponent implements OnInit{
-  girlsList: Cat[] = [];
+export class GirlsListComponent implements OnInit {
+  girlsList: CatKit[] = [];
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private catService: CatService, private toastr: ToastrService) {}
+  constructor(private catService: CatService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.checkScreenSize();
@@ -45,10 +45,10 @@ export class GirlsListComponent implements OnInit{
   }
 
   private checkScreenSize() {
-    this.isMobile = window.innerWidth <= 768; // Adjust the value as needed
+    this.isMobile = window.innerWidth <= 768;
   }
 
-  setImageSrc(girl: Cat): void {
+  setImageSrc(girl: CatKit): void {
     if (!girl.images || girl.images.length === 0 || !girl.images[0].image) {
       console.error('No image data found for the boy:', girl);
       return;

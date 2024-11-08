@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {NgForOf, NgIf} from "@angular/common";
-import {Kitten} from "../models/kitten.model";
-import {KittenService} from "../services/kitten.service";
-import {ToastrService} from "ngx-toastr";
-import {ActivatedRoute} from "@angular/router";
+import { CoreModule } from "../core/core.module";
+import { NgForOf, NgIf } from "@angular/common";
+import { KittenService } from "../services/kitten.service";
+import { ToastrService } from "ngx-toastr";
+import { ActivatedRoute } from "@angular/router";
+import { CatKit } from '../models/catkit.model';
 
 @Component({
   selector: 'app-kitten-preview',
@@ -19,14 +19,14 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class KittenPreviewComponent {
   kittenId: string | null = null;
-  kitten: Kitten | null = null;
+  kitten: CatKit | null = null;
   isLoading: boolean = true;
 
   constructor(
     private kittenService: KittenService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

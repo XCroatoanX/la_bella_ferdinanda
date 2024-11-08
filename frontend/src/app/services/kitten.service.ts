@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { Kitten } from '../models/kitten.model';
+import { CatKit } from '../models/catkit.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,12 +10,12 @@ import { Kitten } from '../models/kitten.model';
 export class KittenService {
   constructor(private http: HttpClient) { }
 
-  public getAllKittens(): Observable<Kitten[]> {
-    return this.http.get<Kitten[]>(environment.base_url + '/kitten');
+  public getAllKittens(): Observable<CatKit[]> {
+    return this.http.get<CatKit[]>(environment.base_url + '/kitten');
   }
 
-  public getKittenById(id: string): Observable<Kitten> {
-    return this.http.get<Kitten>(environment.base_url + '/kitten/' + id);
+  public getKittenById(id: string): Observable<CatKit> {
+    return this.http.get<CatKit>(environment.base_url + '/kitten/' + id);
   }
 
   public createKitten(formData: FormData): Observable<any> {
