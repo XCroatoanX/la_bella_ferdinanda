@@ -37,10 +37,16 @@
     </div>
 
     <div class="kitten-details shadow-lg bg-white rounded-3 p-3 mt-4 text-center">
-      <p class="kitten-breed">Age: {{ kitten.age }}</p>
-      <p class="kitten-diversity">Fur color: {{ kitten.color }}</p>
-      <p class="kitten-health">Weight: {{ kitten.weight }} Kg</p>
+      <p class="kitten-age">Age: {{ kitten.age }}</p>
+      <p class="kitten-color">Fur color: {{ kitten.color }}</p>
       <p class="kitten-description">{{ kitten.article }}</p>
+      @if (kitten.status == "Available") {
+        <p class="kitten-status" style="color: green;">Status: {{kitten.status }}</p>
+      } @else if (kitten.status == "Reserved") {
+        <p class="kitten-status" style="color: yellow;">Status: {{kitten.status }}</p>
+      } @else {
+        <p class="kitten-status" style="color: red;">Status: {{kitten.status }}</p>
+      }
     </div>
   </div>
 </div>

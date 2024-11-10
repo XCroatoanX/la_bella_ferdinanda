@@ -44,6 +44,7 @@ export class CreateCatComponent implements OnInit {
       age: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
+      status: ['', Validators.required],
       images: ['', Validators.required],
     });
   }
@@ -70,9 +71,10 @@ export class CreateCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description } = this.catForm.value;
+    const { name, color, age, sex, status, description } = this.catForm.value;
 
-    const sexValue = sex === '1' ? 'Male' : 'Female';
+    const sexValue: string = sex === '1' ? 'Male' : 'Female';
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
 
     const cat = new CatKit();
     cat.name = name;
@@ -80,6 +82,7 @@ export class CreateCatComponent implements OnInit {
     cat.age = age;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
+    cat.status = statusValue as 'Available' | 'Reserved' | 'Sold';
 
     formData.append(
       'cat',

@@ -56,6 +56,20 @@
         ></textarea>
       <label for="catArticle" class="form-label">Description</label>
     </div>
+    <div class="form-floating mb-3">
+      <select
+        id="catStatus"
+        formControlName="status"
+        class="form-select"
+        aria-label="Select cat status"
+      >
+        <option value="" disabled selected>Select an option</option>
+        <option value="1">Available</option>
+        <option value="2">Reserved</option>
+        <option value="3">Sold</option>
+      </select>
+      <label for="catStatus" class="form-label">Status</label>
+    </div>
     <div class="mb-3">
       <label for="catImages" class="form-label">Images</label>
       <input

@@ -33,7 +33,13 @@
                   <p class="cat-breed">Age: {{ cat.age }}</p>
                   <p class="cat-diversity">Sex: {{ cat.sex }}</p>
                   <p class="cat-diversity">Fur color: {{ cat.color }}</p>
-                  <p class="cat-health">Weight: {{ cat.weight }} Kg</p>
+                  @if (cat.status == "Available") {
+                    <p class="cat-status" style="color: green;">Status: {{ cat.status }}</p>
+                  } @else if (cat.status == "Reserved") {
+                    <p class="cat-status" style="color: yellow;">Status: {{ cat.status }}</p>
+                  } @else {
+                    <p class="cat-status" style="color: red;">Status: {{ cat.status }}</p>
+                  }
                 </div>
               </div>
             } @else {
@@ -43,7 +49,13 @@
                   <p class="cat-breed">Age: {{ cat.age }}</p>
                   <p class="cat-diversity">Sex: {{ cat.sex }}</p>
                   <p class="cat-diversity">Fur color: {{ cat.color }}</p>
-                  <p class="cat-health">Weight: {{ cat.weight }} Kg</p>
+                  @if (cat.status == "Available") {
+                    <p class="cat-status" style="color: green;">Status: {{ cat.status }}</p>
+                  } @else if (cat.status == "Reserved") {
+                    <p class="cat-status" style="color: yellow;">Status: {{ cat.status }}</p>
+                  } @else {
+                    <p class="cat-status" style="color: red;">Status: {{ cat.status }}</p>
+                  }
                 </div>
                 <div class="w-50 image-container">
                   <img [src]="cat.images[0].image" alt="{{ cat.name }}" class="img-fluid rounded-end-3 w-100" />
