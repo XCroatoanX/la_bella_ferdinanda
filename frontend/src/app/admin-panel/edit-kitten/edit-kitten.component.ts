@@ -58,6 +58,7 @@ export class EditKittenComponent implements OnInit {
       age: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
+      status: ['', Validators.required],
       images: ['', Validators.required],
     });
   }
@@ -71,6 +72,7 @@ export class EditKittenComponent implements OnInit {
           age: kitten.age,
           sex: kitten.sex === 'Male' ? '1' : '2',
           description: kitten.article,
+          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved' ? '2' : '3',
         });
         this.imagePreviews = kitten.images.map(
           (image) => `data:${image.type};base64,${image.image}`,
@@ -111,9 +113,11 @@ export class EditKittenComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description } = this.kittenForm.value;
+    const { name, color, age, sex, description, status } = this.kittenForm.value;
 
-    const sexValue = sex === '1' ? 'Male' : 'Female';
+    const sexValue: string = sex === '1' ? 'Male' : 'Female';
+
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
 
     const kitten = new CatKit();
     kitten.name = name;
@@ -121,6 +125,7 @@ export class EditKittenComponent implements OnInit {
     kitten.age = age;
     kitten.sex = sexValue as 'Male' | 'Female';
     kitten.article = description;
+    kitten.status = statusValue as 'Available' | 'Reserved' | 'Sold';
 
     formData.append(
       'kitten',

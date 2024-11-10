@@ -7,6 +7,7 @@ export class CatKit {
   public age: string;
   public sex: 'Male' | 'Female';
   public article: string;
+  public status: string;
   public isKitten?: boolean;
   public images?: Image[];
 }

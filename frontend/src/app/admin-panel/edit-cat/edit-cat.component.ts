@@ -57,6 +57,7 @@ export class EditCatComponent implements OnInit {
       age: ['', [Validators.required, Validators.maxLength(50)]],
       sex: ['', Validators.required],
       description: ['', Validators.required],
+      status: ['', Validators.required],
       images: ['', Validators.required],
     });
   }
@@ -69,6 +70,7 @@ export class EditCatComponent implements OnInit {
           color: cat.color,
           age: cat.age,
           sex: cat.sex === 'Male' ? '1' : '2',
+          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved' ? '2' : '3',
           description: cat.article,
         });
         this.imagePreviews = cat.images.map(
@@ -110,9 +112,11 @@ export class EditCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description } = this.catForm.value;
+    const { name, color, age, sex, description, status } = this.catForm.value;
 
-    const sexValue = sex === '1' ? 'Male' : 'Female';
+    const sexValue: string = sex === '1' ? 'Male' : 'Female';
+
+    const statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
 
     const cat = new CatKit();
     cat.name = name;
@@ -120,6 +124,7 @@ export class EditCatComponent implements OnInit {
     cat.age = age;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
+    cat.status = statusValue as 'Available' | 'Reserved' | 'Adopted';
 
     formData.append(
       'cat',

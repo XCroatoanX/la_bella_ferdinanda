@@ -41,6 +41,13 @@
       <p class="cat-diversity">Fur color: {{ cat.color }}</p>
       <p class="cat-health">Weight: {{ cat.weight }} Kg</p>
       <p class="cat-description">{{ cat.article }}</p>
+      @if (cat.status == "Available") {
+        <p class="cat-status" style="color: green;">Status: {{ cat.status }}</p>
+      } @else if (cat.status == "Reserved") {
+        <p class="cat-status" style="color: yellow;">Status: {{ cat.status }}</p>
+      } @else {
+        <p class="cat-status" style="color: red;">Status: {{ cat.status }}</p>
+      }
     </div>
   </div>
 </div>
