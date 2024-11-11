@@ -5,11 +5,12 @@ import { ItemCardComponent } from "../item-card/item-card.component";
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
+import {ItemCardKittenComponent} from "../item-card-kitten/item-card-kitten.component";
 
 @Component({
   selector: 'app-kittens-list',
   standalone: true,
-  imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule],
+  imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule, ItemCardKittenComponent],
   templateUrl: './kittens-list.component.html',
   styleUrl: './kittens-list.component.scss',
 })

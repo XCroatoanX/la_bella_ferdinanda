@@ -3,7 +3,7 @@
   <app-header></app-header>
 </div>
 
-<div class="shadow bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
+<div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
   <h1 class="display-4 text-center"><b>Our Kittens</b></h1>
 </div>
 
@@ -23,8 +23,8 @@
       } @else {
         <div class="mx-3 my-4">
           @for (kitten of kittensList; track $index) {
-            <div class="d-flex my-4 kitten-profile" [routerLink]="['/kitten', kitten.id]">
               @if (isMobile) {
+                <div class="d-flex my-4 kitten-profile" [routerLink]="['/kitten', kitten.id]">
                 <div class="kitten-image">
                   <img [src]="kitten.images[0].image" alt="{{ kitten.name }}" class="img-fluid rounded-top-3 kitten-photo" />
                 </div>
@@ -41,9 +41,10 @@
                     <p class="kitten-status" style="color: red;">Status: {{ kitten.status }}</p>
                   }
                 </div>
+                </div>
               } @else {
                 <div class="d-flex my-4 kitten-profile shadow-lg" [routerLink]="['/kitten', kitten.id]">
-                <div class="bg-white rounded-start-3 p-3 me-3 flex-fill text-center align-content-center">
+                <div class="bg-white rounded-start-3 p-3 flex-fill text-center align-content-center">
                   <h2 class="kitten-name">{{ kitten.name }}</h2>
                   <p class="kitten-breed">Age: {{ kitten.age }}</p>
                   <p class="kitten-diversity">Sex: {{ kitten.sex }}</p>
@@ -61,7 +62,6 @@
                 </div>
                 </div>
               }
-            </div>
           }
         </div>
       }

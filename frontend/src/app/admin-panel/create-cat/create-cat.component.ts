@@ -64,6 +64,7 @@ export class CreateCatComponent implements OnInit {
   }
 
   public removeImage(index: number): void {
+    this.imagePreviews.splice(index, 1);
     this.selectedFiles.splice(index, 1);
   }
 

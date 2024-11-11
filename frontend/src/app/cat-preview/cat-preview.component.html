@@ -19,35 +19,34 @@
     <h2 class="display-4 text-center"><b>No cat details found!</b></h2>
   </div>
 
-  <div *ngIf="!isLoading && cat" class="cat-profile">
-    <div id="catCarousel" class="carousel slide rounded-3 shadow-lg" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div *ngFor="let image of cat.images; let i = index" class="carousel-item rounded-3" [class.active]="i === 0">
-          <img [src]="getImageSrc(image)" class="d-block w-100 rounded-3" alt="Cat Image {{ i + 1 }}">
+  <div *ngIf="!isLoading && cat" class="cat-profile rounded-3 d-flex flex-column flex-lg-row">
+    <!-- Carousel Container -->
+    <div class="carousel-container d-flex rounded-3 justify-content-center flex-1 mb-4 mb-lg-0">
+      <div id="catCarousel" class="carousel slide shadow-lg rounded-3" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let image of cat.images; let i = index" class="carousel-item rounded-3" [class.active]="i === 0">
+            <img [src]="getImageSrc(image)" class="d-block w-100 rounded-3 shadow-lg" alt="Cat Image {{ i + 1 }}" style="object-fit: cover; height: 300px;">
+          </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#catCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#catCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#catCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#catCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
     </div>
 
-    <div class="cat-details shadow-lg bg-white rounded-3 p-3 mt-4 text-center">
+    <!-- Cat Details Container -->
+    <div class="cat-details shadow-lg bg-white rounded-3 p-3 text-center flex-1">
       <p class="cat-breed">Age: {{ cat.age }}</p>
       <p class="cat-diversity">Fur color: {{ cat.color }}</p>
-      <p class="cat-health">Weight: {{ cat.weight }} Kg</p>
       <p class="cat-description">{{ cat.article }}</p>
-      @if (cat.status == "Available") {
-        <p class="cat-status" style="color: green;">Status: {{ cat.status }}</p>
-      } @else if (cat.status == "Reserved") {
-        <p class="cat-status" style="color: yellow;">Status: {{ cat.status }}</p>
-      } @else {
-        <p class="cat-status" style="color: red;">Status: {{ cat.status }}</p>
-      }
+      <p *ngIf="cat.status == 'Available'" class="cat-status" style="color: green;">Status: {{ cat.status }}</p>
+      <p *ngIf="cat.status == 'Reserved'" class="cat-status" style="color: yellow;">Status: {{ cat.status }}</p>
+      <p *ngIf="cat.status != 'Available' && cat.status != 'Reserved'" class="cat-status" style="color: red;">Status: {{ cat.status }}</p>
     </div>
   </div>
 </div>

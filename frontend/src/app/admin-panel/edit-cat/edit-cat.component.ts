@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { CatService } from '../../services/cat.service';
 import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    RouterLink,
   ],
   templateUrl: './edit-cat.component.html',
   styleUrls: ['./edit-cat.component.scss'],
@@ -58,7 +59,6 @@ export class EditCatComponent implements OnInit {
       sex: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      images: ['', Validators.required],
     });
   }
 
@@ -70,8 +70,8 @@ export class EditCatComponent implements OnInit {
           color: cat.color,
           age: cat.age,
           sex: cat.sex === 'Male' ? '1' : '2',
-          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved' ? '2' : '3',
           description: cat.article,
+          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved' ? '2' : '3',
         });
         this.imagePreviews = cat.images.map(
           (image) => `data:${image.type};base64,${image.image}`,
@@ -105,6 +105,7 @@ export class EditCatComponent implements OnInit {
   }
 
   public removeImage(index: number): void {
+    this.imagePreviews.splice(index, 1);
     this.selectedFiles.splice(index, 1);
   }
 
@@ -131,8 +132,16 @@ export class EditCatComponent implements OnInit {
       new Blob([JSON.stringify(cat)], { type: 'application/json' }),
     );
 
-    this.selectedFiles.forEach((file) => {
-      formData.append('imagefile', file, file.name);
+    this.imagePreviews.forEach((preview, index) => {
+      const byteCharacters = atob(preview.split(',')[1]);
+      const byteArrays = new Uint8Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
+      formData.append('imagefile', blob, `image${index + 1}.jpg`);
     });
 
     console.log('Form Data:');
@@ -143,8 +152,8 @@ export class EditCatComponent implements OnInit {
     this.catService.updateCat(formData, this.catId).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Cat created successfully:', response);
-        this.toastr.success(cat.name + ' created successfully', '', {
+        console.log('Cat updated successfully:', response);
+        this.toastr.success(cat.name + ' updated successfully', '', {
           timeOut: 3000,
         });
         this.catForm.reset();
@@ -153,7 +162,7 @@ export class EditCatComponent implements OnInit {
       },
       error: (error) => {
         this.isLoading = false;
-        console.error('Error creating cat:', error);
+        console.error('Error updating cat:', error);
         switch (error.status) {
           case 400:
             this.toastr.error(

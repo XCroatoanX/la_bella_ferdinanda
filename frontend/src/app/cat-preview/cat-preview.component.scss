@@ -12,6 +12,7 @@ h6 {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   color: black;
 }
+
 body {
   background: linear-gradient(-45deg, #fcc28c, #f7deea);
   background-size: 400% 400%;
@@ -20,15 +21,16 @@ body {
 
 @keyframes gradient {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
   50% {
     background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
 }
+
 .cat-profile-container {
   display: flex;
   flex-direction: column;
@@ -41,10 +43,7 @@ body {
 
 .cat-profile {
   display: flex;
-  flex-wrap: wrap;
-  &:hover {
-    cursor: pointer;
-  }
+  flex-direction: column;
 }
 
 .cat-image {
@@ -80,12 +79,38 @@ body {
   font-size: 1rem;
   color: #718096;
 }
+
 .img-fluid {
   max-height: 400px;
   object-fit: cover;
   height: 50vh;
 }
 
+.carousel {
+  height: 300px;
+}
+
+.cat-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+  .cat-profile {
+    flex-direction: row;
+  }
+
+  .carousel-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cat-details {
+    flex: 1;
+  }
+}
 
 @media (max-width: 768px) {
   .cat-profile {
@@ -105,5 +130,3 @@ body {
     height: auto;
   }
 }
-
-
