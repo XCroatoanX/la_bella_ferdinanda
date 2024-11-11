@@ -4,7 +4,6 @@ import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,12 @@ import java.util.UUID;
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/cat")
-@AllArgsConstructor
 public class CatController {
     private final CatDAO catDAO;
+
+    public CatController(CatDAO catDAO) {
+        this.catDAO = catDAO;
+    }
 
     @GetMapping("/sex/{sex}")
     public ResponseEntity<List<Cat>> getCatsBySex(@PathVariable String sex) {

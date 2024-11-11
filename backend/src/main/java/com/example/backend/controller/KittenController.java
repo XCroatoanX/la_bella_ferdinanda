@@ -4,7 +4,6 @@ import com.example.backend.dao.KittenDAO;
 import com.example.backend.dto.KittenDTO;
 import com.example.backend.models.Kitten;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +18,12 @@ import java.util.UUID;
 @RestController
 @CrossOrigin(origins = {"http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/kitten")
-@AllArgsConstructor
 public class KittenController {
     private final KittenDAO kittenDAO;
+
+    public KittenController(KittenDAO kittenDAO) {
+        this.kittenDAO = kittenDAO;
+    }
 
     @GetMapping
     public ResponseEntity<List<Kitten>> getAllKittens() {

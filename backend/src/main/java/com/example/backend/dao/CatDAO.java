@@ -18,13 +18,16 @@ import com.example.backend.services.ImageService;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class CatDAO {
     private final CatRepository catRepository;
     private final ImageService imageService;
+
+    public CatDAO(CatRepository catRepository, ImageService imageService) {
+        this.catRepository = catRepository;
+        this.imageService = imageService;
+    }
 
     public List<Cat> getAllCats() {
         return catRepository.findAll();

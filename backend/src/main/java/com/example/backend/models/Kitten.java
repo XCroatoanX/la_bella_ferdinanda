@@ -13,31 +13,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity(name = "Kitten")
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
 public class Kitten {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
         private UUID id;
-        @Setter
         private String name;
-        @Setter
         private String color;
-        @Setter
         private String age;
-        @Setter
         private String sex;
-        @Setter
         @Column(columnDefinition = "TEXT")
         private String article;
-        @Setter
         private String status;
         private boolean isKitten;
 
@@ -47,6 +34,92 @@ public class Kitten {
         }, inverseJoinColumns = {
                         @JoinColumn(name = "image_id")
         })
-        @Setter
         private List<Image> images;
+
+        public Kitten(UUID id, String name, String color, String age, String sex, String article, String status, boolean isKitten, List<Image> images) {
+                this.id = id;
+                this.name = name;
+                this.color = color;
+                this.age = age;
+                this.sex = sex;
+                this.article = article;
+                this.status = status;
+                this.isKitten = isKitten;
+                this.images = images;
+        }
+
+        public Kitten() {
+        }
+
+        public UUID getId() {
+                return id;
+        }
+
+        public void setId(UUID id) {
+                this.id = id;
+        }
+
+        public String getName() {
+                return name;
+        }
+
+        public void setName(String name) {
+                this.name = name;
+        }
+
+        public String getColor() {
+                return color;
+        }
+
+        public void setColor(String color) {
+                this.color = color;
+        }
+
+        public String getAge() {
+                return age;
+        }
+
+        public void setAge(String age) {
+                this.age = age;
+        }
+
+        public String getSex() {
+                return sex;
+        }
+
+        public void setSex(String sex) {
+                this.sex = sex;
+        }
+
+        public String getArticle() {
+                return article;
+        }
+
+        public void setArticle(String article) {
+                this.article = article;
+        }
+
+        public String getStatus() {
+                return status;
+        }
+
+        public void setStatus(String status) {
+                this.status = status;
+        }
+
+        public boolean isKitten() {
+                return isKitten;
+        }
+
+        public void setKitten(boolean kitten) {
+                isKitten = kitten;
+        }
+
+        public List<Image> getImages() {
+                return images;
+        }
+
+        public void setImages(List<Image> images) {
+                this.images = images;
+        }
 }
