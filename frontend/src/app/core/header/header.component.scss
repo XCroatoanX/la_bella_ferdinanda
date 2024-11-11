@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+header {
+  background-color: white;
+}
+
+a {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  border-radius: 5px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+a:active {
+  background-color: rgba(130, 130, 130, 0.2);
+  color: black;
+}
+
+p,
+h1 {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+}
+
+.social-link {
+  margin-left: 1.5vw;
+}
+.social-img {
+  height: 40px;
+  width: 40px;
+}
+
+.navbar-brand {
+  img {
+    transition: transform 0.2s ease;
+    max-width: 60px;
+    max-height: 60px;
+  }
+
+  img:hover {
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 781px) {
+  .navbar-brand {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #instagram {
+    margin-left: 0;
+  }
+  .social-icons {
+    margin-top: 4vh;
+  }
+}
+
+@media (max-width: 530px) {
+  h1 {
+    visibility: hidden;
+    font-size: 0.1rem;
+  }
+}

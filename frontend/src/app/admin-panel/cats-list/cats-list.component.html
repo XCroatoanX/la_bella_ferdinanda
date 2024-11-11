@@ -1,0 +1,21 @@
+<body class="pb-3">
+  <app-admin-panel-header></app-admin-panel-header>
+  <div class="cats-list my-4 mx-3 rounded-3 p-5 shadow-lg border-black border">
+    @if (loading == true) {
+    <div class="text-center my-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h5>Loading...</h5>
+    </div>
+    } @if (loading == false) { @for (cat of cats; track $index) {<app-item-card
+      class="mx-3"
+      [animal]="cat"
+    ></app-item-card
+    >} } @if (cats.length == 0 && loading == false) {
+    <div class="text-center my-4">
+      <h2 class="h2">No cats found</h2>
+    </div>
+    }
+  </div>
+</body>

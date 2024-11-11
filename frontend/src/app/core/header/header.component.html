@@ -1,0 +1,161 @@
+<header class="rounded-3 shadow d-inline-flex w-100 align-items-center header">
+  <nav
+    class="navbar navbar-expand-md w-100 d-flex justify-content-between align-items-center"
+  >
+    <a [routerLink]="['']" class="navbar-brand mb-0 ms-4">
+      <img
+        alt="header-logo"
+        class="d-inline-block align-center"
+        height="128"
+        ngSrc="assets/logo/128/logo.png"
+        width="128"
+      />
+    </a>
+    <h1 class="d-block d-md-none mx-auto my-auto header-title h1">
+      La Bella Ferdinanda
+    </h1>
+    <div class="d-flex align-items-center">
+      <button
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+        class="navbar-toggler ms-auto me-3"
+        data-bs-target="#offcanvasNavbar"
+        data-bs-toggle="offcanvas"
+        type="button"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        aria-labelledby="offcanvasNavbarLabel"
+        class="offcanvas offcanvas-end"
+        data-bs-scroll="true"
+        id="offcanvasNavbar"
+        tabindex="-1"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button
+            aria-label="Close"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            type="button"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-4">
+            <li class="nav-item">
+              <a [routerLink]="['']" aria-current="page" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+              >
+                Our Kittens
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" [routerLink]="['/kittens-list']">All kittens</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+              >
+                Our Cats
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" [routerLink]="['/boys-list']">Males</a></li>
+                <li><a class="dropdown-item" [routerLink]="['/girls-list']">Females</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                aria-expanded="false"
+                class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+              >
+                Articles
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a [routerLink]="['/about/about-us']" class="dropdown-item"
+                  >About Us</a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="['/about/about-breed']" class="dropdown-item"
+                  >About Breed</a
+                  >
+                </li>
+                <li>
+                  <a [routerLink]="['/about/how-to-care']" class="dropdown-item"
+                  >How to care</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                [routerLink]="['/contact']"
+                aria-current="page"
+                class="nav-link"
+              >Contact</a
+              >
+            </li>
+            <li class="nav-item social-icons">
+              <a
+                class="social-link rounded-3"
+                href="https://www.instagram.com/la_bella_ferdinanda/"
+                id="instagram"
+                target="_blank"
+              >
+                <img
+                  alt="follow us on instagram"
+                  class="rounded-3 social-img"
+                  height="512"
+                  ngSrc="assets/icons/instagram-square-icon.png"
+                  width="512"
+                />
+              </a>
+              <a
+                class="rounded-3 social-link"
+                href="https://www.tiktok.com/@labellaferdinanda"
+                target="_blank"
+              >
+                <img
+                  alt="follow us on tiktok"
+                  class="rounded-3 social-img"
+                  height="512"
+                  ngSrc="assets/icons/tiktok-square-icon.png"
+                  width="512"
+                />
+              </a>
+              <a
+                class="social-link rounded-3"
+                href="https://www.facebook.com/share/tgmJXZD43s7fPTik/?mibextid=LQQJ4d"
+                target="_blank"
+              >
+                <img
+                  alt="follow us on facebook"
+                  class="rounded-3 social-img"
+                  height="512"
+                  ngSrc="assets/icons/facebook-generic-square.png"
+                  width="512"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

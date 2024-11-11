@@ -1,19 +1,14 @@
 package com.example.backend.dto;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class CatDTO {
     public String name;
     public String color;
-    public String age;
-    public double weight;
+    public double age;
     public String sex;
     public String article;
+    public String status;
 
-    public CatDTO(String name, String color, String age, double weight, String sex, String article) {
-        this.name = name;
-        this.color = color;
-        this.age = age;
-        this.weight = weight;
-        this.sex = sex;
-        this.article = article;
-    }
 }

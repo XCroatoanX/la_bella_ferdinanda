@@ -1,101 +1,52 @@
 package com.example.backend.models;
 
+import java.util.List;
+import java.util.UUID;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.util.UUID;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity(name = "Kitten")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Kitten {
+        @Id
+        @GeneratedValue(strategy = GenerationType.UUID)
+        private UUID id;
+        @Setter
+        private String name;
+        @Setter
+        private String color;
+        @Setter
+        private String age;
+        @Setter
+        private String sex;
+        @Setter
+        @Column(columnDefinition = "TEXT")
+        private String article;
+        @Setter
+        private String status;
+        private boolean isKitten;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-    private String name;
-    private String color;
-    private String age;
-    private double bornWeight;
-    private double weight;
-    private String sex;
-    private String article;
-
-    public Kitten() {
-    }
-
-    public Kitten(String name, String color, String age, double bornWeight, double weight, String sex, String article) {
-        this.name = name;
-        this.color = color;
-        this.age = age;
-        this.bornWeight = bornWeight;
-        this.weight = weight;
-        this.sex = sex;
-        this.article = article;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public double getBornWeight() {
-        return bornWeight;
-    }
-
-    public void setBornWeight(double bornWeight) {
-        this.bornWeight = bornWeight;
-    }
-
-    public String getArticle() {
-        return article;
-    }
-
-    public void setArticle(String article) {
-        this.article = article;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @JoinTable(name = "kitten_images", joinColumns = {
+                        @JoinColumn(name = "kitten_id")
+        }, inverseJoinColumns = {
+                        @JoinColumn(name = "image_id")
+        })
+        @Setter
+        private List<Image> images;
 }

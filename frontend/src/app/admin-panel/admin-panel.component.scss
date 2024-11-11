@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+a,
+h1,
+p,
+span,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Montserrat, Arial, Helvetica, sans-serif;
+  color: black;
+}
+
+body {
+  background-image: url("../../assets/img/background_image.jpeg");
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+button:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
