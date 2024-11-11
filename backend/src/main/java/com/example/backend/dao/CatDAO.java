@@ -1,30 +1,31 @@
 package com.example.backend.dao;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend.dto.CatDTO;
 import com.example.backend.models.Cat;
+import com.example.backend.models.Image;
+import com.example.backend.services.ImageService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class CatDAO {
-
-    // Initialisation
     private final CatRepository catRepository;
+    private final ImageService imageService;
 
-    public CatDAO(CatRepository catRepository) {
-        this.catRepository = catRepository;
-    }
-
-
-    // DAO
     public List<Cat> getAllCats() {
         return catRepository.findAll();
     }
@@ -32,39 +33,41 @@ public class CatDAO {
     @Transactional
     public Cat getCatById(UUID id) {
         Optional<Cat> cat = catRepository.findById(id);
-
-        if(cat.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cat not found");
+        if (cat.isPresent()) {
+            return cat.get();
+        } else {
+            throw new EntityNotFoundException("Cat with ID " + id + " does not exist.");
         }
-        return cat.get();
-    }
-
-    public List<Cat> getCatsBySex(String sex) {
-        Optional<List<Cat>> catsList = this.catRepository.findBySex(sex);
-
-        if (catsList.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Cats with this sex not found");
-        }
-        return catsList.get();
     }
 
     @Transactional
-    public void createCat(CatDTO catDTO) {
-        Cat cat = new Cat(catDTO.name, catDTO.color, catDTO.age, catDTO.weight, catDTO.sex, catDTO.article);
+    public List<Cat> getCatsBySex(String sex) {
+        return this.catRepository.findBySexIgnoreCase(sex)
+                .orElse(Collections.emptyList());
+    }
+
+    @Transactional
+    public void createCat(CatDTO catDTO, MultipartFile[] images) throws IOException {
+        List<Image> imageList = this.imageService.imagesToByte(images);
+        UUID catId = UUID.randomUUID();
+
+        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status, false,
+                imageList);
         this.catRepository.save(cat);
     }
 
-    public void updateCat(CatDTO catDTO, UUID id) {
+    public void updateCat(CatDTO catDTO, MultipartFile[] images, UUID id) throws IOException {
         Optional<Cat> cat = this.catRepository.findById(id);
 
+        List<Image> imageList = this.imageService.imagesToByte(images);
         if (cat.isPresent()) {
             cat.get().setName(catDTO.name);
             cat.get().setColor(catDTO.color);
             cat.get().setAge(catDTO.age);
-            cat.get().setWeight(catDTO.weight);
             cat.get().setSex(catDTO.sex);
             cat.get().setArticle(catDTO.article);
+            cat.get().setStatus(catDTO.status);
+            cat.get().setImages(imageList);
             this.catRepository.save(cat.get());
             return;
         }
@@ -72,6 +75,9 @@ public class CatDAO {
     }
 
     public void deleteCatById(UUID id) {
+        if (!catRepository.existsById(id)) {
+            throw new EntityNotFoundException("Cat with ID " + id + " does not exist.");
+        }
         this.catRepository.deleteById(id);
     }
 }

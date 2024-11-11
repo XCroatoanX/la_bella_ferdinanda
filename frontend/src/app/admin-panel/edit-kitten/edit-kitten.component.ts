@@ -1,0 +1,217 @@
+import { Component, OnInit } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { KittenService } from '../../services/kitten.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { CatKit } from '../../models/catkit.model';
+
+@Component({
+  selector: 'app-edit-kitten',
+  standalone: true,
+  imports: [
+    AdminPanelHeaderComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+  ],
+  templateUrl: './edit-kitten.component.html',
+  styleUrls: ['./edit-kitten.component.scss'],
+})
+export class EditKittenComponent implements OnInit {
+  public kittenForm: FormGroup;
+  public imagePreviews: string[] = [];
+  public selectedFiles: File[] = [];
+  public isLoading: boolean = false;
+  kittenId: string | null = null;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private kittenService: KittenService,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+  ) { }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.kittenId = params.get('id');
+      this.initializeForm();
+      if (this.kittenId) {
+        this.fetchKittenData(this.kittenId);
+      }
+    });
+  }
+
+  private initializeForm(): void {
+    this.kittenForm = this.fb.group({
+      name: ['', [Validators.required, Validators.maxLength(50)]],
+      color: ['', [Validators.required, Validators.maxLength(100)]],
+      age: ['', [Validators.required, Validators.maxLength(50)]],
+      sex: ['', Validators.required],
+      description: ['', Validators.required],
+      status: ['', Validators.required],
+    });
+  }
+
+  private fetchKittenData(kittenId: string): void {
+    this.kittenService.getKittenById(kittenId).subscribe({
+      next: (kitten: CatKit) => {
+        this.kittenForm.patchValue({
+          name: kitten.name,
+          color: kitten.color,
+          age: kitten.age,
+          sex: kitten.sex === 'Male' ? '1' : '2',
+          description: kitten.article,
+          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved' ? '2' : '3',
+        });
+        this.imagePreviews = kitten.images.map(
+          (image) => `data:${image.type};base64,${image.image}`,
+        );
+      },
+      error: (error) => {
+        console.error('Error fetching kitten data:', error);
+        this.toastr.error(
+          'Could not fetch kitten data. Please try again.',
+          'Error',
+          {
+            timeOut: 3000,
+          },
+        );
+      },
+    });
+  }
+
+  public handleFileInput(event: any): void {
+    const files: File[] = Array.from(event.target.files);
+
+    this.selectedFiles = [...this.selectedFiles, ...files];
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreviews.push(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  public removeImage(index: number): void {
+    this.imagePreviews.splice(index, 1);
+    this.selectedFiles.splice(index, 1);
+  }
+
+  public submitKitten(): void {
+    this.isLoading = true;
+
+    const formData = new FormData();
+    const { name, color, age, sex, description, status } = this.kittenForm.value;
+
+    const sexValue: string = sex === '1' ? 'Male' : 'Female';
+
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
+
+    const kitten = new CatKit();
+    kitten.name = name;
+    kitten.color = color;
+    kitten.age = age;
+    kitten.sex = sexValue as 'Male' | 'Female';
+    kitten.article = description;
+    kitten.status = statusValue as 'Available' | 'Reserved' | 'Sold';
+
+    formData.append(
+      'kitten',
+      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
+    );
+
+    this.imagePreviews.forEach((preview, index) => {
+      const byteCharacters = atob(preview.split(',')[1]);
+      const byteArrays = new Uint8Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
+      formData.append('imagefile', blob, `image${index + 1}.jpg`);
+    });
+
+    console.log('Form Data:');
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
+
+    this.kittenService.updateKitten(formData, this.kittenId).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        console.log('Kitten updated successfully:', response);
+        this.toastr.success(kitten.name + ' updated successfully', '', {
+          timeOut: 3000,
+        });
+        this.kittenForm.reset();
+        this.imagePreviews = [];
+        this.selectedFiles = [];
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error('Error updating kitten:', error);
+        switch (error.status) {
+          case 400:
+            this.toastr.error(
+              'Bad Request: ' + (error.error || 'Please check your input.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 401:
+            this.toastr.error(
+              'Unauthorized: Please log in to continue.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 413:
+            this.toastr.error(
+              'File too large: Please upload files smaller than 15 MB.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          case 500:
+            this.toastr.error(
+              'Internal Server Error: Please try again later.',
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+          default:
+            this.toastr.error(
+              'An unexpected error occurred: ' +
+              (error.error || 'Please try again later.'),
+              'Error',
+              {
+                timeOut: 3000,
+              },
+            );
+            break;
+        }
+      },
+    });
+  }
+}

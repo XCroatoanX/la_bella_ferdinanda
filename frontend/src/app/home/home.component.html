@@ -1,0 +1,112 @@
+<body>
+  <div class="pt-3 mx-3">
+    <app-header></app-header>
+  </div>
+  <div class="shadow bg-white mx-3 my-4 p-2 rounded-3">
+    <h1 class="display-4 text-center">
+      <strong>Welcome to La Bella Ferdinanda</strong>
+    </h1>
+    <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
+  </div>
+  <div class="row my-4 justify-content-center mx-0">
+    <div
+      [routerLink]="['boys-list']"
+      class="col bg-white rounded-3 shadow p-0 mx-3 cat-page"
+      id="males"
+    >
+      <img
+        alt="Check out our beautiful males"
+        class="rounded-3 cat-img"
+        height="864"
+        ngSrc="assets/img/homepage-males.jpg"
+        width="1536"
+      />
+      <div class="text-overlay">
+        <p class="cat-categories light">Check out our beautiful</p>
+        <h1 class="cat-categories light"><strong>Males</strong></h1>
+      </div>
+    </div>
+    <div
+      [routerLink]="['kittens-list']"
+      class="col-5 bg-white rounded-3 p-0 shadow mx-3 cat-page"
+      id="kittens"
+    >
+      <img
+        alt="Check out our cute kittens"
+        class="rounded-3 cat-img"
+        height="1152"
+        ngSrc="assets/img/homepage-kittens.jpg"
+        width="2048"
+      />
+      <div class="text-overlay">
+        <p class="cat-categories">Check out our cute</p>
+        <h1 class="cat-categories"><strong>Kittens</strong></h1>
+      </div>
+    </div>
+  </div>
+  <div class="row my-4 justify-content-center mx-0">
+    <div
+      [routerLink]="['cats-list']"
+      class="col-5 bg-white rounded-3 shadow p-0 mx-3 cat-page"
+      id="offsprings"
+    >
+      <img
+        alt="Check out our offsprings"
+        class="rounded-3 cat-img"
+        height="1080"
+        ngSrc="assets/img/homepage-adults.jpg"
+        width="1920"
+      />
+      <div class="text-overlay">
+        <p class="cat-categories">Check out our happy</p>
+        <h1 class="cat-categories light">
+          <strong>Family</strong>
+        </h1>
+      </div>
+    </div>
+    <div
+      [routerLink]="['girls-list']"
+      class="col bg-white rounded-3 shadow p-0 mx-3 cat-page"
+      id="females"
+    >
+      <img
+        alt="Check out our Females"
+        class="rounded-3 cat-img"
+        height="2410"
+        ngSrc="assets/img/homepage-females.jpg"
+        width="4284"
+      />
+      <div class="text-overlay">
+        <p class="cat-categories">Check out our elegant</p>
+        <h1 class="cat-categories"><strong>Females</strong></h1>
+      </div>
+    </div>
+  </div>
+  <div class="mx-3 my-3 rounded-3 bg-white shadow p-5">
+    <div class="row">
+      <div
+        class="col d-flex flex-column justify-content-center align-items-center text-center"
+      >
+        <h1>A small loving cattery</h1>
+        <p class="lead">
+          At our charming cattery, we pride ourselves on creating a loving and
+          comfortable environment for our beautiful cats. Each feline receives
+          the utmost care and affection in our warm, home-like setting. Discover
+          the joy of having a new furry friend with us!
+        </p>
+      </div>
+      <div class="col d-flex justify-content-center align-items-center">
+        <img
+          alt="Paragraph image"
+          class="we-are rounded-3 shadow"
+          height="1536"
+          ngSrc="assets/img/homepage-square.jpg"
+          width="1536"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="mx-3 pb-3 rounded-3">
+    <app-footer></app-footer>
+  </div>
+</body>

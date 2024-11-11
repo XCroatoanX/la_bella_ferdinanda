@@ -1,7 +1,7 @@
 package com.example.backend.config;
 
-import com.example.backend.models.Admin;
 import com.example.backend.services.AdminService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,14 +18,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final JWTFilter filter;
     private final AdminService adminService;
-
-    public SecurityConfig(JWTFilter filter, AdminService adminService) {
-        this.filter = filter;
-        this.adminService = adminService;
-    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -37,7 +33,11 @@ public class SecurityConfig {
                 .userDetailsService(adminService)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/cats").permitAll()
+                        .requestMatchers("/cat").permitAll()
+                        .requestMatchers("/cat/**").permitAll()
+                        .requestMatchers("/api/cat/sex/**").permitAll()
+                        .requestMatchers("/kitten").permitAll()
+                        .requestMatchers("/kitten/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/error").anonymous()
                         .anyRequest().authenticated())

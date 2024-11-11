@@ -3,21 +3,25 @@ package com.example.backend.controller;
 import com.example.backend.dao.KittenDAO;
 import com.example.backend.dto.KittenDTO;
 import com.example.backend.models.Kitten;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = {"http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200"})
 @RequestMapping("/kitten")
+@AllArgsConstructor
 public class KittenController {
     private final KittenDAO kittenDAO;
-
-    public KittenController(KittenDAO kittenDAO) {
-        this.kittenDAO = kittenDAO;
-    }
 
     @GetMapping
     public ResponseEntity<List<Kitten>> getAllKittens() {
@@ -29,24 +33,44 @@ public class KittenController {
         return ResponseEntity.ok(this.kittenDAO.getKittenById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<String> createKitten(@RequestBody KittenDTO kittenDTO) {
-        this.kittenDAO.createKitten(kittenDTO);
-
-        return ResponseEntity.ok("Created kitten: " + kittenDTO.name);
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> createKitten(@RequestPart("kitten") KittenDTO kittenDTO, @RequestPart("imagefile") MultipartFile[] file) {
+        try {
+            this.kittenDAO.createKitten(kittenDTO, file);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Created kitten: " + kittenDTO.name);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating kitten: " + e.getMessage());
+        }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateKitten(@PathVariable UUID id, @RequestBody KittenDTO kittenDTO) {
-        this.kittenDAO.updateKitten(kittenDTO, id);
+    @PutMapping(value = "/{id}", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<?> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
+                                          @RequestPart("imagefile") MultipartFile[] file) {
+        try {
+            this.kittenDAO.updateKitten(kittenDTO, file, id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Updated kitten: " + kittenDTO.name);
+            ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating kitten: " + e.getMessage());
+        }
 
         return ResponseEntity.ok("Updated kitten: " + kittenDTO.name);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteKitten(@PathVariable UUID id) {
-        this.kittenDAO.deleteKittenById(id);
-
-        return ResponseEntity.ok("Deleted Kitten: " + id);
+    public ResponseEntity<Map<String, String>> deleteKitten(@PathVariable UUID id) {
+        try {
+            this.kittenDAO.deleteKittenById(id);
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Deleted Cat: " + id);
+            return ResponseEntity.ok(response);
+        } catch (EntityNotFoundException e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
     }
 }
