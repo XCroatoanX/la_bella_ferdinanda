@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { CatKit } from '../models/catkit.model';
 
@@ -22,7 +22,7 @@ export class KittenService {
     return this.http.post(environment.base_url + '/kitten', formData);
   }
 
-  public updateKitten(formData: FormData, id: string): Observable<any> {
+  public updateKitten(formData: FormData, id): Observable<any> {
     return this.http.put(environment.base_url + '/kitten/' + id, formData);
   }
 

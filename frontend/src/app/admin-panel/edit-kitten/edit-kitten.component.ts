@@ -59,7 +59,6 @@ export class EditKittenComponent implements OnInit {
       sex: ['', Validators.required],
       description: ['', Validators.required],
       status: ['', Validators.required],
-      images: ['', Validators.required],
     });
   }
 
@@ -106,6 +105,7 @@ export class EditKittenComponent implements OnInit {
   }
 
   public removeImage(index: number): void {
+    this.imagePreviews.splice(index, 1);
     this.selectedFiles.splice(index, 1);
   }
 
@@ -132,8 +132,16 @@ export class EditKittenComponent implements OnInit {
       new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
     );
 
-    this.selectedFiles.forEach((file) => {
-      formData.append('imagefile', file, file.name);
+    this.imagePreviews.forEach((preview, index) => {
+      const byteCharacters = atob(preview.split(',')[1]);
+      const byteArrays = new Uint8Array(byteCharacters.length);
+
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteArrays[i] = byteCharacters.charCodeAt(i);
+      }
+
+      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
+      formData.append('imagefile', blob, `image${index + 1}.jpg`);
     });
 
     console.log('Form Data:');
