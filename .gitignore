@@ -99,3 +99,5 @@ documents/
 /frontend/src/environments
 /frontend/.angular
 /.env
+backend/.dockerignore
+backend/fly.toml

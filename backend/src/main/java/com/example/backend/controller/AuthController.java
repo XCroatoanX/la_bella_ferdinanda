@@ -20,11 +20,8 @@ import com.example.backend.dto.LoginResponse;
 import com.example.backend.models.Admin;
 import com.example.backend.services.CredentialValidator;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200" })
+@CrossOrigin(origins = { "http://localhost:4200", "https://labellaferdinanda.netlify.app", "https://labellaferdinanda.nl", "https://www.labellaferdinanda.nl" })
 @RequestMapping("/auth")
 public class AuthController {
     private final AdminRepository adminDAO;
@@ -32,6 +29,14 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final CredentialValidator validator;
+
+    public AuthController(AdminRepository adminDAO, JWTUtil jwtUtil, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder, CredentialValidator validator) {
+        this.adminDAO = adminDAO;
+        this.jwtUtil = jwtUtil;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+        this.validator = validator;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<LoginResponse> register(@RequestBody AuthenticationDTO authenticationDTO) {
