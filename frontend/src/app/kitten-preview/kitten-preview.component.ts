@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CoreModule } from "../core/core.module";
-import { NgForOf, NgIf } from "@angular/common";
 import { KittenService } from "../services/kitten.service";
 import { ToastrService } from "ngx-toastr";
 import { ActivatedRoute } from "@angular/router";
@@ -11,8 +10,6 @@ import { CatKit } from '../models/catkit.model';
   standalone: true,
   imports: [
     CoreModule,
-    NgForOf,
-    NgIf
   ],
   templateUrl: './kitten-preview.component.html',
   styleUrl: './kitten-preview.component.scss'

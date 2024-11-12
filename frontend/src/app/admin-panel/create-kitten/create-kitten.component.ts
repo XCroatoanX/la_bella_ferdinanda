@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgClass, NgForOf, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { KittenService } from '../../services/kitten.service';
 import { ToastrService } from 'ngx-toastr';
@@ -18,9 +18,7 @@ import { CatKit } from '../../models/catkit.model';
   imports: [
     AdminPanelHeaderComponent,
     ReactiveFormsModule,
-    NgClass,
-    NgForOf,
-    NgIf,
+    NgClass
   ],
   templateUrl: './create-kitten.component.html',
   styleUrl: './create-kitten.component.scss',
@@ -40,12 +38,12 @@ export class CreateKittenComponent implements OnInit {
 
   ngOnInit(): void {
     this.kittenForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      color: ['', [Validators.required, Validators.maxLength(100)]],
-      age: ['', [Validators.required, Validators.maxLength(50)]],
-      sex: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['', Validators.required],
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
       images: ['', Validators.required],
     });
   }
@@ -77,14 +75,14 @@ export class CreateKittenComponent implements OnInit {
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
-    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved / Under discussion' : status === 3 ? 'Sold' : 'Not for sale';
     const kitten = new CatKit();
     kitten.name = name;
     kitten.color = color;
     kitten.age = age;
     kitten.sex = sexValue as 'Male' | 'Female';
     kitten.article = description;
-    kitten.status = statusValue as 'Available' | 'Reserved' | 'Sold';
+    kitten.status = statusValue as 'Available' | 'Reserved / Under discussion' | 'Sold' | 'Not for sale';
 
     formData.append(
       'kitten',

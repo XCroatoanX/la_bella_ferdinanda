@@ -39,12 +39,12 @@ export class CreateCatComponent implements OnInit {
 
   ngOnInit(): void {
     this.catForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      color: ['', [Validators.required, Validators.maxLength(100)]],
-      age: ['', [Validators.required, Validators.maxLength(50)]],
-      sex: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['', Validators.required],
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
       images: ['', Validators.required],
     });
   }
@@ -75,7 +75,7 @@ export class CreateCatComponent implements OnInit {
     const { name, color, age, sex, status, description } = this.catForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
-    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved / Under discussion' : status === '2' ? 'Sold' : 'Not for sale';
 
     const cat = new CatKit();
     cat.name = name;
@@ -83,7 +83,7 @@ export class CreateCatComponent implements OnInit {
     cat.age = age;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
-    cat.status = statusValue as 'Available' | 'Reserved' | 'Sold';
+    cat.status = statusValue as 'Available' | 'Reserved / Under discussion' | 'Sold' | 'Not for sale';
 
     formData.append(
       'cat',
