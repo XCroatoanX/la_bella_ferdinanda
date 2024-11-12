@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200", "http://172.23.0.1:4200", "http://192.168.1.118:4200"})
+@CrossOrigin(origins = { "http://localhost:4200", "https://labellaferdinanda.netlify.app", "https://labellaferdinanda.nl", "https://www.labellaferdinanda.nl" })
 @RequestMapping("/kitten")
 public class KittenController {
     private final KittenDAO kittenDAO;
