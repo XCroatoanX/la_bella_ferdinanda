@@ -51,6 +51,29 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
+                Cats
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admin/create-cat']"
+                    >Create...</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/admin/cats-list']"
+                    >View/Edit/Delete...</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 Kittens
               </a>
               <ul class="dropdown-menu">
@@ -65,30 +88,6 @@
                   <a
                     class="dropdown-item"
                     [routerLink]="['/admin/kittens-list']"
-                    >View/Edit/Delete...</a
-                  >
-                </li>
-              </ul>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Cats
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/create-cat']"
-                    >Create...</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/cats-list']"
                     >View/Edit/Delete...</a
                   >
                 </li>
