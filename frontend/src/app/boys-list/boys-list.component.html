@@ -39,17 +39,17 @@
           <p class="cat-color">Fur color: {{ boy.color }}</p>
           @if (boy.status == "Available") {
           <p class="cat-status" style="color: green">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           } @else if (boy.status == "Reserved / Under discussion") {
           <p class="cat-status" style="color: yellow">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           } @else if (boy.status == "Sold"){
-          <p class="cat-status" style="color: red">Status: {{ boy.status }}</p>
+          <p class="cat-status" style="color: red">{{ boy.status }}</p>
           } @else {
           <p class="cat-status" style="color: black">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           }
         </div>
@@ -67,17 +67,17 @@
           <p class="cat-color">Fur color: {{ boy.color }}</p>
           @if (boy.status == "Available") {
           <p class="cat-status" style="color: green">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           } @else if (boy.status == "Reserved / Under discussion") {
           <p class="cat-status" style="color: yellow">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           } @else if (boy.status == "Sold") {
-          <p class="cat-status" style="color: red">Status: {{ boy.status }}</p>
+          <p class="cat-status" style="color: red">{{ boy.status }}</p>
           } @else {
           <p class="cat-status" style="color: black">
-            Status: {{ boy.status }}
+            {{ boy.status }}
           </p>
           }
         </div>

@@ -36,15 +36,15 @@
         <p class="cat-age">Age: {{ girl.age }}</p>
         <p class="cat-color">Fur color: {{ girl.color }}</p>
         @if (girl.status == "Available") {
-        <p class="cat-status" style="color: green">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: green">{{ girl.status }}</p>
         } @else if (girl.status == "Reserved / Under discussion") {
         <p class="cat-status" style="color: yellow">
-          Status: {{ girl.status }}
+          {{ girl.status }}
         </p>
         } @else if (girl.status == "Sold") {
-        <p class="cat-status" style="color: red">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: red">{{ girl.status }}</p>
         } @else {
-        <p class="cat-status" style="color: black">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: black">{{ girl.status }}</p>
         }
       </div>
     </div>
@@ -60,15 +60,15 @@
         <p class="cat-age">Age: {{ girl.age }}</p>
         <p class="cat-color">Fur color: {{ girl.color }}</p>
         @if (girl.status == "Available") {
-        <p class="cat-status" style="color: green">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: green">{{ girl.status }}</p>
         } @else if (girl.status == "Reserved / Under discussion") {
         <p class="cat-status" style="color: yellow">
-          Status: {{ girl.status }}
+          {{ girl.status }}
         </p>
         } @else if (girl.status == "Sold") {
-        <p class="cat-status" style="color: red">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: red">{{ girl.status }}</p>
         } @else {
-        <p class="cat-status" style="color: black">Status: {{ girl.status }}</p>
+        <p class="cat-status" style="color: black">{{ girl.status }}</p>
         }
       </div>
       <div class="w-50 image-container">
