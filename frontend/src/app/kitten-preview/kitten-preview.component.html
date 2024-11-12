@@ -71,13 +71,13 @@
       >
         <p class="kitten-age">Age: {{ kitten.age }} months old</p>
         <p class="kitten-color">Fur color: {{ kitten.color }}</p>
-        <p class="kitten-description">{{ kitten.article }}</p>
+        <p class="kitten-litter">Litter {{ kitten.litter }}</p>
         @if (kitten.status == "Available") {
         <p class="kitten-status" style="color: green">
           {{ kitten.status }}
         </p>
         } @else if (kitten.status == "Reserved / Under discussion") {
-        <p class="kitten-status" style="color: yellow">
+        <p class="kitten-status" style="color: gold">
           {{ kitten.status }}
         </p>
         } @else if (kitten.status == "Sold") {
@@ -89,6 +89,7 @@
           {{ kitten.status }}
         </p>
         }
+        <p class="kitten-description">{{ kitten.article }}</p>
       </div>
     </div>
     }

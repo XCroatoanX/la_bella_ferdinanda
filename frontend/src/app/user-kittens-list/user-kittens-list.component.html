@@ -43,12 +43,13 @@
           <p class="kitten-breed">Age: {{ kitten.age }} months old</p>
           <p class="kitten-diversity">Sex: {{ kitten.sex }}</p>
           <p class="kitten-diversity">Fur color: {{ kitten.color }}</p>
+          <p class="kitten-diversity">Litter {{ kitten.litter }}</p>
           @if (kitten.status == "Available") {
           <p class="kitten-status" style="color: green">
             {{ kitten.status }}
           </p>
           } @else if (kitten.status == "Reserved / Under discussion") {
-          <p class="kitten-status" style="color: yellow">
+          <p class="kitten-status" style="color: gold">
             {{ kitten.status }}
           </p>
           } @else if (kitten.status == "Sold") {
@@ -74,12 +75,13 @@
           <p class="kitten-breed">Age: {{ kitten.age }} months old</p>
           <p class="kitten-diversity">Sex: {{ kitten.sex }}</p>
           <p class="kitten-diversity">Fur color: {{ kitten.color }}</p>
+          <p class="kitten-diversity">Litter {{ kitten.litter }}</p>
           @if (kitten.status == "Available") {
           <p class="kitten-status" style="color: green">
             {{ kitten.status }}
           </p>
           } @else if (kitten.status == "Reserved / Under discussion") {
-          <p class="kitten-status" style="color: yellow">
+          <p class="kitten-status" style="color: gold">
             {{ kitten.status }}
           </p>
           } @else if (kitten.status == "Sold") {

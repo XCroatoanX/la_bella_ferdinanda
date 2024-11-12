@@ -44,6 +44,7 @@ export class CreateKittenComponent implements OnInit {
       sex: [''],
       description: [''],
       status: [''],
+      litter: [''],
       images: ['', Validators.required],
     });
   }
@@ -71,7 +72,7 @@ export class CreateKittenComponent implements OnInit {
     this.isLoading = true;
     const formData = new FormData();
 
-    const { name, color, age, sex, description, status } = this.kittenForm.value;
+    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -83,6 +84,7 @@ export class CreateKittenComponent implements OnInit {
     kitten.sex = sexValue as 'Male' | 'Female';
     kitten.article = description;
     kitten.status = statusValue as 'Available' | 'Reserved / Under discussion' | 'Sold' | 'Not for sale';
+    kitten.litter = litter;
 
     formData.append(
       'kitten',

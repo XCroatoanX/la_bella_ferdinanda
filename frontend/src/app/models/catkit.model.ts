@@ -9,5 +9,6 @@ export class CatKit {
   public article: string;
   public status: string;
   public isKitten?: boolean;
+  public litter?: string;
   public images?: Image[];
 }

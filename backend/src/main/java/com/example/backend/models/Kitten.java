@@ -27,6 +27,7 @@ public class Kitten {
         private String article;
         private String status;
         private boolean isKitten;
+        private String litter;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
         @JoinTable(name = "kitten_images", joinColumns = {
@@ -36,7 +37,8 @@ public class Kitten {
         })
         private List<Image> images;
 
-        public Kitten(UUID id, String name, String color, String age, String sex, String article, String status, boolean isKitten, List<Image> images) {
+        public Kitten(UUID id, String name, String color, String age, String sex, String article, String status,
+                        boolean isKitten, String litter, List<Image> images) {
                 this.id = id;
                 this.name = name;
                 this.color = color;
@@ -45,6 +47,7 @@ public class Kitten {
                 this.article = article;
                 this.status = status;
                 this.isKitten = isKitten;
+                this.litter = litter;
                 this.images = images;
         }
 
@@ -115,6 +118,14 @@ public class Kitten {
                 isKitten = kitten;
         }
 
+        public String getLitter() {
+                return litter;
+        }
+
+        public void setLitter(String litter) {
+                this.litter = litter;
+        }
+
         public List<Image> getImages() {
                 return images;
         }
@@ -122,4 +133,5 @@ public class Kitten {
         public void setImages(List<Image> images) {
                 this.images = images;
         }
+
 }
