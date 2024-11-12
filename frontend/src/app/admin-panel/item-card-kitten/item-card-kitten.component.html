@@ -18,12 +18,13 @@
       <strong>Age:</strong> {{ animal.age }} months old
     </p>
     <p class="card-text my-1"><strong>Sex:</strong> {{ animal.sex }}</p>
+    <p class="card-text my-1"><strong>Litter:</strong> {{ animal.litter }}</p>
     @if (animal.status == "Available") {
     <p class="card-text my-1" style="color: green">
       <strong>Status:</strong> {{ animal.status }}
     </p>
     } @else if (animal.status == "Reserved / Under discussion") {
-    <p class="card-text my-1" style="color: yellow">
+    <p class="card-text my-1" style="color: gold">
       <strong>Status:</strong> {{ animal.status }}
     </p>
     } @else if (animal.status == "Sold") {

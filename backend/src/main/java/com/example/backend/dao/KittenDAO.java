@@ -49,7 +49,7 @@ public class KittenDAO {
         UUID kittenId = UUID.randomUUID();
 
         Kitten kitten = new Kitten(kittenId, kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.sex,
-                kittenDTO.article, kittenDTO.status, true, imageList);
+                kittenDTO.article, kittenDTO.status, true, kittenDTO.litter, imageList);
         this.kittenRepository.save(kitten);
     }
 
@@ -65,6 +65,7 @@ public class KittenDAO {
             kitten.get().setSex(kittenDTO.sex);
             kitten.get().setArticle(kittenDTO.article);
             kitten.get().setStatus(kittenDTO.status);
+            kitten.get().setLitter(kittenDTO.litter);
             kitten.get().setImages(imageList);
             this.kittenRepository.save(kitten.get());
             return;
