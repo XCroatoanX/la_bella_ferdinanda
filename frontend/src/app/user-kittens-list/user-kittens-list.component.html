@@ -8,7 +8,7 @@
   </div>
 
   @if (isLoading) {
-  <div class="text-center shadow bg-white mx-3 my-4 p-3 rounded-3">
+  <div class="text-center shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
@@ -17,7 +17,7 @@
   } @else {
   <div>
     @if (kittensList.length == 0) {
-    <div class="shadow bg-white mx-3 my-4 p-3 rounded-3">
+    <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
       <h2 class="display-4 text-center">
         <b>No kittens found, stay tuned!</b>
       </h2>
@@ -37,7 +37,7 @@
           />
         </div>
         <div
-          class="kitten-details shadow bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center"
+          class="kitten-details shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center mt-3"
         >
           <h2 class="kitten-name">{{ kitten.name }}</h2>
           <p class="kitten-breed">Age: {{ kitten.age }} months old</p>
@@ -65,11 +65,11 @@
       </div>
       } @else {
       <div
-        class="d-flex my-4 kitten-profile shadow-lg"
+        class="d-flex my-4 kitten-profile"
         [routerLink]="['/kitten', kitten.id]"
       >
         <div
-          class="bg-white rounded-start-3 p-3 flex-fill text-center align-content-center"
+          class="bg-white rounded-3 p-3 flex-fill text-center align-content-center shadow-lg"
         >
           <h2 class="kitten-name">{{ kitten.name }}</h2>
           <p class="kitten-breed">Age: {{ kitten.age }} months old</p>
@@ -99,7 +99,7 @@
           <img
             [src]="kitten.images[0].image"
             alt="{{ kitten.name }}"
-            class="img-fluid rounded-end-3 w-100"
+            class="img-fluid rounded-3 w-100"
           />
         </div>
       </div>

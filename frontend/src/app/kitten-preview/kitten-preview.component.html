@@ -30,7 +30,7 @@
       >
         <div
           id="kittenCarousel"
-          class="carousel slide shadow-lg rounded-3"
+          class="carousel slide rounded-3"
           data-bs-ride="carousel"
         >
           <div class="carousel-inner">
@@ -38,9 +38,8 @@
             <div class="carousel-item rounded-3" [class.active]="$index === 0">
               <img
                 [src]="getImageSrc(image)"
-                class="d-block w-100 rounded-3 shadow-lg"
+                class="d-block w-100 rounded-3 cat-image"
                 alt="kitten Image {{ $index + 1 }}"
-                style="object-fit: cover; height: 300px"
               />
             </div>
             }
