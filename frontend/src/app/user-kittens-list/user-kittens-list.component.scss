@@ -42,6 +42,7 @@ body {
 .kitten-profile {
   display: flex;
   flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.2);
   &:hover {
     cursor: pointer;
   }

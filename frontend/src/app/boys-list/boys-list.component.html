@@ -23,17 +23,11 @@
     } @else {
     <div class="mx-3 my-4">
       @for (boy of boysList; track $index) { @if (isMobile){
-      <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', boy.id]">
+      <div class="d-flex my-4 cat-profile rounded-3" [routerLink]="['/cat', boy.id]">
         <div class="cat-image">
-          <img
-            [src]="boy.images[0].image"
-            alt="{{ boy.name }}"
-            class="img-fluid rounded-top-3 cat-photo"
-          />
+          <img [src]="boy.images[0].image" alt="{{ boy.name }}" class="img-fluid rounded-top-3 cat-photo" />
         </div>
-        <div
-          class="cat-details shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center mt-3"
-        >
+        <div class="cat-details shadow-lg bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center ">
           <h2 class="cat-name">{{ boy.name }}</h2>
           <p class="cat-age">Age: {{ boy.age }}</p>
           <p class="cat-color">Fur color: {{ boy.color }}</p>
@@ -55,10 +49,8 @@
         </div>
       </div>
       } @else {
-      <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', boy.id]">
-        <div
-          class="shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center"
-        >
+      <div class="d-flex my-4 cat-profile rounded-3" [routerLink]="['/cat', boy.id]">
+        <div class="shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center">
           <h2 class="cat-name">{{ boy.name }}</h2>
           <p class="cat-age">Age: {{ boy.age }}</p>
           <p class="cat-color">Fur color: {{ boy.color }}</p>
@@ -79,11 +71,7 @@
           }
         </div>
         <div class="w-50 image-container">
-          <img
-            [src]="boy.images[0].image"
-            alt="{{ boy.name }}"
-            class="img-fluid rounded-end-3 w-100"
-          />
+          <img [src]="boy.images[0].image" alt="{{ boy.name }}" class="img-fluid rounded-end-3 w-100" />
         </div>
       </div>
       } }
