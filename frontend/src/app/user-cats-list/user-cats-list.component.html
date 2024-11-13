@@ -8,7 +8,7 @@
   </div>
 
   @if (isLoading) {
-  <div class="text-center shadow bg-white mx-3 my-4 p-3 rounded-3">
+  <div class="text-center shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
@@ -17,7 +17,7 @@
   } @else {
   <div>
     @if (catsList.length == 0) {
-    <div class="shadow bg-white mx-3 my-4 p-3 rounded-3">
+    <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
       <h2 class="display-4 text-center"><b>No males found, stay tuned!</b></h2>
     </div>
     } @else {
@@ -32,7 +32,7 @@
           />
         </div>
         <div
-          class="cat-details shadow bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center"
+          class="cat-details shadow-lg bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center"
         >
           <h2 class="cat-name">{{ cat.name }}</h2>
           <p class="cat-breed">Age: {{ cat.age }} years old</p>
@@ -56,12 +56,9 @@
         </div>
       </div>
       } @else {
-      <div
-        class="d-flex my-4 cat-profile shadow-lg"
-        [routerLink]="['/cat', cat.id]"
-      >
+      <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', cat.id]">
         <div
-          class="shadow bg-white rounded-start-3 p-3 flex-fill text-center align-content-center"
+          class="shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center"
         >
           <h2 class="cat-name">{{ cat.name }}</h2>
           <p class="cat-breed">Age: {{ cat.age }} years old</p>

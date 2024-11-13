@@ -79,14 +79,14 @@ body {
   font-size: 1rem;
   color: #718096;
 }
-.img-fluid {
-  max-height: 400px;
-  object-fit: cover;
-  height: 50vh;
+.cat-image {
+  object-fit: contain;
+  object-position: center;
+  height: 500px;
 }
 
 .carousel {
-  height: 300px;
+  height: 500px;
 }
 
 .kitten-profile {

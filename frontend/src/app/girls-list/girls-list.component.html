@@ -3,12 +3,12 @@
     <app-header></app-header>
   </div>
 
-  <div class="shadow bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
+  <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
     <h1 class="display-4 text-center"><b>Our Females</b></h1>
   </div>
 
   @if (isLoading) {
-  <div class="text-center shadow bg-white mx-3 my-4 p-3 rounded-3">
+  <div class="text-center shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
@@ -17,7 +17,7 @@
   } @else {
   <div class="my-4">
     @if (girlsList.length == 0) {
-    <div class="shadow bg-white mx-3 my-4 p-3 rounded-3 text-center">
+    <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3 text-center">
       <h2 class="display-4"><b>No females found, stay tuned!</b></h2>
     </div>
     } @else { @for (girl of girlsList; track $index) { @if (isMobile) {
@@ -30,7 +30,7 @@
         />
       </div>
       <div
-        class="cat-details shadow bg-white rounded-bottom-3 p-3 flex-fill text-center align-content-center"
+        class="cat-details shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center mt-3"
       >
         <h2 class="cat-name">{{ girl.name }}</h2>
         <p class="cat-age">Age: {{ girl.age }}</p>
@@ -49,12 +49,9 @@
       </div>
     </div>
     } @else {
-    <div
-      class="d-flex my-4 cat-profile shadow-lg"
-      [routerLink]="['/cat', girl.id]"
-    >
+    <div class="d-flex my-4 mx-3 cat-profile" [routerLink]="['/cat', girl.id]">
       <div
-        class="shadow bg-white rounded-start-3 p-3 flex-fill text-center align-content-center"
+        class="shadow-lg bg-white rounded-3 p-3 flex-fill text-center align-content-center"
       >
         <h2 class="cat-name">{{ girl.name }}</h2>
         <p class="cat-age">Age: {{ girl.age }}</p>

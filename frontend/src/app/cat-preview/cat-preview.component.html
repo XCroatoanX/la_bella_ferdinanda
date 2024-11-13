@@ -4,7 +4,7 @@
   </div>
 
   @if (!isLoading && cat) {
-  <div class="shadow bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
+  <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
     <h1 class="display-4 text-center">
       <b>{{ cat.name }}</b>
     </h1>
@@ -13,35 +13,29 @@
 
   <div class="mx-3 my-4">
     @if (isLoading) {
-    <div class="text-center shadow bg-white p-3 rounded-3">
+    <div class="text-center shadow-lg bg-white p-3 rounded-3">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
       <h2>Loading cat details...</h2>
     </div>
     } @if (!isLoading && !cat) {
-    <div class="shadow bg-white mx-3 my-4 p-3 rounded-3">
+    <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
       <h2 class="display-4 text-center"><b>No cat details found!</b></h2>
     </div>
     } @if (!isLoading && cat) {
     <div class="cat-profile rounded-3 d-flex flex-column flex-lg-row">
-      <!-- Carousel Container -->
       <div
-        class="carousel-container d-flex rounded-3 justify-content-center flex-1 mb-4 mb-lg-0"
+        class="carousel-container d-flex justify-content-center flex-1 mb-4 mb-lg-0"
       >
-        <div
-          id="catCarousel"
-          class="carousel slide shadow-lg rounded-3"
-          data-bs-ride="carousel"
-        >
+        <div id="catCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             @for (image of cat.images; track $index) {
             <div class="carousel-item rounded-3" [class.active]="$index === 0">
               <img
                 [src]="getImageSrc(image)"
-                class="d-block w-100 rounded-3 shadow-lg"
+                class="d-block w-100 rounded-3 cat-image"
                 alt="Cat Image {{ $index + 1 }}"
-                style="object-fit: cover; height: 300px"
               />
             </div>
             }
@@ -67,11 +61,10 @@
         </div>
       </div>
 
-      <!-- Cat Details Container -->
       <div
         class="cat-details shadow-lg bg-white rounded-3 p-3 text-center flex-1"
       >
-        <p class="cat-breed">Age: {{ cat.age }} years old</p>
+        <p class="cat-age">Age: {{ cat.age }} years old</p>
         <p class="cat-diversity">Fur color: {{ cat.color }}</p>
         @if (cat.status == 'Available') {
         <p class="cat-status" style="color: green">{{ cat.status }}</p>

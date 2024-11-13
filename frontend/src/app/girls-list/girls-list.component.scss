@@ -75,17 +75,19 @@ body {
   color: #4a5568;
 }
 
-.cat-info, .cat-color, .cat-status {
+.cat-info,
+.cat-color,
+.cat-status {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: #718096;
 }
 .img-fluid {
   max-height: 400px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   height: 50vh;
 }
-
 
 @media (max-width: 768px) {
   .cat-profile {
@@ -105,5 +107,3 @@ body {
     height: auto;
   }
 }
-
-
