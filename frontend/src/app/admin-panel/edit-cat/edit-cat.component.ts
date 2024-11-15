@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CatService } from '../../services/cat.service';
 import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
@@ -53,12 +53,12 @@ export class EditCatComponent implements OnInit {
 
   private initializeForm(): void {
     this.catForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      color: ['', [Validators.required, Validators.maxLength(100)]],
-      age: ['', [Validators.required, Validators.maxLength(50)]],
-      sex: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['', Validators.required],
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
     });
   }
 
@@ -71,7 +71,7 @@ export class EditCatComponent implements OnInit {
           age: cat.age,
           sex: cat.sex === 'Male' ? '1' : '2',
           description: cat.article,
-          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved' ? '2' : '3',
+          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved / Under discussion' ? '2' : cat.status === 'Sold' ? '3' : '4',
         });
         this.imagePreviews = cat.images.map(
           (image) => `data:${image.type};base64,${image.image}`,
@@ -117,7 +117,7 @@ export class EditCatComponent implements OnInit {
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
-    const statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved / Under discussion' : status === '3' ? 'Sold' : 'Not for sale';
 
     const cat = new CatKit();
     cat.name = name;
@@ -125,7 +125,7 @@ export class EditCatComponent implements OnInit {
     cat.age = age;
     cat.sex = sexValue as 'Male' | 'Female';
     cat.article = description;
-    cat.status = statusValue as 'Available' | 'Reserved' | 'Adopted';
+    cat.status = statusValue as 'Available' | 'Reserved / Under discussion' | 'Adopted' | 'Not for sale';
 
     formData.append(
       'cat',
