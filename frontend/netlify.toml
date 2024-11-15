@@ -1,0 +1,6 @@
+[build]
+  command = "ng build --configuration=production"
+  publish = "dist/frontend/browser"
+
+[[plugins]]
+  package = "@netlify/plugin-inline-functions-env"
