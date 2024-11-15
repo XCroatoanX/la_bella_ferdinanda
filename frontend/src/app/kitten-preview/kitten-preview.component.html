@@ -2,72 +2,49 @@
   <div class="pt-3 mx-3">
     <app-header></app-header>
   </div>
-
-  <div class="bg-white mx-3 my-4 p-3 rounded-3 shadow-lg">
-    @if (!isLoading && kitten) {
+  @if (!isLoading && kitten) {
+  <div class="mx-3 my-4 p-3 rounded-3 shadow-lg" style="background-color: #fef6fa;">
     <h1 class="display-4 text-center">
       <b>{{ kitten.name }}</b>
     </h1>
-    }
   </div>
-
+  }
   <div class="mx-3 my-4">
     @if (isLoading) {
-    <div class="text-center bg-white p-3 rounded-3">
+    <div class="text-center  p-3 rounded-3" style="background-color: #fef6fa;">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
       <h2>Loading kitten details...</h2>
     </div>
     } @else if (!kitten) {
-    <div class="shadow-lg bg-white mx-3 my-4 p-3 rounded-3">
+    <div class="shadow-lg  mx-3 my-4 p-3 rounded-3" style="background-color: #fef6fa;">
       <h2 class="display-4 text-center"><b>No kitten details found!</b></h2>
     </div>
     } @else {
     <div class="kitten-profile rounded-3 d-flex flex-column flex-lg-row">
-      <div
-        class="carousel-container d-flex rounded-3 justify-content-center flex-1 mb-4 mb-lg-0"
-      >
-        <div
-          id="kittenCarousel"
-          class="carousel slide rounded-3"
-          data-bs-ride="carousel"
-        >
+      <div class="carousel-container d-flex rounded-3 justify-content-center flex-1 mb-4 mb-lg-0">
+        <div id="kittenCarousel" class="carousel slide rounded-3" data-bs-ride="carousel">
           <div class="carousel-inner">
             @for (image of kitten.images; track $index) {
             <div class="carousel-item rounded-3" [class.active]="$index === 0">
-              <img
-                [src]="getImageSrc(image)"
-                class="d-block w-100 rounded-3 cat-image"
-                alt="kitten Image {{ $index + 1 }}"
-              />
+              <img [src]="getImageSrc(image)" class="d-block w-100 rounded-3 cat-image"
+                alt="kitten Image {{ $index + 1 }}" />
             </div>
             }
           </div>
-          <button
-            class="carousel-control-prev"
-            type="button"
-            data-bs-target="#kittenCarousel"
-            data-bs-slide="prev"
-          >
+          <button class="carousel-control-prev" type="button" data-bs-target="#kittenCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button
-            class="carousel-control-next"
-            type="button"
-            data-bs-target="#kittenCarousel"
-            data-bs-slide="next"
-          >
+          <button class="carousel-control-next" type="button" data-bs-target="#kittenCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
         </div>
       </div>
 
-      <div
-        class="kitten-details shadow-lg bg-white rounded-3 p-3 text-center flex-1"
-      >
+      <div class="kitten-details shadow-lg  rounded-3 p-3 text-center flex-1" style="background-color: #fef6fa;">
         <p class="kitten-age">Age: {{ kitten.age }} months old</p>
         <p class="kitten-color">Fur color: {{ kitten.color }}</p>
         <p class="kitten-litter">Litter {{ kitten.litter }}</p>

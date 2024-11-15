@@ -2,7 +2,7 @@
   <div class="pt-3 mx-3">
     <app-header></app-header>
   </div>
-  <div class="shadow-lg bg-white mx-3 my-4 rounded-3 p-3 p-md-5">
+  <div class="shadow-lg mx-3 my-4 rounded-3 p-3 p-md-5" style="background-color: #fef6fa;">
     <h1 class="display-4 text-center"><strong>About breed</strong></h1>
     <div class="container">
       <div class="row">
@@ -12,11 +12,7 @@
             <div class="row">
               <div class="col">
                 <p class="d-flex align-items-center">
-                  <img
-                    src="assets/icons/ruler.png"
-                    alt="about cat"
-                    class="about-cat-img"
-                  />
+                  <img src="assets/icons/ruler.png" alt="about cat" class="about-cat-img" />
                   <strong class="ms-3">Body</strong>
                 </p>
                 <div class="container p-0">
@@ -43,33 +39,29 @@
                   </div>
                 </div>
                 <p class="d-flex align-items-center">
-                  <img
-                    src="assets/icons/care.png"
-                    alt="about cat"
-                    class="about-cat-img"
-                  />
+                  <img src="assets/icons/care.png" alt="about cat" class="about-cat-img" />
                   <strong class="ms-3">Care</strong>
                 </p>
                 <div class="row">
                   <div class="col">
                     <p class="undertext"><strong>Longevity</strong></p>
                   </div>
-                  <div class="col"><p class="undertext">12-15 years</p></div>
+                  <div class="col">
+                    <p class="undertext">12-15 years</p>
+                  </div>
                 </div>
                 <div class="row">
                   <div class="col">
                     <p class="undertext"><strong>Amount</strong></p>
                   </div>
-                  <div class="col"><p class="undertext">Moderate, High</p></div>
+                  <div class="col">
+                    <p class="undertext">Moderate, High</p>
+                  </div>
                 </div>
               </div>
               <div class="col">
                 <p class="d-flex align-items-center">
-                  <img
-                    src="assets/icons/cat.png"
-                    alt="about cat"
-                    class="about-cat-img"
-                  />
+                  <img src="assets/icons/cat.png" alt="about cat" class="about-cat-img" />
                   <strong class="ms-3">Coat</strong>
                 </p>
                 <div class="row">
@@ -105,72 +97,31 @@
         </div>
 
         <div class="col-md my-auto">
-          <div
-            id="breedCarousel"
-            class="carousel slide w-100 mx-auto"
-            data-bs-ride="carousel"
-            data-bs-interval="3000"
-          >
+          <div id="breedCarousel" class="carousel slide w-100 mx-auto" data-bs-ride="carousel" data-bs-interval="3000">
             <div class="carousel-inner rounded-3 shadow-lg">
               <div class="carousel-item active">
-                <img
-                  ngSrc="assets/img/about-breed1.jpg"
-                  alt="Maine Coon Image"
-                  class="d-block w-100"
-                  height="864"
-                  width="1536"
-                />
+                <img ngSrc="assets/img/about-breed1.jpg" alt="Maine Coon Image" class="d-block w-100" height="864"
+                  width="1536" />
               </div>
               <div class="carousel-item">
-                <img
-                  ngSrc="assets/img/about-breed2.jpg"
-                  alt="Maine Coon Image"
-                  class="d-block w-100"
-                  height="1123"
-                  width="1996"
-                />
+                <img ngSrc="assets/img/about-breed2.jpg" alt="Maine Coon Image" class="d-block w-100" height="1123"
+                  width="1996" />
               </div>
               <div class="carousel-item">
-                <img
-                  ngSrc="assets/img/about-breed3.jpg"
-                  alt="Maine Coon Image"
-                  class="d-block w-100"
-                  height="1152"
-                  width="2048"
-                />
+                <img ngSrc="assets/img/about-breed3.jpg" alt="Maine Coon Image" class="d-block w-100" height="1152"
+                  width="2048" />
               </div>
               <div class="carousel-item">
-                <img
-                  ngSrc="assets/img/about-breed4.jpg"
-                  alt="Maine Coon Image"
-                  class="d-block w-100"
-                  height="1152"
-                  width="2048"
-                />
+                <img ngSrc="assets/img/about-breed4.jpg" alt="Maine Coon Image" class="d-block w-100" height="1152"
+                  width="2048" />
               </div>
             </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#breedCarousel"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#breedCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#breedCarousel"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#breedCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>
@@ -255,63 +206,35 @@
           <h2 class="sub-heading">Detailed Information</h2>
           <ul class="ps-0">
             <li>
-              <button
-                class="btn btn-custom"
-                (mouseover)="CFAhover = true"
-                (mouseout)="CFAhover = false"
-              >
-                <img
-                  alt="PDF"
-                  class="file_icon"
-                  [src]="
+              <button class="btn btn-custom" (mouseover)="CFAhover = true" (mouseout)="CFAhover = false">
+                <img alt="PDF" class="file_icon" [src]="
                     CFAhover
                       ? '/assets/icons/file.gif'
                       : '/assets/icons/file.png'
-                  "
-                />
-                <a href="assets/pdf/CFA_NL.pdf" class="btn" target="_blank"
-                  >CFA - Cat Fanciers Association&trade; Standards</a
-                >
+                  " />
+                <a href="assets/pdf/CFA_NL.pdf" class="btn" target="_blank">CFA - Cat Fanciers Association&trade;
+                  Standards</a>
               </button>
             </li>
             <li>
-              <button
-                class="btn btn-custom"
-                (mouseover)="MCOhover = true"
-                (mouseout)="MCOhover = false"
-              >
-                <img
-                  alt="PDF"
-                  class="file_icon"
-                  [src]="
+              <button class="btn btn-custom" (mouseover)="MCOhover = true" (mouseout)="MCOhover = false">
+                <img alt="PDF" class="file_icon" [src]="
                     MCOhover
                       ? '/assets/icons/file.gif'
                       : '/assets/icons/file.png'
-                  "
-                />
-                <a href="assets/pdf/MCO.pdf" class="btn" target="_blank"
-                  >MCO - Breed Standards</a
-                >
+                  " />
+                <a href="assets/pdf/MCO.pdf" class="btn" target="_blank">MCO - Breed Standards</a>
               </button>
             </li>
             <li>
-              <button
-                class="btn btn-custom"
-                (mouseover)="TICAhover = true"
-                (mouseout)="TICAhover = false"
-              >
-                <img
-                  alt="PDF"
-                  class="file_icon"
-                  [src]="
+              <button class="btn btn-custom" (mouseover)="TICAhover = true" (mouseout)="TICAhover = false">
+                <img alt="PDF" class="file_icon" [src]="
                     TICAhover
                       ? '/assets/icons/file.gif'
                       : '/assets/icons/file.png'
-                  "
-                />
-                <a href="assets/pdf/TICA_EN.pdf" class="btn" target="_blank"
-                  >TICA - The International Cat Association&trade; Standards</a
-                >
+                  " />
+                <a href="assets/pdf/TICA_EN.pdf" class="btn" target="_blank">TICA - The International Cat
+                  Association&trade; Standards</a>
               </button>
             </li>
           </ul>
