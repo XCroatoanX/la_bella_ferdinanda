@@ -53,12 +53,13 @@ export class EditKittenComponent implements OnInit {
 
   private initializeForm(): void {
     this.kittenForm = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(50)]],
-      color: ['', [Validators.required, Validators.maxLength(100)]],
-      age: ['', [Validators.required, Validators.maxLength(50)]],
-      sex: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['', Validators.required],
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
+      litter: [''],
     });
   }
 
@@ -71,7 +72,8 @@ export class EditKittenComponent implements OnInit {
           age: kitten.age,
           sex: kitten.sex === 'Male' ? '1' : '2',
           description: kitten.article,
-          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved' ? '2' : '3',
+          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved / Under discussion' ? '2' : kitten.status === 'Sold' ? '3' : '4',
+          litter: kitten.litter,
         });
         this.imagePreviews = kitten.images.map(
           (image) => `data:${image.type};base64,${image.image}`,
@@ -113,11 +115,11 @@ export class EditKittenComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description, status } = this.kittenForm.value;
+    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
-    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved' : 'Adopted';
+    let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved / Under discussion' : status === '3' ? 'Sold' : 'Not for sale';
 
     const kitten = new CatKit();
     kitten.name = name;
@@ -125,7 +127,8 @@ export class EditKittenComponent implements OnInit {
     kitten.age = age;
     kitten.sex = sexValue as 'Male' | 'Female';
     kitten.article = description;
-    kitten.status = statusValue as 'Available' | 'Reserved' | 'Sold';
+    kitten.status = statusValue as 'Available' | 'Reserved / Under discussion' | 'Sold' | 'Not for sale';
+    kitten.litter = litter;
 
     formData.append(
       'kitten',

@@ -42,6 +42,7 @@ body {
 .kitten-profile {
   display: flex;
   flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.2);
   &:hover {
     cursor: pointer;
   }
@@ -75,17 +76,19 @@ body {
   color: #4a5568;
 }
 
-.kitten-info, .kitten-diversity, .kitten-status {
+.kitten-info,
+.kitten-diversity,
+.kitten-status {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: #718096;
 }
 .img-fluid {
   max-height: 400px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   height: 50vh;
 }
-
 
 @media (max-width: 768px) {
   .kitten-profile {
@@ -96,7 +99,7 @@ body {
     flex: 1 1 100%;
   }
 
-  .kitten-details{
+  .kitten-details {
     flex: 1 1 100%;
     padding: 0.5rem;
   }
@@ -104,4 +107,3 @@ body {
     height: auto;
   }
 }
-

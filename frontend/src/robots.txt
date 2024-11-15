@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /admin
+Sitemap: https://labellaferdinanda.nl/sitemap.xml

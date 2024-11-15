@@ -11,8 +11,8 @@
       <h5>Loading...</h5>
     </div>
     } @if (loading == false) { @for (kitten of kittens; track $index)
-    {<app-item-card-kitten class="mx-3" [animal]="kitten"></app-item-card-kitten>} } @if
-    (kittens.length == 0 && loading == false) {
+    {<app-item-card-kitten class="mx-3" [animal]="kitten"></app-item-card-kitten
+    >} } @if (kittens.length == 0 && loading == false) {
     <div class="text-center my-4">
       <h2 class="h2">No kittens found</h2>
     </div>
