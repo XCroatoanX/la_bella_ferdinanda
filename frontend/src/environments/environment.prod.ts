@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    base_url: '%%API_URL%%'
+    base_url: "https://labellaferdinanda-api.fly.dev/api"
 };
