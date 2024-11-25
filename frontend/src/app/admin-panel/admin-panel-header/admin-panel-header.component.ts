@@ -5,11 +5,10 @@ import { NgOptimizedImage } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-admin-panel-header',
-  standalone: true,
-  imports: [NgOptimizedImage, RouterModule],
-  templateUrl: './admin-panel-header.component.html',
-  styleUrl: './admin-panel-header.component.scss',
+    selector: 'app-admin-panel-header',
+    imports: [NgOptimizedImage, RouterModule],
+    templateUrl: './admin-panel-header.component.html',
+    styleUrl: './admin-panel-header.component.scss'
 })
 export class AdminPanelHeaderComponent {
   constructor(

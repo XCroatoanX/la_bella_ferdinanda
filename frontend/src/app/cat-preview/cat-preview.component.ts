@@ -7,14 +7,13 @@ import { CommonModule } from "@angular/common";
 import { CoreModule } from "../core/core.module";
 
 @Component({
-  selector: 'app-cat-preview',
-  standalone: true,
-  imports: [
-    CommonModule,
-    CoreModule
-  ],
-  templateUrl: './cat-preview.component.html',
-  styleUrls: ['./cat-preview.component.scss']
+    selector: 'app-cat-preview',
+    imports: [
+        CommonModule,
+        CoreModule
+    ],
+    templateUrl: './cat-preview.component.html',
+    styleUrls: ['./cat-preview.component.scss']
 })
 export class CatPreviewComponent implements OnInit {
   catId: string | null = null;

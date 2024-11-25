@@ -6,11 +6,10 @@ import { CatKit } from '../models/catkit.model';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-panel',
-  standalone: true,
-  imports: [AdminPanelHeaderComponent, RouterLink],
-  templateUrl: './admin-panel.component.html',
-  styleUrl: './admin-panel.component.scss',
+    selector: 'app-admin-panel',
+    imports: [AdminPanelHeaderComponent, RouterLink],
+    templateUrl: './admin-panel.component.html',
+    styleUrl: './admin-panel.component.scss'
 })
 export class AdminPanelComponent implements OnInit {
   public catsNumber: number;

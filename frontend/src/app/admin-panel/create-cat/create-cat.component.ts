@@ -13,16 +13,15 @@ import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
 
 @Component({
-  selector: 'app-create-cat',
-  standalone: true,
-  imports: [
-    AdminPanelHeaderComponent,
-    ReactiveFormsModule,
-    NgClass,
-    CommonModule,
-  ],
-  templateUrl: './create-cat.component.html',
-  styleUrls: ['./create-cat.component.scss'],
+    selector: 'app-create-cat',
+    imports: [
+        AdminPanelHeaderComponent,
+        ReactiveFormsModule,
+        NgClass,
+        CommonModule,
+    ],
+    templateUrl: './create-cat.component.html',
+    styleUrls: ['./create-cat.component.scss']
 })
 export class CreateCatComponent implements OnInit {
   public catForm: FormGroup;

@@ -6,14 +6,13 @@ import { RouterLink } from "@angular/router";
 import { CatKit } from '../models/catkit.model';
 
 @Component({
-  selector: 'app-user-kittens-list',
-  standalone: true,
-  imports: [
-    CoreModule,
-    RouterLink
-  ],
-  templateUrl: './user-kittens-list.component.html',
-  styleUrl: './user-kittens-list.component.scss'
+    selector: 'app-user-kittens-list',
+    imports: [
+        CoreModule,
+        RouterLink
+    ],
+    templateUrl: './user-kittens-list.component.html',
+    styleUrl: './user-kittens-list.component.scss'
 })
 export class UserKittensListComponent implements OnInit {
   kittensList: CatKit[] = [];
