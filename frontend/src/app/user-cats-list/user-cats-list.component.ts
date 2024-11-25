@@ -6,14 +6,13 @@ import { CatService } from "../services/cat.service";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-user-cats-list',
-  standalone: true,
-  imports: [
-    CoreModule,
-    RouterLink
-  ],
-  templateUrl: './user-cats-list.component.html',
-  styleUrl: './user-cats-list.component.scss'
+    selector: 'app-user-cats-list',
+    imports: [
+        CoreModule,
+        RouterLink
+    ],
+    templateUrl: './user-cats-list.component.html',
+    styleUrl: './user-cats-list.component.scss'
 })
 export class UserCatsListComponent implements OnInit {
   catsList: CatKit[] = [];

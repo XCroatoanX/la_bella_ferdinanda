@@ -6,14 +6,13 @@ import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-boys-list',
-  standalone: true,
-  imports: [
-    CoreModule,
-    RouterLink
-  ],
-  templateUrl: './boys-list.component.html',
-  styleUrls: ['./boys-list.component.scss']
+    selector: 'app-boys-list',
+    imports: [
+        CoreModule,
+        RouterLink
+    ],
+    templateUrl: './boys-list.component.html',
+    styleUrls: ['./boys-list.component.scss']
 })
 export class BoysListComponent implements OnInit {
   boysList: CatKit[] = [];
