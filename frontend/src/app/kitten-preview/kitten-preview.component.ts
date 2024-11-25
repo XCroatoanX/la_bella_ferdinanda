@@ -6,13 +6,12 @@ import { ActivatedRoute } from "@angular/router";
 import { CatKit } from '../models/catkit.model';
 
 @Component({
-  selector: 'app-kitten-preview',
-  standalone: true,
-  imports: [
-    CoreModule,
-  ],
-  templateUrl: './kitten-preview.component.html',
-  styleUrl: './kitten-preview.component.scss'
+    selector: 'app-kitten-preview',
+    imports: [
+        CoreModule,
+    ],
+    templateUrl: './kitten-preview.component.html',
+    styleUrl: './kitten-preview.component.scss'
 })
 export class KittenPreviewComponent {
   kittenId: string | null = null;

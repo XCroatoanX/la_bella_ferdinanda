@@ -7,11 +7,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-item-card',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
-  templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.scss'],
+    selector: 'app-item-card',
+    imports: [CommonModule, RouterLink],
+    templateUrl: './item-card.component.html',
+    styleUrls: ['./item-card.component.scss']
 })
 export class ItemCardComponent implements OnInit {
   @Input() animal: CatKit;

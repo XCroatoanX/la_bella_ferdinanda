@@ -14,17 +14,16 @@ import { CommonModule } from '@angular/common';
 import { CatKit } from '../../models/catkit.model';
 
 @Component({
-  selector: 'app-edit-kitten',
-  standalone: true,
-  imports: [
-    AdminPanelHeaderComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    RouterLink,
-  ],
-  templateUrl: './edit-kitten.component.html',
-  styleUrls: ['./edit-kitten.component.scss'],
+    selector: 'app-edit-kitten',
+    imports: [
+        AdminPanelHeaderComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule,
+        RouterLink,
+    ],
+    templateUrl: './edit-kitten.component.html',
+    styleUrls: ['./edit-kitten.component.scss']
 })
 export class EditKittenComponent implements OnInit {
   public kittenForm: FormGroup;
