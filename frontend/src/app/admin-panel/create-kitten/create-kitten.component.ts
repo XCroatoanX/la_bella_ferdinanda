@@ -13,15 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
 
 @Component({
-  selector: 'app-create-kitten',
-  standalone: true,
-  imports: [
-    AdminPanelHeaderComponent,
-    ReactiveFormsModule,
-    NgClass
-  ],
-  templateUrl: './create-kitten.component.html',
-  styleUrl: './create-kitten.component.scss',
+    selector: 'app-create-kitten',
+    imports: [
+        AdminPanelHeaderComponent,
+        ReactiveFormsModule,
+        NgClass
+    ],
+    templateUrl: './create-kitten.component.html',
+    styleUrl: './create-kitten.component.scss'
 })
 export class CreateKittenComponent implements OnInit {
   public kittenForm: FormGroup;
