@@ -18,8 +18,14 @@
       </div>
     </div>
     <div [routerLink]="['kittens-list']" class="col-5  rounded-3 p-0 shadow-lg mx-3 cat-page" id="kittens">
+
+      @if (isMobile) {
+      <img alt="Check out our cute kittens" class="rounded-3 cat-img" height="1280"
+        ngSrc="assets/img/homepage-kittens-mobile.jpg" width="960" />
+      } @else {
       <img alt="Check out our cute kittens" class="rounded-3 cat-img" height="1152"
         ngSrc="assets/img/homepage-kittens.jpg" width="2048" />
+      }
       <div class="text-overlay">
         <p class="cat-categories">Check out our cute</p>
         <h1 class="cat-categories"><strong>Kittens</strong></h1>
@@ -28,8 +34,13 @@
   </div>
   <div class="row my-4 justify-content-center mx-0">
     <div [routerLink]="['cats-list']" class="col-5  rounded-3 shadow-lg p-0 mx-3 cat-page" id="offsprings">
-      <img alt="Check out our offsprings" class="rounded-3 cat-img" height="1080" ngSrc="assets/img/homepage-adults.jpg"
-        width="1920" />
+      @if (isMobile) {
+      <img alt="Check out our family" class="rounded-3 cat-img" height="1600"
+        ngSrc="assets/img/homepage-family-mobile.jpeg" width="900" />
+      } @else {
+      <img alt="Check out our family" class="rounded-3 cat-img" height="620" ngSrc="assets/img/homepage-family-pc.jpg"
+        width="1102" />
+      }
       <div class="text-overlay">
         <p class="cat-categories">Check out our happy</p>
         <h1 class="cat-categories light">
@@ -37,9 +48,16 @@
         </h1>
       </div>
     </div>
+
     <div [routerLink]="['girls-list']" class="col  rounded-3 shadow-lg p-0 mx-3 cat-page" id="females">
-      <img alt="Check out our Females" class="rounded-3 cat-img" height="2410" ngSrc="assets/img/homepage-females.jpg"
-        width="4284" />
+      @if (isMobile) {
+      <img alt="Check out our Females" class="rounded-3 cat-img" height="1280"
+        ngSrc="assets/img/homepage-females-mobile.jpg" width="960" />
+      } @else {
+      <img alt="Check out our Females" class="rounded-3 cat-img" height="960" ngSrc="assets/img/homepage-females.jpg"
+        width="570" />
+      }
+
       <div class="text-overlay">
         <p class="cat-categories">Check out our elegant</p>
         <h1 class="cat-categories"><strong>Females</strong></h1>
