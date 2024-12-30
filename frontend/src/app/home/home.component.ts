@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from "@angular/common";
 
 @Component({
-    selector: 'app-home',
-    imports: [CoreModule, RouterLink, NgOptimizedImage],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+  standalone: true,
+  selector: 'app-home',
+  imports: [CoreModule, RouterLink, NgOptimizedImage],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
     public isMobile: boolean = false;
