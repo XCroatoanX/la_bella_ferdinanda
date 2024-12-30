@@ -7,13 +7,12 @@ import {RouterLink} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
 @Component({
-  selector: 'app-item-card-kitten',
-  standalone: true,
-  imports: [
-    CommonModule, RouterLink
-  ],
-  templateUrl: './item-card-kitten.component.html',
-  styleUrl: './item-card-kitten.component.scss'
+    selector: 'app-item-card-kitten',
+    imports: [
+        CommonModule, RouterLink
+    ],
+    templateUrl: './item-card-kitten.component.html',
+    styleUrl: './item-card-kitten.component.scss'
 })
 export class ItemCardKittenComponent implements OnInit{
   @Input() animal: CatKit;

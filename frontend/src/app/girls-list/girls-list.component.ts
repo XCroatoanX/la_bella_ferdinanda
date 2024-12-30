@@ -6,14 +6,13 @@ import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-girls-list',
-  standalone: true,
-  imports: [
-    CoreModule,
-    RouterLink
-  ],
-  templateUrl: './girls-list.component.html',
-  styleUrl: './girls-list.component.scss'
+    selector: 'app-girls-list',
+    imports: [
+        CoreModule,
+        RouterLink
+    ],
+    templateUrl: './girls-list.component.html',
+    styleUrl: './girls-list.component.scss'
 })
 export class GirlsListComponent implements OnInit {
   girlsList: CatKit[] = [];
