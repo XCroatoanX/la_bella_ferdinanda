@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
 import { KittenService } from '../../services/kitten.service';
-import { ItemCardComponent } from "../item-card/item-card.component";
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CatKit } from '../../models/catkit.model';
-import {ItemCardKittenComponent} from "../item-card-kitten/item-card-kitten.component";
+import { ItemCardKittenComponent } from "../item-card-kitten/item-card-kitten.component";
 
 @Component({
   selector: 'app-kittens-list',
-  standalone: true,
-  imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule, ItemCardKittenComponent],
+  imports: [AdminPanelHeaderComponent, CommonModule, ItemCardKittenComponent],
   templateUrl: './kittens-list.component.html',
-  styleUrl: './kittens-list.component.scss',
+  styleUrl: './kittens-list.component.scss'
 })
 export class KittensListComponent implements OnInit {
   kittens: CatKit[] = [];

@@ -7,11 +7,10 @@ import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-cats-list',
-  standalone: true,
-  imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule],
-  templateUrl: './cats-list.component.html',
-  styleUrl: './cats-list.component.scss',
+    selector: 'app-cats-list',
+    imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule],
+    templateUrl: './cats-list.component.html',
+    styleUrl: './cats-list.component.scss'
 })
 export class CatsListComponent implements OnInit {
   cats: CatKit[] = [];
