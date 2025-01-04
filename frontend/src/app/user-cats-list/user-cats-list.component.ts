@@ -22,7 +22,7 @@ export class UserCatsListComponent implements OnInit {
   constructor(private catService: CatService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.catService.getAllCats().subscribe({
+    this.catService.getAllCatsMin().subscribe({
       next: (cats) => {
         this.catsList = cats.map(cat => {
           this.setImageSrc(cat);

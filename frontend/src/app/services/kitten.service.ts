@@ -14,6 +14,10 @@ export class KittenService {
     return this.http.get<CatKit[]>(environment.base_url + '/kitten');
   }
 
+  public getAllKittensMin(): Observable<CatKit[]> {
+    return this.http.get<CatKit[]>(environment.base_url + '/kitten/min');
+  }
+
   public getKittenById(id: string): Observable<CatKit> {
     return this.http.get<CatKit>(environment.base_url + '/kitten/' + id);
   }

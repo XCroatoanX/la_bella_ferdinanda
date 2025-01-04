@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
+import com.example.backend.dto.CatMinDTO;
 import com.example.backend.models.Cat;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -44,6 +45,11 @@ public class CatController {
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
         return ResponseEntity.ok(this.catDAO.getAllCats());
+    }
+
+    @GetMapping("/min")
+    public ResponseEntity<List<CatMinDTO>> getAllCatsMin() {
+        return ResponseEntity.ok(this.catDAO.getAllCatsMin());
     }
 
     @GetMapping("/{id}")
