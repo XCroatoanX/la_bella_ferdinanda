@@ -1,6 +1,7 @@
 package com.example.backend.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend.dto.KittenDTO;
+import com.example.backend.dto.KittenMinDTO;
 import com.example.backend.models.Image;
 import com.example.backend.models.Kitten;
 import com.example.backend.services.ImageService;
@@ -30,6 +32,24 @@ public class KittenDAO {
 
     public List<Kitten> getAllKittens() {
         return kittenRepository.findAll();
+    }
+
+    public List<KittenMinDTO> getAllKittensMin() {
+        List<Kitten> kittens = kittenRepository.findAll();
+        List<KittenMinDTO> kittenMinDTO = new ArrayList<>();
+        for (Kitten kitten : kittens) {
+            kittenMinDTO.add(new KittenMinDTO(
+                    kitten.getName(),
+                    kitten.getColor(),
+                    kitten.getAge(),
+                    kitten.getSex(),
+                    kitten.getArticle(),
+                    kitten.getStatus(),
+                    kitten.isKitten(),
+                    kitten.getLitter(),
+                    kitten.getImages().get(0)));
+        }
+        return kittenMinDTO;
     }
 
     @Transactional

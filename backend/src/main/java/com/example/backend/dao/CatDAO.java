@@ -1,6 +1,7 @@
 package com.example.backend.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend.dto.CatDTO;
+import com.example.backend.dto.CatMinDTO;
 import com.example.backend.models.Cat;
 import com.example.backend.models.Image;
 import com.example.backend.services.ImageService;
@@ -31,6 +33,23 @@ public class CatDAO {
 
     public List<Cat> getAllCats() {
         return catRepository.findAll();
+    }
+
+    public List<CatMinDTO> getAllCatsMin() {
+        List<Cat> cats = catRepository.findAll();
+        List<CatMinDTO> catMinDTO = new ArrayList<>();
+        for (Cat cat : cats) {
+            catMinDTO.add(new CatMinDTO(
+                    cat.getName(),
+                    cat.getColor(),
+                    cat.getAge(),
+                    cat.getSex(),
+                    cat.getArticle(),
+                    cat.getStatus(),
+                    cat.isKitten(),
+                    cat.getImages().get(0)));
+        }
+        return catMinDTO;
     }
 
     @Transactional
@@ -54,7 +73,8 @@ public class CatDAO {
         List<Image> imageList = this.imageService.imagesToByte(images);
         UUID catId = UUID.randomUUID();
 
-        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status, false,
+        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status,
+                false,
                 imageList);
         this.catRepository.save(cat);
     }
