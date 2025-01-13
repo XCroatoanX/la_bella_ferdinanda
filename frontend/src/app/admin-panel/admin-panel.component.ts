@@ -21,10 +21,10 @@ export class AdminPanelComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.catService.getAllCats().subscribe((cats: CatKit[]) => {
+    this.catService.getAllCatsMin().subscribe((cats: CatKit[]) => {
       this.catsNumber = cats.length;
     });
-    this.kittenService.getAllKittens().subscribe((kittens: CatKit[]) => {
+    this.kittenService.getAllKittensMin().subscribe((kittens: CatKit[]) => {
       this.kittensNumber = kittens.length;
     });
   }

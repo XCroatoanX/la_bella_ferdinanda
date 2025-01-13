@@ -20,7 +20,7 @@ export class KittensListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
-    this.kittenService.getAllKittens().subscribe({
+    this.kittenService.getAllKittensMin().subscribe({
       next: (kittens) => {
         this.kittens = kittens;
         this.loading = false;

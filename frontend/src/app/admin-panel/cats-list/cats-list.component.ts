@@ -21,7 +21,7 @@ export class CatsListComponent implements OnInit {
   ngOnInit(): void {
     this.loading = true;
 
-    this.catService.getAllCats().subscribe({
+    this.catService.getAllCatsMin().subscribe({
       next: (cats) => {
         this.cats = cats;
         console.log(this.cats);

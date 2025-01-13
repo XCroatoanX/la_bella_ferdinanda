@@ -2,8 +2,6 @@
 # Java test files
 backend/target/
 backend/build/
-# Important DB files
-backend/src/main/resources/env.properties
 
 # Compiled output
 backend/dist
@@ -91,12 +89,6 @@ frontend/Thumbs.db
 
 ### Root Files ###
 .DS_Store
-backend/src/main/resources/application.properties
-backend/src/main/resources/application.properties
 .idea
 .vscode/
-documents/
 /frontend/.angular
-/.env
-backend/.dockerignore
-backend/fly.toml
