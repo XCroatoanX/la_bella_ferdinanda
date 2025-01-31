@@ -92,3 +92,5 @@ frontend/Thumbs.db
 .idea
 .vscode/
 /frontend/.angular
+backend/src/main/resources/application.properties
+backend/fly.toml
