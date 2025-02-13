@@ -28,7 +28,7 @@ public class Cat {
         private String status;
         private boolean isKitten;
 
-        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
         @JoinTable(name = "cat_images", joinColumns = {
                         @JoinColumn(name = "cat_id")
         }, inverseJoinColumns = {
@@ -36,8 +36,8 @@ public class Cat {
         })
         private List<Image> images;
 
-
-        public Cat(UUID id, String name, String color, double age, String sex, String article, String status, boolean isKitten, List<Image> images) {
+        public Cat(UUID id, String name, String color, double age, String sex, String article, String status,
+                        boolean isKitten, List<Image> images) {
                 this.id = id;
                 this.name = name;
                 this.color = color;
