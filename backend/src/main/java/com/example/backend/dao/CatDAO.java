@@ -40,6 +40,7 @@ public class CatDAO {
         List<CatMinDTO> catMinDTO = new ArrayList<>();
         for (Cat cat : cats) {
             catMinDTO.add(new CatMinDTO(
+                    cat.getId(),
                     cat.getName(),
                     cat.getColor(),
                     cat.getAge(),
