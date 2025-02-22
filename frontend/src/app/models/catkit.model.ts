@@ -11,4 +11,5 @@ export class CatKit {
   public isKitten?: boolean;
   public litter?: string;
   public images?: Image[];
+  public image?: Image;
 }

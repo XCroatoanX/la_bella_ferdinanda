@@ -6,13 +6,13 @@ import { RouterLink } from "@angular/router";
 import { CatKit } from '../models/catkit.model';
 
 @Component({
-    selector: 'app-user-kittens-list',
-    imports: [
-        CoreModule,
-        RouterLink
-    ],
-    templateUrl: './user-kittens-list.component.html',
-    styleUrl: './user-kittens-list.component.scss'
+  selector: 'app-user-kittens-list',
+  imports: [
+    CoreModule,
+    RouterLink
+  ],
+  templateUrl: './user-kittens-list.component.html',
+  styleUrl: './user-kittens-list.component.scss'
 })
 export class UserKittensListComponent implements OnInit {
   kittensList: CatKit[] = [];
@@ -23,9 +23,10 @@ export class UserKittensListComponent implements OnInit {
 
   ngOnInit(): void {
     this.kittenService.getAllKittensMin().subscribe({
-      next: (cats) => {
-        this.kittensList = cats.map(kitten => {
+      next: (kittens) => {
+        this.kittensList = kittens.map(kitten => {
           this.setImageSrc(kitten);
+          console.log(kitten);
           return kitten;
         });
         this.isLoading = false;
@@ -47,17 +48,17 @@ export class UserKittensListComponent implements OnInit {
   }
 
   setImageSrc(kitten: CatKit): void {
-    if (!kitten.images || kitten.images.length === 0 || !kitten.images[0].image) {
+    if (!kitten.image || !kitten.image.image) {
       console.error('No image data found for the kitten:', kitten);
       return;
     }
 
-    const imageBase64 = kitten.images[0].image;
+    const imageBase64 = kitten.image.image;
     if (imageBase64.startsWith('data:image/')) {
-      kitten.images[0].image = imageBase64;
+      kitten.image.image = imageBase64;
     } else {
-      const mimeType = kitten.images[0].type;
-      kitten.images[0].image = `data:${mimeType};base64,${imageBase64}`;
+      const mimeType = kitten.image.type;
+      kitten.image.image = `data:${mimeType};base64,${imageBase64}`;
     }
   }
 }
