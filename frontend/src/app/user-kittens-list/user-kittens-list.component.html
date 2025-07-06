@@ -27,7 +27,7 @@
       @for (kitten of kittensList; track $index) { @if (isMobile) {
       <div class="d-flex my-4 kitten-profile rounded-3" [routerLink]="['/kitten', kitten.id]">
         <div class="kitten-image">
-          <img [src]="kitten.images[0].image" alt="{{ kitten.name }}" class="img-fluid rounded-3 kitten-photo" />
+          <img [src]="kitten.image.image" alt="{{ kitten.name }}" class="img-fluid rounded-3 kitten-photo" />
         </div>
         <div class="kitten-details shadow-lg rounded-bottom-3 p-3 flex-fill text-center align-content-center"
           style="background-color: #fef6fa;">
@@ -84,7 +84,7 @@
         </div>
 
         <div class="w-50 image-container">
-          <img [src]="kitten.images[0].image" alt="{{ kitten.name }}" class="img-fluid rounded-3 w-100" />
+          <img [src]="kitten.image.image" alt="{{ kitten.name }}" class="img-fluid rounded-3 w-100" />
         </div>
       </div>
       } }

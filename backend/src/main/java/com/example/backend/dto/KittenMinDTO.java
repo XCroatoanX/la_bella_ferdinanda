@@ -1,8 +1,11 @@
 package com.example.backend.dto;
 
+import java.util.UUID;
+
 import com.example.backend.models.Image;
 
 public class KittenMinDTO {
+    public UUID id;
     public String name;
     public String color;
     public String age;
@@ -13,8 +16,9 @@ public class KittenMinDTO {
     public String litter;
     public Image image;
 
-    public KittenMinDTO(String name, String color, String age, String sex, String article, String status,
+    public KittenMinDTO(UUID id, String name, String color, String age, String sex, String article, String status,
             Boolean isKitten, String litter, Image image) {
+        this.id = id;
         this.name = name;
         this.color = color;
         this.age = age;

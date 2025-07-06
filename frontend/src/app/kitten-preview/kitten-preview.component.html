@@ -2,7 +2,7 @@
   <div class="pt-3 mx-3">
     <app-header></app-header>
   </div>
-  @if (!isLoading && kitten) {
+  @if (!isLoading && kitten.name != "") {
   <div class="mx-3 my-4 p-3 rounded-3 shadow-lg" style="background-color: #fef6fa;">
     <h1 class="display-4 text-center">
       <b>{{ kitten.name }}</b>
