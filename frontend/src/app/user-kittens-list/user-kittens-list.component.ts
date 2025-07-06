@@ -26,7 +26,6 @@ export class UserKittensListComponent implements OnInit {
       next: (kittens) => {
         this.kittensList = kittens.map(kitten => {
           this.setImageSrc(kitten);
-          console.log(kitten);
           return kitten;
         });
         this.isLoading = false;
