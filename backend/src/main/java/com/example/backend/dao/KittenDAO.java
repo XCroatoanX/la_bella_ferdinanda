@@ -39,6 +39,7 @@ public class KittenDAO {
         List<KittenMinDTO> kittenMinDTO = new ArrayList<>();
         for (Kitten kitten : kittens) {
             kittenMinDTO.add(new KittenMinDTO(
+                    kitten.getId(),
                     kitten.getName(),
                     kitten.getColor(),
                     kitten.getAge(),

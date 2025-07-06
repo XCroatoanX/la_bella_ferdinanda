@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-item-card',
-    imports: [CommonModule, RouterLink],
-    templateUrl: './item-card.component.html',
-    styleUrls: ['./item-card.component.scss']
+  selector: 'app-item-card',
+  imports: [CommonModule, RouterLink],
+  templateUrl: './item-card.component.html',
+  styleUrls: ['./item-card.component.scss']
 })
 export class ItemCardComponent implements OnInit {
   @Input() animal: CatKit;
@@ -28,8 +28,8 @@ export class ItemCardComponent implements OnInit {
     console.log('Component Initialized');
     console.log('Received animal:', this.animal);
 
-    if (this.animal && this.animal.images && this.animal.images.length > 0 && this.animal.images[0].image) {
-      const imageData = this.animal.images[0].image;
+    if (this.animal && this.animal.image && this.animal.image.image) {
+      const imageData = this.animal.image.image;
       this.setImageSrc(imageData);
     } else {
       console.error('No image data found for the animal');
@@ -45,7 +45,7 @@ export class ItemCardComponent implements OnInit {
     if (imageBase64.startsWith('data:image/')) {
       this.imageSrc = imageBase64;
     } else {
-      const mimeType = this.animal.images[0].type;
+      const mimeType = this.animal.image.type;
       this.imageSrc = `data:${mimeType};base64,${imageBase64}`;
     }
   }

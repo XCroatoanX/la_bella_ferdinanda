@@ -3,15 +3,14 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { CatService } from "../services/cat.service";
 import { CatKit } from "../models/catkit.model";
-import { CommonModule } from "@angular/common";
+
 import { CoreModule } from "../core/core.module";
 
 @Component({
     selector: 'app-cat-preview',
     imports: [
-        CommonModule,
-        CoreModule
-    ],
+    CoreModule
+],
     templateUrl: './cat-preview.component.html',
     styleUrls: ['./cat-preview.component.scss']
 })

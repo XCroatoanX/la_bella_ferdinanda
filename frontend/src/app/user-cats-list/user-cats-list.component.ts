@@ -47,17 +47,17 @@ export class UserCatsListComponent implements OnInit {
   }
 
   setImageSrc(cat: CatKit): void {
-    if (!cat.images || cat.images.length === 0 || !cat.images[0].image) {
+    if (!cat.image || !cat.image.image) {
       console.error('No image data found for the cat:', cat);
       return;
     }
 
-    const imageBase64 = cat.images[0].image;
+    const imageBase64 = cat.image.image;
     if (imageBase64.startsWith('data:image/')) {
-      cat.images[0].image = imageBase64;
+      cat.image.image = imageBase64;
     } else {
-      const mimeType = cat.images[0].type;
-      cat.images[0].image = `data:${mimeType};base64,${imageBase64}`;
+      const mimeType = cat.image.type;
+      cat.image.image = `data:${mimeType};base64,${imageBase64}`;
     }
   }
 }
