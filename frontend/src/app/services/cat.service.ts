@@ -26,6 +26,10 @@ export class CatService {
     return this.http.get<CatKit[]>(environment.base_url + '/cat/sex/' + sex);
   }
 
+  public getCatBySexMin(sex: string): Observable<CatKit[]> {
+    return this.http.get<CatKit[]>(environment.base_url + '/cat/sex/min/' + sex);
+  }
+
   public createCat(formData: FormData): Observable<any> {
     return this.http.post(environment.base_url + '/cat', formData);
   }

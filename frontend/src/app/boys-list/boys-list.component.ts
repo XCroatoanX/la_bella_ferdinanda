@@ -23,7 +23,7 @@ export class BoysListComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkScreenSize();
-    this.catService.getCatBySex("Male").subscribe({
+    this.catService.getCatBySexMin("Male").subscribe({
       next: (cats) => {
         this.boysList = cats.map(boy => {
           this.setImageSrc(boy);
@@ -48,17 +48,17 @@ export class BoysListComponent implements OnInit {
   }
 
   setImageSrc(boy: CatKit): void {
-    if (!boy.images || boy.images.length === 0 || !boy.images[0].image) {
+    if (!boy.image || !boy.image.image) {
       console.error('No image data found for the male:', boy);
       return;
     }
 
-    const imageBase64 = boy.images[0].image;
+    const imageBase64 = boy.image.image;
     if (imageBase64.startsWith('data:image/')) {
-      boy.images[0].image = imageBase64;
+      boy.image.image = imageBase64;
     } else {
-      const mimeType = boy.images[0].type;
-      boy.images[0].image = `data:${mimeType};base64,${imageBase64}`;
+      const mimeType = boy.image.type;
+      boy.image.image = `data:${mimeType};base64,${imageBase64}`;
     }
   }
 }

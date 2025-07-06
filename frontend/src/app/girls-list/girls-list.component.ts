@@ -6,13 +6,13 @@ import { ToastrService } from "ngx-toastr";
 import { RouterLink } from "@angular/router";
 
 @Component({
-    selector: 'app-girls-list',
-    imports: [
-        CoreModule,
-        RouterLink
-    ],
-    templateUrl: './girls-list.component.html',
-    styleUrl: './girls-list.component.scss'
+  selector: 'app-girls-list',
+  imports: [
+    CoreModule,
+    RouterLink
+  ],
+  templateUrl: './girls-list.component.html',
+  styleUrl: './girls-list.component.scss'
 })
 export class GirlsListComponent implements OnInit {
   girlsList: CatKit[] = [];
@@ -23,7 +23,7 @@ export class GirlsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkScreenSize();
-    this.catService.getCatBySex("Female").subscribe({
+    this.catService.getCatBySexMin("Female").subscribe({
       next: (cats) => {
         this.girlsList = cats.map(girl => {
           this.setImageSrc(girl);
@@ -48,17 +48,17 @@ export class GirlsListComponent implements OnInit {
   }
 
   setImageSrc(girl: CatKit): void {
-    if (!girl.images || girl.images.length === 0 || !girl.images[0].image) {
+    if (!girl.image || !girl.image.image) {
       console.error('No image data found for the boy:', girl);
       return;
     }
 
-    const imageBase64 = girl.images[0].image;
+    const imageBase64 = girl.image.image;
     if (imageBase64.startsWith('data:image/')) {
-      girl.images[0].image = imageBase64;
+      girl.image.image = imageBase64;
     } else {
-      const mimeType = girl.images[0].type;
-      girl.images[0].image = `data:${mimeType};base64,${imageBase64}`;
+      const mimeType = girl.image.type;
+      girl.image.image = `data:${mimeType};base64,${imageBase64}`;
     }
   }
 

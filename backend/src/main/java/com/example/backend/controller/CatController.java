@@ -42,6 +42,11 @@ public class CatController {
         return ResponseEntity.ok(this.catDAO.getCatsBySex(sex));
     }
 
+    @GetMapping("/sex/min/{sex}")
+    public ResponseEntity<List<CatMinDTO>> getCatsBySexMin(@PathVariable String sex) {
+        return ResponseEntity.ok(this.catDAO.getCatsBySexMin(sex));
+    }
+
     @GetMapping
     public ResponseEntity<List<Cat>> getAllCats() {
         return ResponseEntity.ok(this.catDAO.getAllCats());
