@@ -3,12 +3,12 @@ import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-hea
 import { CatService } from '../../services/cat.service';
 import { CatKit } from '../../models/catkit.model';
 import { ItemCardComponent } from "../item-card/item-card.component";
-import { CommonModule } from '@angular/common';
+
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-cats-list',
-    imports: [AdminPanelHeaderComponent, ItemCardComponent, CommonModule],
+    imports: [AdminPanelHeaderComponent, ItemCardComponent],
     templateUrl: './cats-list.component.html',
     styleUrl: './cats-list.component.scss'
 })
