@@ -67,10 +67,16 @@ public class KittenDAO {
     public void createKitten(KittenDTO kittenDTO, MultipartFile[] images) throws IOException {
         List<Image> imageList = this.imageService.imagesToByte(images);
 
-        UUID kittenId = UUID.randomUUID();
-
-        Kitten kitten = new Kitten(kittenId, kittenDTO.name, kittenDTO.color, kittenDTO.age, kittenDTO.sex,
-                kittenDTO.article, kittenDTO.status, true, kittenDTO.litter, imageList);
+        Kitten kitten = new Kitten();
+        kitten.setName(kittenDTO.name);
+        kitten.setColor(kittenDTO.color);
+        kitten.setAge(kittenDTO.age);
+        kitten.setSex(kittenDTO.sex);
+        kitten.setArticle(kittenDTO.article);
+        kitten.setStatus(kittenDTO.status);
+        kitten.setKitten(true);
+        kitten.setLitter(kittenDTO.litter);
+        kitten.setImages(imageList);
         this.kittenRepository.save(kitten);
     }
 

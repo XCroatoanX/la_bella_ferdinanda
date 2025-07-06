@@ -72,11 +72,16 @@ public class CatDAO {
     @Transactional
     public void createCat(CatDTO catDTO, MultipartFile[] images) throws IOException {
         List<Image> imageList = this.imageService.imagesToByte(images);
-        UUID catId = UUID.randomUUID();
 
-        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status,
-                false,
-                imageList);
+        Cat cat = new Cat();
+        cat.setName(catDTO.name);
+        cat.setColor(catDTO.color);
+        cat.setAge(catDTO.age);
+        cat.setSex(catDTO.sex);
+        cat.setArticle(catDTO.article);
+        cat.setStatus(catDTO.status);
+        cat.setKitten(false);
+        cat.setImages(imageList);
         this.catRepository.save(cat);
     }
 
