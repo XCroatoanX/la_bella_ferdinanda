@@ -79,10 +79,10 @@ body {
 }
 
 .img-fluid {
-  max-height: 400px;
+  max-height: 350px;
   object-fit: contain;
   object-position: center;
-  height: 50vh;
+  height: 100vh;
 }
 
 @media (max-width: 768px) {
