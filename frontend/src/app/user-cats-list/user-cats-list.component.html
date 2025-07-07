@@ -1,103 +1,105 @@
 <body>
-  <div class="pt-3 mx-3">
-    <app-header></app-header>
-  </div>
+<div class="pt-3 mx-3">
+  <app-header></app-header>
+</div>
 
-  <div
-    class="shadow-lg mx-3 my-4 p-3 rounded-3"
-    style="background-color: #fef6fa"
-  >
-    <h1 class="display-4 text-center"><b>Our Cats</b></h1>
-  </div>
+<div
+  class="shadow-lg mx-3 my-4 p-3 rounded-3"
+  style="background-color: #fef6fa"
+>
+  <h1 class="display-4 text-center"><b>Our Cats</b></h1>
+</div>
 
   @if (isLoading) {
-  <div
-    class="text-center shadow-lg mx-3 my-4 p-3 rounded-3"
-    style="background-color: #fef6fa"
-  >
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-    <h2>Loading cats...</h2>
-  </div>
-  } @else {
-  <div>
-    @if (catsList.length == 0) {
     <div
-      class="shadow-lg mx-3 my-4 p-3 rounded-3"
+      class="text-center shadow-lg mx-3 my-4 p-3 rounded-3"
       style="background-color: #fef6fa"
     >
-      <h2 class="display-4 text-center"><b>No cats found, stay tuned!</b></h2>
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <h2>Loading cats...</h2>
     </div>
-    } @else {
-    <div class="mx-3 my-4">
-      @for (cat of catsList; track $index) { @if (isMobile){
-      <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', cat.id]">
-        <div class="cat-image">
-          <img [src]="cat.image.image" alt="{{ cat.name }}" class="img-fluid rounded-top-3 cat-photo" />
-        </div>
+  } @else {
+    <div>
+      @if (catsList.length == 0) {
         <div
-          class="cat-details shadow-lg rounded-bottom-3 p-3 flex-fill text-center align-content-center"
+          class="shadow-lg mx-3 my-4 p-3 rounded-3"
           style="background-color: #fef6fa"
         >
-          <h2 class="cat-name">{{ cat.name }}</h2>
-          <p class="cat-breed">Age: {{ cat.age }} years old</p>
-          <p class="cat-diversity">Sex: {{ cat.sex }}</p>
-          <p class="cat-diversity">Fur color: {{ cat.color }}</p>
-          @if (cat.status == "Available") {
-          <p class="cat-status" style="color: green">
-            {{ cat.status }}
-          </p>
-          } @else if (cat.status == "Reserved / Under discussion") {
-          <p class="cat-status" style="color: gold">
-            {{ cat.status }}
-          </p>
-          } @else if (cat.status == "Sold") {
-          <p class="cat-status" style="color: red">{{ cat.status }}</p>
-          } @else {
-          <p class="cat-status" style="color: #718096">
-            {{ cat.status }}
-          </p>
-          }
+          <h2 class="display-4 text-center"><b>No cats found, stay tuned!</b></h2>
         </div>
-      </div>
       } @else {
-      <div class="d-flex my-4 cat-profile" [routerLink]="['/cat', cat.id]">
-        <div
-          class="shadow-lg rounded-3 p-3 flex-fill text-center align-content-center"
-          style="background-color: #fef6fa"
-        >
-          <h2 class="cat-name">{{ cat.name }}</h2>
-          <p class="cat-breed">Age: {{ cat.age }} years old</p>
-          <p class="cat-diversity">Sex: {{ cat.sex }}</p>
-          <p class="cat-diversity">Fur color: {{ cat.color }}</p>
-          @if (cat.status == "Available") {
-          <p class="cat-status" style="color: green">
-            {{ cat.status }}
-          </p>
-          } @else if (cat.status == "Reserved / Under discussion") {
-          <p class="cat-status" style="color: gold">
-            {{ cat.status }}
-          </p>
-          } @else if (cat.status == "Sold") {
-          <p class="cat-status" style="color: red">{{ cat.status }}</p>
-          } @else {
-          <p class="cat-status" style="color: #718096">
-            {{ cat.status }}
-          </p>
+        <div class="mx-3 my-4">
+          @for (cat of catsList; track $index) {
+            @if (isMobile) {
+              <div class="d-flex my-4 cat-profile rounded-3" [routerLink]="['/cat', cat.id]">
+                <div class="cat-image">
+                  <img [src]="cat.image.image" alt="{{ cat.name }}" class="img-fluid rounded-top-3 cat-photo"/>
+                </div>
+                <div
+                  class="cat-details shadow-lg rounded-bottom-3 p-3 flex-fill text-center align-content-center"
+                  style="background-color: #fef6fa"
+                >
+                  <h2 class="cat-name">{{ cat.name }}</h2>
+                  <p class="cat-breed">Age: {{ cat.age }} years old</p>
+                  <p class="cat-diversity">Sex: {{ cat.sex }}</p>
+                  <p class="cat-diversity">Fur color: {{ cat.color }}</p>
+                  @if (cat.status == "Available") {
+                    <p class="cat-status" style="color: green">
+                      {{ cat.status }}
+                    </p>
+                  } @else if (cat.status == "Reserved / Under discussion") {
+                    <p class="cat-status" style="color: gold">
+                      {{ cat.status }}
+                    </p>
+                  } @else if (cat.status == "Sold") {
+                    <p class="cat-status" style="color: red">{{ cat.status }}</p>
+                  } @else {
+                    <p class="cat-status" style="color: #718096">
+                      {{ cat.status }}
+                    </p>
+                  }
+                </div>
+              </div>
+            } @else {
+              <div class="d-flex my-4 cat-profile rounded-3" [routerLink]="['/cat', cat.id]">
+                <div
+                  class="shadow-lg rounded-3 p-3 flex-fill text-center align-content-center"
+                  style="background-color: #fef6fa"
+                >
+                  <h2 class="cat-name">{{ cat.name }}</h2>
+                  <p class="cat-breed">Age: {{ cat.age }} years old</p>
+                  <p class="cat-diversity">Sex: {{ cat.sex }}</p>
+                  <p class="cat-diversity">Fur color: {{ cat.color }}</p>
+                  @if (cat.status == "Available") {
+                    <p class="cat-status" style="color: green">
+                      {{ cat.status }}
+                    </p>
+                  } @else if (cat.status == "Reserved / Under discussion") {
+                    <p class="cat-status" style="color: gold">
+                      {{ cat.status }}
+                    </p>
+                  } @else if (cat.status == "Sold") {
+                    <p class="cat-status" style="color: red">{{ cat.status }}</p>
+                  } @else {
+                    <p class="cat-status" style="color: #718096">
+                      {{ cat.status }}
+                    </p>
+                  }
+                </div>
+                <div class="w-50 image-container">
+                  <img [src]="cat.image.image" alt="{{ cat.name }}" class="img-fluid rounded-end-3 w-100"/>
+                </div>
+              </div>
+            }
           }
         </div>
-        <div class="w-50 image-container">
-          <img [src]="cat.image.image" alt="{{ cat.name }}" class="img-fluid rounded-end-3 w-100" />
-        </div>
-      </div>
-      } }
+      }
     </div>
-    }
-  </div>
   }
 
-  <div class="mx-3 rounded-3 pb-3">
-    <app-footer></app-footer>
-  </div>
+<div class="mx-3 rounded-3 pb-3">
+  <app-footer></app-footer>
+</div>
 </body>

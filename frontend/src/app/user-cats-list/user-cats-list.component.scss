@@ -12,6 +12,7 @@ h6 {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   color: black;
 }
+
 body {
   background: linear-gradient(-45deg, #fcc28c, #f7deea);
   background-size: 400% 400%;
@@ -33,7 +34,9 @@ body {
 
 .cat-profile {
   display: flex;
+  background-color: rgba(0, 0, 0, 0.2);
   flex-wrap: wrap;
+
   &:hover {
     cursor: pointer;
   }
@@ -74,6 +77,7 @@ body {
   font-size: 1rem;
   color: #718096;
 }
+
 .img-fluid {
   max-height: 400px;
   object-fit: contain;
