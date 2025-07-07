@@ -1,29 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CatService } from '../../services/cat.service';
-import { ToastrService } from 'ngx-toastr';
-import { CatKit } from '../../models/catkit.model';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {CatService} from '../../services/cat.service';
+import {ToastrService} from 'ngx-toastr';
+import {CatKit} from '../../models/catkit.model';
+import {CommonModule} from '@angular/common';
 
 @Component({
-    selector: 'app-edit-cat',
-    imports: [
-        AdminPanelHeaderComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        RouterLink,
-    ],
-    templateUrl: './edit-cat.component.html',
-    styleUrls: ['./edit-cat.component.scss']
+  selector: 'app-edit-cat',
+  imports: [
+    AdminPanelHeaderComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+  ],
+  templateUrl: './edit-cat.component.html',
+  styleUrls: ['./edit-cat.component.scss']
 })
 export class EditCatComponent implements OnInit {
   public catForm: FormGroup;
@@ -38,7 +32,8 @@ export class EditCatComponent implements OnInit {
     private catService: CatService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -47,45 +42,6 @@ export class EditCatComponent implements OnInit {
       if (this.catId) {
         this.fetchCatData(this.catId);
       }
-    });
-  }
-
-  private initializeForm(): void {
-    this.catForm = this.fb.group({
-      name: [''],
-      color: [''],
-      age: [''],
-      sex: [''],
-      description: [''],
-      status: [''],
-    });
-  }
-
-  private fetchCatData(catId: string): void {
-    this.catService.getCatById(catId).subscribe({
-      next: (cat: CatKit) => {
-        this.catForm.patchValue({
-          name: cat.name,
-          color: cat.color,
-          age: cat.age,
-          sex: cat.sex === 'Male' ? '1' : '2',
-          description: cat.article,
-          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved / Under discussion' ? '2' : cat.status === 'Sold' ? '3' : '4',
-        });
-        this.imagePreviews = cat.images.map(
-          (image) => `data:${image.type};base64,${image.image}`,
-        );
-      },
-      error: (error) => {
-        console.error('Error fetching cat data:', error);
-        this.toastr.error(
-          'Could not fetch cat data. Please try again.',
-          'Error',
-          {
-            timeOut: 3000,
-          },
-        );
-      },
     });
   }
 
@@ -112,7 +68,7 @@ export class EditCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description, status } = this.catForm.value;
+    const {name, color, age, sex, description, status} = this.catForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -128,7 +84,7 @@ export class EditCatComponent implements OnInit {
 
     formData.append(
       'cat',
-      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
+      new Blob([JSON.stringify(cat)], {type: 'application/json'}),
     );
 
     this.imagePreviews.forEach((preview, index) => {
@@ -139,19 +95,13 @@ export class EditCatComponent implements OnInit {
         byteArrays[i] = byteCharacters.charCodeAt(i);
       }
 
-      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
+      const blob = new Blob([byteArrays], {type: 'image/jpeg'});
       formData.append('imagefile', blob, `image${index + 1}.jpg`);
-    });
-
-    console.log('Form Data:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
     });
 
     this.catService.updateCat(formData, this.catId).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Cat updated successfully:', response);
         this.toastr.success(cat.name + ' updated successfully', '', {
           timeOut: 3000,
         });
@@ -210,6 +160,45 @@ export class EditCatComponent implements OnInit {
             );
             break;
         }
+      },
+    });
+  }
+
+  private initializeForm(): void {
+    this.catForm = this.fb.group({
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
+    });
+  }
+
+  private fetchCatData(catId: string): void {
+    this.catService.getCatById(catId).subscribe({
+      next: (cat: CatKit) => {
+        this.catForm.patchValue({
+          name: cat.name,
+          color: cat.color,
+          age: cat.age,
+          sex: cat.sex === 'Male' ? '1' : '2',
+          description: cat.article,
+          status: cat.status === 'Available' ? '1' : cat.status === 'Reserved / Under discussion' ? '2' : cat.status === 'Sold' ? '3' : '4',
+        });
+        this.imagePreviews = cat.images.map(
+          (image) => `data:${image.type};base64,${image.image}`,
+        );
+      },
+      error: (error) => {
+        console.error('Error fetching cat data:', error);
+        this.toastr.error(
+          'Could not fetch cat data. Please try again.',
+          'Error',
+          {
+            timeOut: 3000,
+          },
+        );
       },
     });
   }

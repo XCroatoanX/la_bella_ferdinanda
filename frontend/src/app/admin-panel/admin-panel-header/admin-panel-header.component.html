@@ -1,120 +1,120 @@
 <nav class="navbar navbar-expand-md rounded-bottom-4">
   <div class="container-fluid">
-    <a class="navbar-brand mb-0 h1" [routerLink]="['/admin']">
+    <a [routerLink]="['/admin']" class="navbar-brand mb-0 h1">
       <img
-        ngSrc="assets/logo/128/logo.png"
-        width="50"
-        height="50"
-        class="d-inline-block align-center ms-3"
         alt="header-logo"
+        class="d-inline-block align-center ms-3"
+        height="50"
+        ngSrc="assets/logo/logo.svg"
+        width="50"
       />
       Administrator Panel
     </a>
 
     <div class="d-flex ml-auto">
       <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNavbar"
         aria-controls="offcanvasNavbar"
         aria-label="Toggle navigation"
+        class="navbar-toggler"
+        data-bs-target="#offcanvasNavbar"
+        data-bs-toggle="offcanvas"
+        type="button"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div
+        aria-labelledby="offcanvasNavbarLabel"
         class="offcanvas offcanvas-end"
         data-bs-scroll="true"
-        tabindex="-1"
         id="offcanvasNavbar"
-        aria-labelledby="offcanvasNavbarLabel"
+        tabindex="-1"
       >
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
           <button
-            type="button"
+            aria-label="Close"
             class="btn-close"
             data-bs-dismiss="offcanvas"
-            aria-label="Close"
+            type="button"
           ></button>
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link" (click)="homePage()">Homepage</a>
+              <a (click)="homePage()" class="nav-link">Homepage</a>
             </li>
             <li class="nav-item dropdown">
               <a
+                aria-expanded="false"
                 class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
                 href="#"
                 role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 Cats
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/create-cat']"
-                    >Create...</a
+                  <a [routerLink]="['/admin/create-cat']" class="dropdown-item"
+                  >Create...</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" [routerLink]="['/admin/cats-list']"
-                    >View/Edit/Delete...</a
+                  <a [routerLink]="['/admin/cats-list']" class="dropdown-item"
+                  >View/Edit/Delete...</a
                   >
                 </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
               <a
+                aria-expanded="false"
                 class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
                 href="#"
                 role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 Kittens
               </a>
               <ul class="dropdown-menu">
                 <li>
                   <a
-                    class="dropdown-item"
                     [routerLink]="['/admin/create-kitten']"
-                    >Create...</a
+                    class="dropdown-item"
+                  >Create...</a
                   >
                 </li>
                 <li>
                   <a
-                    class="dropdown-item"
                     [routerLink]="['/admin/kittens-list']"
-                    >View/Edit/Delete...</a
+                    class="dropdown-item"
+                  >View/Edit/Delete...</a
                   >
                 </li>
               </ul>
             </li>
             <li class="nav-item dropdown">
               <a
+                aria-expanded="false"
                 class="nav-link dropdown-toggle"
+                data-bs-toggle="dropdown"
                 href="#"
                 role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 Account
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" (click)="showNotification()"
-                    >Edit Account</a
+                  <a (click)="showNotification()" class="dropdown-item"
+                  >Edit Account</a
                   >
                 </li>
               </ul>
             </li>
             <li>
               <button
-                class="btn border border-black ms-3 no-margin logout"
                 (click)="onLogout()"
+                class="btn border border-black ms-3 no-margin logout"
               >
                 Log Out
               </button>

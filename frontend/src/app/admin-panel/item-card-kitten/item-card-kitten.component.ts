@@ -7,14 +7,14 @@ import {RouterLink} from "@angular/router";
 import {CommonModule} from "@angular/common";
 
 @Component({
-    selector: 'app-item-card-kitten',
-    imports: [
-        CommonModule, RouterLink
-    ],
-    templateUrl: './item-card-kitten.component.html',
-    styleUrl: './item-card-kitten.component.scss'
+  selector: 'app-item-card-kitten',
+  imports: [
+    CommonModule, RouterLink
+  ],
+  templateUrl: './item-card-kitten.component.html',
+  styleUrl: './item-card-kitten.component.scss'
 })
-export class ItemCardKittenComponent implements OnInit{
+export class ItemCardKittenComponent implements OnInit {
   @Input() animal: CatKit;
   public isLoading: boolean = false;
   public imageSrc: string = '';
@@ -24,12 +24,10 @@ export class ItemCardKittenComponent implements OnInit{
     private catService: CatService,
     private kittenService: KittenService,
     private toastr: ToastrService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log('Component Initialized');
-    console.log('Received animal:', this.animal);
-
     if (this.animal && this.animal.image && this.animal.image.image) {
       const imageData = this.animal.image.image;
       this.setImageSrc(imageData);
@@ -54,7 +52,6 @@ export class ItemCardKittenComponent implements OnInit{
 
   deleteAnimal(): void {
     this.isLoading = true;
-    console.log('Delete Animal called. Animal ID:', this.animal.id);
 
     const successMessage = this.animal.name + ' deleted successfully! Page will soon reload';
     const errorMessage = 'Failed to delete ' + this.animal.name + '.';
@@ -65,8 +62,7 @@ export class ItemCardKittenComponent implements OnInit{
 
     deleteRequest.subscribe({
       next: () => {
-        console.log('Delete request successful');
-        this.toastr.success(successMessage, 'Success!', { timeOut: 3000 });
+        this.toastr.success(successMessage, 'Success!', {timeOut: 3000});
         setTimeout(() => {
           window.location.reload();
         }, 3000);
@@ -83,7 +79,6 @@ export class ItemCardKittenComponent implements OnInit{
         });
       },
       complete: () => {
-        console.log('Delete request complete');
         this.isLoading = false;
       },
     });

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CatKit } from '../../models/catkit.model';
-import { CatService } from '../../services/cat.service';
-import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
-import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {CatKit} from '../../models/catkit.model';
+import {CatService} from '../../services/cat.service';
+import {KittenService} from '../../services/kitten.service';
+import {ToastrService} from 'ngx-toastr';
+import {CommonModule} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-item-card',
@@ -22,12 +22,10 @@ export class ItemCardComponent implements OnInit {
     private catService: CatService,
     private kittenService: KittenService,
     private toastr: ToastrService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    console.log('Component Initialized');
-    console.log('Received animal:', this.animal);
-
     if (this.animal && this.animal.image && this.animal.image.image) {
       const imageData = this.animal.image.image;
       this.setImageSrc(imageData);
@@ -52,7 +50,6 @@ export class ItemCardComponent implements OnInit {
 
   deleteAnimal(): void {
     this.isLoading = true;
-    console.log('Delete Animal called. Animal ID:', this.animal.id);
 
     const successMessage = this.animal.name + ' deleted successfully! Page will soon reload';
     const errorMessage = 'Failed to delete ' + this.animal.name + '.';
@@ -63,8 +60,7 @@ export class ItemCardComponent implements OnInit {
 
     deleteRequest.subscribe({
       next: () => {
-        console.log('Delete request successful');
-        this.toastr.success(successMessage, 'Success!', { timeOut: 3000 });
+        this.toastr.success(successMessage, 'Success!', {timeOut: 3000});
         setTimeout(() => {
           window.location.reload();
         }, 3000);
@@ -81,7 +77,6 @@ export class ItemCardComponent implements OnInit {
         });
       },
       complete: () => {
-        console.log('Delete request complete');
         this.isLoading = false;
       },
     });

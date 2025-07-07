@@ -1,7 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { CoreModule } from '../core/core.module';
-import { RouterLink } from '@angular/router';
-import { NgOptimizedImage } from "@angular/common";
+import {Component, HostListener, OnInit} from '@angular/core';
+import {CoreModule} from '../core/core.module';
+import {RouterLink} from '@angular/router';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   standalone: true,
@@ -11,18 +11,39 @@ import { NgOptimizedImage } from "@angular/common";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-    public isMobile: boolean = false;
-    ngOnInit(): void {
-        this.isMobile = window.innerWidth <= 768;
-        window.addEventListener('resize', this.onResize.bind(this));
+  public isMobile: boolean = false;
+
+  ngOnInit(): void {
+    this.checkAnimationPlaying();
+    this.isMobile = window.innerWidth <= 768;
+    window.addEventListener('resize', this.onResize.bind(this));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkScreenSize();
+  }
+
+  public checkAnimationPlaying(): void {
+    if (!sessionStorage.getItem('hasVisited')) {
+
+      document.body.classList.add('preloading');
+      sessionStorage.setItem('hasVisited', 'true');
+
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.body.classList.remove('preloading');
+          document.getElementById('preloader')?.remove();
+        }, 4000);
+      });
+    } else {
+
+      document.getElementById('preloader')?.remove();
     }
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event: any) {
-        this.checkScreenSize();
-    }
+  }
 
-    private checkScreenSize() {
-        this.isMobile = window.innerWidth <= 768;
-    }
+  private checkScreenSize() {
+    this.isMobile = window.innerWidth <= 768;
+  }
 }

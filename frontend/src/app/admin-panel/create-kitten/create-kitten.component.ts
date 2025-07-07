@@ -1,26 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { NgClass } from '@angular/common';
-import { Router } from '@angular/router';
-import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
-import { CatKit } from '../../models/catkit.model';
+import {Component, OnInit} from '@angular/core';
+import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {NgClass} from '@angular/common';
+import {Router} from '@angular/router';
+import {KittenService} from '../../services/kitten.service';
+import {ToastrService} from 'ngx-toastr';
+import {CatKit} from '../../models/catkit.model';
 
 @Component({
-    selector: 'app-create-kitten',
-    imports: [
-        AdminPanelHeaderComponent,
-        ReactiveFormsModule,
-        NgClass
-    ],
-    templateUrl: './create-kitten.component.html',
-    styleUrl: './create-kitten.component.scss'
+  selector: 'app-create-kitten',
+  imports: [
+    AdminPanelHeaderComponent,
+    ReactiveFormsModule,
+    NgClass
+  ],
+  templateUrl: './create-kitten.component.html',
+  styleUrl: './create-kitten.component.scss'
 })
 export class CreateKittenComponent implements OnInit {
   public kittenForm: FormGroup;
@@ -33,7 +28,8 @@ export class CreateKittenComponent implements OnInit {
     private router: Router,
     private kittenService: KittenService,
     private toastr: ToastrService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.kittenForm = this.fb.group({
@@ -71,7 +67,7 @@ export class CreateKittenComponent implements OnInit {
     this.isLoading = true;
     const formData = new FormData();
 
-    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
+    const {name, color, age, sex, description, status, litter} = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -87,22 +83,16 @@ export class CreateKittenComponent implements OnInit {
 
     formData.append(
       'kitten',
-      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
+      new Blob([JSON.stringify(kitten)], {type: 'application/json'}),
     );
 
     this.selectedFiles.forEach((file) => {
       formData.append('imagefile', file, file.name);
     });
 
-    console.log('Form Data:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
-
     this.kittenService.createKitten(formData).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Cat created successfully:', response);
         this.toastr.success(kitten.name + ' created successfully', '', {
           timeOut: 3000,
         });

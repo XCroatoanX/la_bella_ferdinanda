@@ -12,6 +12,7 @@ h6 {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   color: black;
 }
+
 body {
   background: linear-gradient(-45deg, #fcc28c, #f7deea);
   background-size: 400% 400%;
@@ -21,19 +22,21 @@ body {
 
 @keyframes gradient {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
   50% {
     background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
 }
 
 .cat-profile {
   display: flex;
+  background-color: rgba(0, 0, 0, 0.2);
   flex-wrap: wrap;
+
   &:hover {
     cursor: pointer;
   }
@@ -74,11 +77,12 @@ body {
   font-size: 1rem;
   color: #718096;
 }
+
 .img-fluid {
-  max-height: 400px;
+  max-height: 350px;
   object-fit: contain;
   object-position: center;
-  height: 50vh;
+  height: 100vh;
 }
 
 @media (max-width: 768px) {

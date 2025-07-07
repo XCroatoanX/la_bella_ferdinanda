@@ -4,15 +4,14 @@ header {
   background-color: #ffdfb0;
 }
 
+.dropdown-item:active {
+  background-color: rgba(130, 130, 130, 0.2);
+  color: black;
+}
+
 a {
   font-family: Montserrat, Arial, Helvetica, sans-serif;
   border-radius: 5px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-a:active {
-  background-color: rgba(130, 130, 130, 0.2);
-  color: black;
 }
 
 p,
@@ -23,20 +22,51 @@ h1 {
 .social-link {
   margin-left: 1.5vw;
 }
+
 .social-img {
   height: 40px;
   width: 40px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.4s;
+  transform: scale(1.0);
+
+  &:hover {
+    transform: scale(1.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .navbar-brand {
   img {
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease-in-out;
+    transform: scale(1.0);
     max-width: 60px;
     max-height: 60px;
-  }
 
-  img:hover {
-    transform: scale(1.1);
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+@media (min-width: 782px) {
+  .dropdown-toggle,
+  .nav-link, {
+    transform: scale(1);
+    transition: transform 0.2s ease-in-out, background-color 0.4s, color 0.4s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(0.9);
+      background-color: rgba(130, 130, 130, 0.2);
+      color: black;
+    }
   }
 }
 

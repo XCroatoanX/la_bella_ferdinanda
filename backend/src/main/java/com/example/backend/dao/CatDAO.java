@@ -70,13 +70,38 @@ public class CatDAO {
     }
 
     @Transactional
+    public List<CatMinDTO> getCatsBySexMin(String sex) {
+        List <Cat> cats = this.catRepository.findBySexIgnoreCase(sex)
+                .orElse(Collections.emptyList());
+        List<CatMinDTO> catMinDTO = new ArrayList<>();
+        for (Cat cat : cats) {
+            catMinDTO.add(new CatMinDTO(
+                    cat.getId(),
+                    cat.getName(),
+                    cat.getColor(),
+                    cat.getAge(),
+                    cat.getSex(),
+                    cat.getArticle(),
+                    cat.getStatus(),
+                    cat.isKitten(),
+                    cat.getImages().get(0)));
+        }
+        return catMinDTO;
+    }
+
+    @Transactional
     public void createCat(CatDTO catDTO, MultipartFile[] images) throws IOException {
         List<Image> imageList = this.imageService.imagesToByte(images);
-        UUID catId = UUID.randomUUID();
 
-        Cat cat = new Cat(catId, catDTO.name, catDTO.color, catDTO.age, catDTO.sex, catDTO.article, catDTO.status,
-                false,
-                imageList);
+        Cat cat = new Cat();
+        cat.setName(catDTO.name);
+        cat.setColor(catDTO.color);
+        cat.setAge(catDTO.age);
+        cat.setSex(catDTO.sex);
+        cat.setArticle(catDTO.article);
+        cat.setStatus(catDTO.status);
+        cat.setKitten(false);
+        cat.setImages(imageList);
         this.catRepository.save(cat);
     }
 

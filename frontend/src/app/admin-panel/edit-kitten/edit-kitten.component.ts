@@ -1,29 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
-import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
-import { CommonModule } from '@angular/common';
-import { CatKit } from '../../models/catkit.model';
+import {Component, OnInit} from '@angular/core';
+import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {KittenService} from '../../services/kitten.service';
+import {ToastrService} from 'ngx-toastr';
+import {CommonModule} from '@angular/common';
+import {CatKit} from '../../models/catkit.model';
 
 @Component({
-    selector: 'app-edit-kitten',
-    imports: [
-        AdminPanelHeaderComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        CommonModule,
-        RouterLink,
-    ],
-    templateUrl: './edit-kitten.component.html',
-    styleUrls: ['./edit-kitten.component.scss']
+  selector: 'app-edit-kitten',
+  imports: [
+    AdminPanelHeaderComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    RouterLink,
+  ],
+  templateUrl: './edit-kitten.component.html',
+  styleUrls: ['./edit-kitten.component.scss']
 })
 export class EditKittenComponent implements OnInit {
   public kittenForm: FormGroup;
@@ -38,7 +32,8 @@ export class EditKittenComponent implements OnInit {
     private kittenService: KittenService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -47,47 +42,6 @@ export class EditKittenComponent implements OnInit {
       if (this.kittenId) {
         this.fetchKittenData(this.kittenId);
       }
-    });
-  }
-
-  private initializeForm(): void {
-    this.kittenForm = this.fb.group({
-      name: [''],
-      color: [''],
-      age: [''],
-      sex: [''],
-      description: [''],
-      status: [''],
-      litter: [''],
-    });
-  }
-
-  private fetchKittenData(kittenId: string): void {
-    this.kittenService.getKittenById(kittenId).subscribe({
-      next: (kitten: CatKit) => {
-        this.kittenForm.patchValue({
-          name: kitten.name,
-          color: kitten.color,
-          age: kitten.age,
-          sex: kitten.sex === 'Male' ? '1' : '2',
-          description: kitten.article,
-          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved / Under discussion' ? '2' : kitten.status === 'Sold' ? '3' : '4',
-          litter: kitten.litter,
-        });
-        this.imagePreviews = kitten.images.map(
-          (image) => `data:${image.type};base64,${image.image}`,
-        );
-      },
-      error: (error) => {
-        console.error('Error fetching kitten data:', error);
-        this.toastr.error(
-          'Could not fetch kitten data. Please try again.',
-          'Error',
-          {
-            timeOut: 3000,
-          },
-        );
-      },
     });
   }
 
@@ -114,7 +68,7 @@ export class EditKittenComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
+    const {name, color, age, sex, description, status, litter} = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -131,7 +85,7 @@ export class EditKittenComponent implements OnInit {
 
     formData.append(
       'kitten',
-      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
+      new Blob([JSON.stringify(kitten)], {type: 'application/json'}),
     );
 
     this.imagePreviews.forEach((preview, index) => {
@@ -142,19 +96,14 @@ export class EditKittenComponent implements OnInit {
         byteArrays[i] = byteCharacters.charCodeAt(i);
       }
 
-      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
+      const blob = new Blob([byteArrays], {type: 'image/jpeg'});
       formData.append('imagefile', blob, `image${index + 1}.jpg`);
     });
 
-    console.log('Form Data:');
-    formData.forEach((value, key) => {
-      console.log(`${key}:`, value);
-    });
 
     this.kittenService.updateKitten(formData, this.kittenId).subscribe({
       next: (response) => {
         this.isLoading = false;
-        console.log('Kitten updated successfully:', response);
         this.toastr.success(kitten.name + ' updated successfully', '', {
           timeOut: 3000,
         });
@@ -213,6 +162,47 @@ export class EditKittenComponent implements OnInit {
             );
             break;
         }
+      },
+    });
+  }
+
+  private initializeForm(): void {
+    this.kittenForm = this.fb.group({
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
+      litter: [''],
+    });
+  }
+
+  private fetchKittenData(kittenId: string): void {
+    this.kittenService.getKittenById(kittenId).subscribe({
+      next: (kitten: CatKit) => {
+        this.kittenForm.patchValue({
+          name: kitten.name,
+          color: kitten.color,
+          age: kitten.age,
+          sex: kitten.sex === 'Male' ? '1' : '2',
+          description: kitten.article,
+          status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved / Under discussion' ? '2' : kitten.status === 'Sold' ? '3' : '4',
+          litter: kitten.litter,
+        });
+        this.imagePreviews = kitten.images.map(
+          (image) => `data:${image.type};base64,${image.image}`,
+        );
+      },
+      error: (error) => {
+        console.error('Error fetching kitten data:', error);
+        this.toastr.error(
+          'Could not fetch kitten data. Please try again.',
+          'Error',
+          {
+            timeOut: 3000,
+          },
+        );
       },
     });
   }

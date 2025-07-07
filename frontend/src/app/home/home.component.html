@@ -1,87 +1,91 @@
 <body>
-  <div class="pt-3 mx-3">
-    <app-header></app-header>
-  </div>
-  <div class="shadow-lg  mx-3 my-4 p-2 rounded-3" style="background-color: #fef6fa;">
-    <h1 class="display-4 text-center">
-      <strong>Welcome to La Bella Ferdinanda</strong>
-    </h1>
-    <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
-  </div>
-  <div class="row my-4 justify-content-center mx-0">
-    <div [routerLink]="['boys-list']" class="col  rounded-3 shadow-lg p-0 mx-3 cat-page" id="males">
-      <img alt="Check out our beautiful males" class="rounded-3 cat-img" height="864"
-        ngSrc="assets/img/homepage-males.jpg" width="1536" />
-      <div class="text-overlay">
-        <p class="cat-categories light">Check out our beautiful</p>
-        <h1 class="cat-categories light"><strong>Males</strong></h1>
-      </div>
+<div id="preloader">
+  <img alt="" class="logo" height="1024" ngSrc="/assets/logo/logo.svg"
+       priority="" width="1024"/>
+</div>
+<div class="pt-3 mx-3">
+  <app-header></app-header>
+</div>
+<div class="shadow-lg  mx-3 my-4 p-2 rounded-3" style="background-color: #fef6fa;">
+  <h1 class="display-4 text-center">
+    <strong>Welcome to La Bella Ferdinanda</strong>
+  </h1>
+  <p class="lead text-center">Born to Be Wild, Raised to Be Loved</p>
+</div>
+<div class="row my-4 justify-content-center mx-0">
+  <div [routerLink]="['boys-list']" class="col  rounded-3 shadow-lg p-0 mx-3 cat-page" id="males">
+    <img alt="Check out our beautiful males" class="rounded-3 cat-img" height="864"
+         ngSrc="assets/img/homepage-males.jpg" width="1536"/>
+    <div class="text-overlay">
+      <p class="cat-categories light">Check out our beautiful</p>
+      <h1 class="cat-categories light"><strong>Males</strong></h1>
     </div>
-    <div [routerLink]="['kittens-list']" class="col-5  rounded-3 p-0 shadow-lg mx-3 cat-page" id="kittens">
+  </div>
+  <div [routerLink]="['kittens-list']" class="col-5  rounded-3 p-0 shadow-lg mx-3 cat-page" id="kittens">
 
-      @if (isMobile) {
+    @if (isMobile) {
       <img alt="Check out our cute kittens" class="rounded-3 cat-img" height="1280"
-        ngSrc="assets/img/homepage-kittens-mobile.jpeg" width="960" />
-      } @else {
+           ngSrc="assets/img/homepage-kittens-mobile.jpeg" width="960" priority=""/>
+    } @else {
       <img alt="Check out our cute kittens" class="rounded-3 cat-img" height="1152"
-        ngSrc="assets/img/homepage-kittens.jpeg" width="2048" />
-      }
-      <div class="text-overlay">
-        <p class="cat-categories">Check out our cute</p>
-        <h1 class="cat-categories"><strong>Kittens</strong></h1>
-      </div>
+           ngSrc="assets/img/homepage-kittens.jpeg" width="2048"/>
+    }
+    <div class="text-overlay">
+      <p class="cat-categories">Check out our cute</p>
+      <h1 class="cat-categories"><strong>Kittens</strong></h1>
     </div>
   </div>
-  <div class="row my-4 justify-content-center mx-0">
-    <div [routerLink]="['cats-list']" class="col-5  rounded-3 shadow-lg p-0 mx-3 cat-page" id="offsprings">
-      @if (isMobile) {
+</div>
+<div class="row my-4 justify-content-center mx-0">
+  <div [routerLink]="['cats-list']" class="col-5  rounded-3 shadow-lg p-0 mx-3 cat-page" id="offsprings">
+    @if (isMobile) {
       <img alt="Check out our family" class="rounded-3 cat-img" height="1600"
-        ngSrc="assets/img/homepage-family-mobile.jpeg" width="900" />
-      } @else {
+           ngSrc="assets/img/homepage-family-mobile.jpeg" width="900"/>
+    } @else {
       <img alt="Check out our family" class="rounded-3 cat-img" height="620" ngSrc="assets/img/homepage-family-pc.jpg"
-        width="1102" />
-      }
-      <div class="text-overlay">
-        <p class="cat-categories">Check out our happy</p>
-        <h1 class="cat-categories light">
-          <strong>Family</strong>
-        </h1>
-      </div>
+           width="1102"/>
+    }
+    <div class="text-overlay">
+      <p class="cat-categories">Check out our happy</p>
+      <h1 class="cat-categories light">
+        <strong>Family</strong>
+      </h1>
     </div>
+  </div>
 
-    <div [routerLink]="['girls-list']" class="col  rounded-3 shadow-lg p-0 mx-3 cat-page" id="females">
-      @if (isMobile) {
+  <div [routerLink]="['girls-list']" class="col  rounded-3 shadow-lg p-0 mx-3 cat-page" id="females">
+    @if (isMobile) {
       <img alt="Check out our Females" class="rounded-3 cat-img" height="1280"
-        ngSrc="assets/img/homepage-females-mobile.jpeg" width="960" />
-      } @else {
+           ngSrc="assets/img/homepage-females-mobile.jpeg" width="960"/>
+    } @else {
       <img alt="Check out our Females" class="rounded-3 cat-img" height="960" ngSrc="assets/img/homepage-females.jpeg"
-        width="570" />
-      }
+           width="570"/>
+    }
 
-      <div class="text-overlay">
-        <p class="cat-categories">Check out our elegant</p>
-        <h1 class="cat-categories"><strong>Females</strong></h1>
-      </div>
+    <div class="text-overlay">
+      <p class="cat-categories">Check out our elegant</p>
+      <h1 class="cat-categories"><strong>Females</strong></h1>
     </div>
   </div>
-  <div class="mx-3 my-3 rounded-3  shadow-lg p-5" style="background-color: #fef6fa;">
-    <div class="row">
-      <div class="col d-flex flex-column justify-content-center align-items-center text-center">
-        <h1>A small loving cattery</h1>
-        <p class="lead">
-          At our charming cattery, we pride ourselves on creating a loving and
-          comfortable environment for our beautiful cats. Each feline receives
-          the utmost care and affection in our warm, home-like setting. Discover
-          the joy of having a new furry friend with us!
-        </p>
-      </div>
-      <div class="col d-flex justify-content-center align-items-center">
-        <img alt="Paragraph image" class="we-are rounded-3 shadow-lg" height="1536"
-          ngSrc="assets/img/homepage-square.jpg" width="1536" />
-      </div>
+</div>
+<div class="mx-3 my-3 rounded-3  shadow-lg p-5" style="background-color: #fef6fa;">
+  <div class="row">
+    <div class="col d-flex flex-column justify-content-center align-items-center text-center">
+      <h1>A small loving cattery</h1>
+      <p class="lead">
+        At our charming cattery, we pride ourselves on creating a loving and
+        comfortable environment for our beautiful cats. Each feline receives
+        the utmost care and affection in our warm, home-like setting. Discover
+        the joy of having a new furry friend with us!
+      </p>
+    </div>
+    <div class="col d-flex justify-content-center align-items-center">
+      <img alt="Paragraph image" class="we-are rounded-3 shadow-lg" height="1536"
+           ngSrc="assets/img/homepage-square.jpg" width="1536"/>
     </div>
   </div>
-  <div class="mx-3 pb-3 rounded-3">
-    <app-footer></app-footer>
-  </div>
+</div>
+<div class="mx-3 pb-3 rounded-3">
+  <app-footer></app-footer>
+</div>
 </body>
