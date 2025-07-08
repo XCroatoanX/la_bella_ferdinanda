@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {KittenService} from '../../services/kitten.service';
 import {ToastrService} from 'ngx-toastr';
 import {CatKit} from '../../models/catkit.model';
+import {handleCatKitError} from "../../utils/error-handler";
 
 @Component({
   selector: 'app-create-kitten',
@@ -100,58 +101,7 @@ export class CreateKittenComponent implements OnInit {
         this.imagePreviews = [];
         this.selectedFiles = [];
       },
-      error: (error) => {
-        this.isLoading = false;
-        console.error('Error creating cat:', error);
-        switch (error.status) {
-          case 400:
-            this.toastr.error(
-              'Bad Request: ' + (error.error || 'Please check your input.'),
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 401:
-            this.toastr.error(
-              'Unauthorized: Please log in to continue.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 413:
-            this.toastr.error(
-              'File too large: Please upload files smaller than 15 MB.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 500:
-            this.toastr.error(
-              'Internal Server Error: Please try again later.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          default:
-            this.toastr.error(
-              'An unexpected error occurred: ' +
-              (error.error || 'Please try again later.'),
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-        }
-      },
+      error: (error) => handleCatKitError(error),
     });
   }
 }
