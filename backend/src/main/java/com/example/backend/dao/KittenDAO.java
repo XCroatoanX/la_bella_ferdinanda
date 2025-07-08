@@ -1,24 +1,22 @@
 package com.example.backend.dao;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.example.backend.dto.KittenDTO;
 import com.example.backend.dto.KittenMinDTO;
 import com.example.backend.models.Image;
 import com.example.backend.models.Kitten;
 import com.example.backend.services.ImageService;
-
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class KittenDAO {
@@ -48,7 +46,7 @@ public class KittenDAO {
                     kitten.getStatus(),
                     kitten.isKitten(),
                     kitten.getLitter(),
-                    kitten.getImages().get(0)));
+                    kitten.getImages().getFirst()));
         }
         return kittenMinDTO;
     }

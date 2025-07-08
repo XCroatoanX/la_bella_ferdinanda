@@ -6,6 +6,7 @@ import {CatService} from '../../services/cat.service';
 import {ToastrService} from 'ngx-toastr';
 import {CatKit} from '../../models/catkit.model';
 import {CommonModule} from '@angular/common';
+import {handleHttpError} from "../../utils/error-handler";
 
 @Component({
   selector: 'app-edit-cat',
@@ -21,7 +22,7 @@ import {CommonModule} from '@angular/common';
 })
 export class EditCatComponent implements OnInit {
   public catForm: FormGroup;
-  public imagePreviews: string[] = [];
+  public imagePreviews: { preview: string; mimeType: string, filename: string }[] = [] = [];
   public selectedFiles: File[] = [];
   public isLoading: boolean = false;
   catId: string | null = null;
@@ -51,9 +52,14 @@ export class EditCatComponent implements OnInit {
     this.selectedFiles = [...this.selectedFiles, ...files];
 
     files.forEach((file) => {
+      this.selectedFiles.push(file);
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.imagePreviews.push(e.target.result);
+        this.imagePreviews.push({
+          preview: e.target.result,
+          mimeType: file.type,
+          filename: file.name,
+        });
       };
       reader.readAsDataURL(file);
     });
@@ -87,16 +93,20 @@ export class EditCatComponent implements OnInit {
       new Blob([JSON.stringify(cat)], {type: 'application/json'}),
     );
 
-    this.imagePreviews.forEach((preview, index) => {
-      const byteCharacters = atob(preview.split(',')[1]);
-      const byteArrays = new Uint8Array(byteCharacters.length);
+    this.selectedFiles.forEach((file, index) => {
+      formData.append('imagefile', file, file.name);
+    });
 
+    this.imagePreviews.forEach((imgObj, index) => {
+      const byteCharacters = atob(imgObj.preview.split(',')[1]);
+      const byteArrays = new Uint8Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
         byteArrays[i] = byteCharacters.charCodeAt(i);
       }
 
-      const blob = new Blob([byteArrays], {type: 'image/jpeg'});
-      formData.append('imagefile', blob, `image${index + 1}.jpg`);
+      const ext = imgObj.mimeType.split('/')[1]; // "webp", "jpeg", etc.
+      const blob = new Blob([byteArrays], {type: imgObj.mimeType});
+      formData.append('imagefile', blob, imgObj.filename);
     });
 
     this.catService.updateCat(formData, this.catId).subscribe({
@@ -112,54 +122,7 @@ export class EditCatComponent implements OnInit {
       error: (error) => {
         this.isLoading = false;
         console.error('Error updating cat:', error);
-        switch (error.status) {
-          case 400:
-            this.toastr.error(
-              'Bad Request: ' + (error.error || 'Please check your input.'),
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 401:
-            this.toastr.error(
-              'Unauthorized: Please log in to continue.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 413:
-            this.toastr.error(
-              'File too large: Please upload files smaller than 15 MB.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          case 500:
-            this.toastr.error(
-              'Internal Server Error: Please try again later.',
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-          default:
-            this.toastr.error(
-              'An unexpected error occurred: ' +
-              (error.error || 'Please try again later.'),
-              'Error',
-              {
-                timeOut: 3000,
-              },
-            );
-            break;
-        }
+        handleHttpError(error, this.toastr);
       },
     });
   }
@@ -186,9 +149,11 @@ export class EditCatComponent implements OnInit {
           description: cat.article,
           status: cat.status === 'Available' ? '1' : cat.status === 'Reserved / Under discussion' ? '2' : cat.status === 'Sold' ? '3' : '4',
         });
-        this.imagePreviews = cat.images.map(
-          (image) => `data:${image.type};base64,${image.image}`,
-        );
+        this.imagePreviews = cat.images.map((image) => ({
+          preview: `data:${image.type};base64,${image.image}`,
+          mimeType: image.type,
+          filename: image.name || `image_${Math.random().toString(36).slice(2)}`,
+        }));
       },
       error: (error) => {
         console.error('Error fetching cat data:', error);

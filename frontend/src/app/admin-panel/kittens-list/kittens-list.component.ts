@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
-import { KittenService } from '../../services/kitten.service';
+import {Component, OnInit} from '@angular/core';
+import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
+import {KittenService} from '../../services/kitten.service';
 
-import { ToastrService } from 'ngx-toastr';
-import { CatKit } from '../../models/catkit.model';
-import { ItemCardKittenComponent } from "../item-card-kitten/item-card-kitten.component";
+import {ToastrService} from 'ngx-toastr';
+import {CatKit} from '../../models/catkit.model';
+import {ItemCardKittenComponent} from "../item-card-kitten/item-card-kitten.component";
 
 @Component({
   selector: 'app-kittens-list',
@@ -16,7 +16,8 @@ export class KittensListComponent implements OnInit {
   kittens: CatKit[] = [];
   loading: boolean = false;
 
-  constructor(private kittenService: KittenService, private toastr: ToastrService) { }
+  constructor(private kittenService: KittenService, private toastr: ToastrService) {
+  }
 
   ngOnInit(): void {
     this.loading = true;

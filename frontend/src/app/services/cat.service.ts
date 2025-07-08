@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { CatKit } from '../models/catkit.model';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {CatKit} from '../models/catkit.model';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   public getAllCats(): Observable<CatKit[]> {
     return this.http.get<CatKit[]>(environment.base_url + '/cat');
@@ -34,7 +35,7 @@ export class CatService {
     return this.http.post(environment.base_url + '/cat', formData);
   }
 
-  public updateCat(formData: FormData, id): Observable<any> {
+  public updateCat(formData: FormData, id: string): Observable<any> {
     return this.http.put<CatKit>(environment.base_url + '/cat/' + id, formData);
   }
 

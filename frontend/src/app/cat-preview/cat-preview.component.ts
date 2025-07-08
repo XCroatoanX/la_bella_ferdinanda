@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterLink } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
-import { CatService } from "../services/cat.service";
-import { CatKit } from "../models/catkit.model";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
+import {CatService} from "../services/cat.service";
+import {CatKit} from "../models/catkit.model";
 
-import { CoreModule } from "../core/core.module";
+import {CoreModule} from "../core/core.module";
+import {Image} from "../models/image.model";
 
 @Component({
-    selector: 'app-cat-preview',
-    imports: [
+  selector: 'app-cat-preview',
+  imports: [
     CoreModule
-],
-    templateUrl: './cat-preview.component.html',
-    styleUrls: ['./cat-preview.component.scss']
+  ],
+  templateUrl: './cat-preview.component.html',
+  styleUrls: ['./cat-preview.component.scss']
 })
 export class CatPreviewComponent implements OnInit {
   catId: string | null = null;
@@ -23,7 +24,8 @@ export class CatPreviewComponent implements OnInit {
     private catService: CatService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -43,7 +45,7 @@ export class CatPreviewComponent implements OnInit {
     });
   }
 
-  getImageSrc(image): string {
+  getImageSrc(image: Image): string {
     const imageBase64 = image.image;
     const mimeType = image.type;
 

@@ -1,25 +1,19 @@
 package com.example.backend.dao;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.server.ResponseStatusException;
-
 import com.example.backend.dto.CatDTO;
 import com.example.backend.dto.CatMinDTO;
 import com.example.backend.models.Cat;
 import com.example.backend.models.Image;
 import com.example.backend.services.ImageService;
-
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.io.IOException;
+import java.util.*;
 
 @Component
 public class CatDAO {
@@ -48,7 +42,7 @@ public class CatDAO {
                     cat.getArticle(),
                     cat.getStatus(),
                     cat.isKitten(),
-                    cat.getImages().get(0)));
+                    cat.getImages().getFirst()));
         }
         return catMinDTO;
     }
@@ -71,7 +65,7 @@ public class CatDAO {
 
     @Transactional
     public List<CatMinDTO> getCatsBySexMin(String sex) {
-        List <Cat> cats = this.catRepository.findBySexIgnoreCase(sex)
+        List<Cat> cats = this.catRepository.findBySexIgnoreCase(sex)
                 .orElse(Collections.emptyList());
         List<CatMinDTO> catMinDTO = new ArrayList<>();
         for (Cat cat : cats) {
@@ -84,7 +78,7 @@ public class CatDAO {
                     cat.getArticle(),
                     cat.getStatus(),
                     cat.isKitten(),
-                    cat.getImages().get(0)));
+                    cat.getImages().getFirst()));
         }
         return catMinDTO;
     }

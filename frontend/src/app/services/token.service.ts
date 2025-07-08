@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { JwtPayload } from '../auth/jwt-payload.model';
+import {Injectable} from '@angular/core';
+import {JwtPayload} from '../auth/jwt-payload.model';
 
 @Injectable({
   providedIn: 'root',
@@ -7,7 +7,8 @@ import { JwtPayload } from '../auth/jwt-payload.model';
 export class TokenService {
   private _localStorageTokenKey: string = 'token';
 
-  constructor() {}
+  constructor() {
+  }
 
   public storeToken(token: string) {
     localStorage.setItem(this._localStorageTokenKey, token);
@@ -15,16 +16,6 @@ export class TokenService {
 
   public loadToken(): string | null {
     return localStorage.getItem(this._localStorageTokenKey);
-  }
-
-  private getPayload(token: string): JwtPayload {
-    const jwtPayload = token.split('.')[1];
-    return JSON.parse(atob(jwtPayload));
-  }
-
-  private tokenExpired(token: string): boolean {
-    const expiry = this.getPayload(token).exp;
-    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
   public removeToken() {
@@ -43,9 +34,16 @@ export class TokenService {
       return false;
     }
 
-    // Hier ook andere validaties op de token
-    // bijvoorbeeld validatie of de issuer (iss) overeen komt..
-
     return true;
+  }
+
+  private getPayload(token: string): JwtPayload {
+    const jwtPayload = token.split('.')[1];
+    return JSON.parse(atob(jwtPayload));
+  }
+
+  private tokenExpired(token: string): boolean {
+    const expiry = this.getPayload(token).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 }
