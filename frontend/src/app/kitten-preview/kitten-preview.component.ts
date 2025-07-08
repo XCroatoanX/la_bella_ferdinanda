@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { CoreModule } from "../core/core.module";
-import { KittenService } from "../services/kitten.service";
-import { ToastrService } from "ngx-toastr";
-import { ActivatedRoute } from "@angular/router";
-import { CatKit } from '../models/catkit.model';
+import {Component} from '@angular/core';
+import {CoreModule} from "../core/core.module";
+import {KittenService} from "../services/kitten.service";
+import {ToastrService} from "ngx-toastr";
+import {ActivatedRoute} from "@angular/router";
+import {CatKit} from '../models/catkit.model';
 
 @Component({
-    selector: 'app-kitten-preview',
-    imports: [
-        CoreModule,
-    ],
-    templateUrl: './kitten-preview.component.html',
-    styleUrl: './kitten-preview.component.scss'
+  selector: 'app-kitten-preview',
+  imports: [
+    CoreModule,
+  ],
+  templateUrl: './kitten-preview.component.html',
+  styleUrl: './kitten-preview.component.scss'
 })
 export class KittenPreviewComponent {
   kittenId: string | null = null;
@@ -22,7 +22,8 @@ export class KittenPreviewComponent {
     private kittenService: KittenService,
     private toastr: ToastrService,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -42,7 +43,7 @@ export class KittenPreviewComponent {
     });
   }
 
-  getImageSrc(image): string {
+  getImageSrc(image: { image: any; type: any; }): string {
     const imageBase64 = image.image;
     const mimeType = image.type;
 
