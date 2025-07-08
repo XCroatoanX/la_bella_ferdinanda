@@ -19,13 +19,13 @@ body {
 
 @keyframes gradient {
   0% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
   50% {
     background-position: 100% 50%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0 50%;
   }
 }
 
@@ -39,6 +39,7 @@ body {
 #phone:active {
   text-decoration: underline;
 }
+
 li {
   list-style: none;
 }
@@ -48,6 +49,7 @@ li {
   justify-content: center;
   align-items: center;
   height: 100%;
+
   img {
     max-width: 100%;
     height: auto;
@@ -65,6 +67,7 @@ li {
   .contacts-container {
     text-align: center;
     margin: 0;
+
     p {
       margin: 0;
     }
@@ -76,6 +79,7 @@ li {
     margin-bottom: 20px;
   }
 }
+
 @media (max-width: 330px) {
   p {
     font-size: 0.9rem;

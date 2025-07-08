@@ -28,6 +28,7 @@ export class CatsListComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
+        console.error(error);
         this.toastr.error("Error fetching cats", "Error");
         this.loading = false;
       }

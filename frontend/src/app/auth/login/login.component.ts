@@ -1,36 +1,28 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { Router, RouterModule } from '@angular/router';
-import { AuthResponse } from '../../models/auth-response.model';
-import { ToastrService } from 'ngx-toastr';
+import {Component} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {Router, RouterModule} from '@angular/router';
+import {AuthResponse} from '../../models/auth-response.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
-    selector: 'app-login',
-    imports: [FormsModule, RouterModule, ReactiveFormsModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.scss'
+  selector: 'app-login',
+  imports: [FormsModule, RouterModule, ReactiveFormsModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;
   username: FormControl;
   password: FormControl;
-  alertMessage: string = '';
-  alertType: string = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.username = new FormControl('', [
