@@ -95,3 +95,4 @@ frontend/Thumbs.db
 backend/fly.toml
 backend/src/main/resources/application.properties
 .github
+frontend/package-lock.json
