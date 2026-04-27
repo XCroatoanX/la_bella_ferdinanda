@@ -28,7 +28,7 @@ public class Cat {
         private String status;
         private boolean isKitten;
 
-        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinTable(name = "cat_images", joinColumns = {
                         @JoinColumn(name = "cat_id")
         }, inverseJoinColumns = {

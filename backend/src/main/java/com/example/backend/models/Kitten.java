@@ -29,7 +29,7 @@ public class Kitten {
         private boolean isKitten;
         private String litter;
 
-        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
         @JoinTable(name = "kitten_images", joinColumns = {
                         @JoinColumn(name = "kitten_id")
         }, inverseJoinColumns = {

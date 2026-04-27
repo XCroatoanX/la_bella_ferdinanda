@@ -1,19 +1,25 @@
 package com.example.backend.dao;
 
-import com.example.backend.dto.CatDTO;
-import com.example.backend.dto.CatMinDTO;
-import com.example.backend.models.Cat;
-import com.example.backend.models.Image;
-import com.example.backend.services.ImageService;
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.util.*;
+import com.example.backend.dto.CatDTO;
+import com.example.backend.dto.CatMinDTO;
+import com.example.backend.models.Cat;
+import com.example.backend.models.Image;
+import com.example.backend.services.ImageService;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Component
 public class CatDAO {
@@ -99,6 +105,7 @@ public class CatDAO {
         this.catRepository.save(cat);
     }
 
+    @Transactional
     public void updateCat(CatDTO catDTO, MultipartFile[] images, UUID id) throws IOException {
         Optional<Cat> cat = this.catRepository.findById(id);
 
@@ -110,7 +117,12 @@ public class CatDAO {
             cat.get().setSex(catDTO.sex);
             cat.get().setArticle(catDTO.article);
             cat.get().setStatus(catDTO.status);
-            cat.get().setImages(imageList);
+            if (cat.get().getImages() == null) {
+                cat.get().setImages(new ArrayList<>(imageList));
+            } else {
+                cat.get().getImages().clear();
+                cat.get().getImages().addAll(imageList);
+            }
             this.catRepository.save(cat.get());
             return;
         }

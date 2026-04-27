@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.backend.dao.CatDAO;
 import com.example.backend.dto.CatDTO;
@@ -70,6 +71,9 @@ public class CatController {
             Map<String, String> response = new HashMap<>();
             response.put("message", "Created cat: " + catDTO.name);
             return ResponseEntity.ok(response);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error creating cat: " + e.getMessage());
@@ -84,6 +88,9 @@ public class CatController {
             Map<String, String> response = new HashMap<>();
             response.put("message", "Updated cat: " + catDTO.name);
             return ResponseEntity.ok(response);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode())
+                    .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error updating cat: " + e.getMessage());
