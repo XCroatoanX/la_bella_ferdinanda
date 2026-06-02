@@ -16,7 +16,7 @@
     <properties>
         <thymeleaf-extras-springsecurity6.version>3.1.5.RELEASE</thymeleaf-extras-springsecurity6.version>
         <passay.version>2.0.0</passay.version>
-        <java.version>23</java.version>
+        <java.version>26</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -62,7 +62,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.10</version>
+            <version>42.7.11</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
