@@ -1,21 +1,8 @@
 package com.example.backend.dto;
 
-public class CatDTO {
-    public String name;
-    public String color;
-    public double age;
-    public String sex;
-    public String article;
-    public String status;
-    public boolean isKitten;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
-    public CatDTO(String name, String color, double age, String sex, String article, String status, boolean isKitten) {
-        this.name = name;
-        this.color = color;
-        this.age = age;
-        this.sex = sex;
-        this.article = article;
-        this.status = status;
-        this.isKitten = isKitten;
-    }
+public record CatDTO(@NotBlank String name, @NotBlank String color, @PositiveOrZero double age, @NotBlank String sex,
+        @NotBlank String article, @NotBlank String status, boolean isKitten) {
 }

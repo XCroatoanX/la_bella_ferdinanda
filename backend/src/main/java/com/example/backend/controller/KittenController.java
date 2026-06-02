@@ -1,9 +1,9 @@
 package com.example.backend.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +26,7 @@ import com.example.backend.dto.KittenMinDTO;
 import com.example.backend.models.Kitten;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200", "https://labellaferdinanda.netlify.app",
@@ -54,34 +55,30 @@ public class KittenController {
     }
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> createKitten(@RequestPart("kitten") KittenDTO kittenDTO,
+    public ResponseEntity<?> createKitten(@Valid @RequestPart("kitten") KittenDTO kittenDTO,
             @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.kittenDAO.createKitten(kittenDTO, file);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Created kitten: " + kittenDTO.name);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Created kitten: " + kittenDTO.name()));
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode())
                     .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
-        } catch (Exception e) {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error creating kitten: " + e.getMessage());
         }
     }
 
     @PutMapping(value = "/{id}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> updateKitten(@PathVariable UUID id, @RequestPart("kitten") KittenDTO kittenDTO,
+    public ResponseEntity<?> updateKitten(@PathVariable UUID id, @Valid @RequestPart("kitten") KittenDTO kittenDTO,
             @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.kittenDAO.updateKitten(kittenDTO, file, id);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Updated kitten: " + kittenDTO.name);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Updated kitten: " + kittenDTO.name()));
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode())
                     .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
-        } catch (Exception e) {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error updating kitten: " + e.getMessage());
         }
@@ -91,13 +88,9 @@ public class KittenController {
     public ResponseEntity<Map<String, String>> deleteKitten(@PathVariable UUID id) {
         try {
             this.kittenDAO.deleteKittenById(id);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Deleted Cat: " + id);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Deleted Kitten: " + id));
         } catch (EntityNotFoundException e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
         }
     }
 }

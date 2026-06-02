@@ -1,7 +1,6 @@
 package com.example.backend.services;
 
 import com.example.backend.dao.AdminRepository;
-import com.example.backend.models.Admin;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,11 +21,12 @@ public class AdminService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Admin Admin = adminDAO.findByUsername(username);
+        var admin = adminDAO.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Admin not found: " + username));
 
         return new User(
                 username,
-                Admin.getPassword(),
+                admin.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }

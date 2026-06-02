@@ -9,11 +9,14 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.util.Calendar;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Date;
 
 @Component
 public class JWTUtil {
+    private static final Duration TOKEN_LIFETIME = Duration.ofHours(6);
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -37,10 +40,6 @@ public class JWTUtil {
     }
 
     private Date createExpirationDate() {
-        int expirationHours = 6;
-        Calendar appendableDate = Calendar.getInstance();
-        appendableDate.setTime(new Date());
-        appendableDate.add(Calendar.HOUR, expirationHours);
-        return appendableDate.getTime();
+        return Date.from(Instant.now().plus(TOKEN_LIFETIME));
     }
 }

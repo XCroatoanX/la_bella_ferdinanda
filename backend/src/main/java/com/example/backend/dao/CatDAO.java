@@ -1,8 +1,6 @@
 package com.example.backend.dao;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,21 +34,10 @@ public class CatDAO {
     }
 
     public List<CatMinDTO> getAllCatsMin() {
-        List<Cat> cats = catRepository.findAll();
-        List<CatMinDTO> catMinDTO = new ArrayList<>();
-        for (Cat cat : cats) {
-            catMinDTO.add(new CatMinDTO(
-                    cat.getId(),
-                    cat.getName(),
-                    cat.getColor(),
-                    cat.getAge(),
-                    cat.getSex(),
-                    cat.getArticle(),
-                    cat.getStatus(),
-                    cat.isKitten(),
-                    cat.getImages().getFirst()));
-        }
-        return catMinDTO;
+        return catRepository.findAll().stream()
+                .map(cat -> new CatMinDTO(cat.getId(), cat.getName(), cat.getColor(), cat.getAge(), cat.getSex(),
+                        cat.getArticle(), cat.getStatus(), cat.isKitten(), cat.getImages().getFirst()))
+                .toList();
     }
 
     @Transactional
@@ -65,28 +52,15 @@ public class CatDAO {
 
     @Transactional
     public List<Cat> getCatsBySex(String sex) {
-        return this.catRepository.findBySexIgnoreCase(sex)
-                .orElse(Collections.emptyList());
+        return this.catRepository.findBySexIgnoreCase(sex);
     }
 
     @Transactional
     public List<CatMinDTO> getCatsBySexMin(String sex) {
-        List<Cat> cats = this.catRepository.findBySexIgnoreCase(sex)
-                .orElse(Collections.emptyList());
-        List<CatMinDTO> catMinDTO = new ArrayList<>();
-        for (Cat cat : cats) {
-            catMinDTO.add(new CatMinDTO(
-                    cat.getId(),
-                    cat.getName(),
-                    cat.getColor(),
-                    cat.getAge(),
-                    cat.getSex(),
-                    cat.getArticle(),
-                    cat.getStatus(),
-                    cat.isKitten(),
-                    cat.getImages().getFirst()));
-        }
-        return catMinDTO;
+        return this.catRepository.findBySexIgnoreCase(sex).stream()
+                .map(cat -> new CatMinDTO(cat.getId(), cat.getName(), cat.getColor(), cat.getAge(), cat.getSex(),
+                        cat.getArticle(), cat.getStatus(), cat.isKitten(), cat.getImages().getFirst()))
+                .toList();
     }
 
     @Transactional
@@ -118,7 +92,7 @@ public class CatDAO {
             cat.get().setArticle(catDTO.article);
             cat.get().setStatus(catDTO.status);
             if (cat.get().getImages() == null) {
-                cat.get().setImages(new ArrayList<>(imageList));
+                cat.get().setImages(imageList);
             } else {
                 cat.get().getImages().clear();
                 cat.get().getImages().addAll(imageList);

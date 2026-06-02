@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 import org.passay.DefaultPasswordValidator;
 import org.passay.PasswordData;
@@ -14,28 +15,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CredentialValidator {
-    public boolean isValidPassword(String password) {
-        PasswordValidator validator = new DefaultPasswordValidator(Arrays.asList(
-                new LengthRule(8, 30),
-                new CharacterRule(EnglishCharacterData.Digit, 1),
-                new CharacterRule(EnglishCharacterData.LowerCase, 1),
-                new CharacterRule(EnglishCharacterData.UpperCase, 1),
-                new CharacterRule(EnglishCharacterData.Special, 1),
-                new WhitespaceRule()));
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z0-9._-]{8,30}$");
+    private static final PasswordValidator PASSWORD_VALIDATOR = new DefaultPasswordValidator(Arrays.asList(
+            new LengthRule(8, 30),
+            new CharacterRule(EnglishCharacterData.Digit, 1),
+            new CharacterRule(EnglishCharacterData.LowerCase, 1),
+            new CharacterRule(EnglishCharacterData.UpperCase, 1),
+            new CharacterRule(EnglishCharacterData.Special, 1),
+            new WhitespaceRule()));
 
-        ValidationResult result = validator.validate(new PasswordData(password));
+    public boolean isValidPassword(String password) {
+        ValidationResult result = PASSWORD_VALIDATOR.validate(new PasswordData(password));
         return result.isValid();
     }
 
     public boolean isValidUsername(String username) {
-        PasswordValidator validator = new DefaultPasswordValidator(Arrays.asList(
-                new LengthRule(8, 30),
-                new CharacterRule(EnglishCharacterData.Digit, 1),
-                new CharacterRule(EnglishCharacterData.LowerCase, 1),
-                new CharacterRule(EnglishCharacterData.UpperCase, 1),
-                new CharacterRule(EnglishCharacterData.Special, 1),
-                new WhitespaceRule()));
-        ValidationResult result = validator.validate(new PasswordData(username));
-        return result.isValid();
+        return username != null && USERNAME_PATTERN.matcher(username).matches();
     }
 }

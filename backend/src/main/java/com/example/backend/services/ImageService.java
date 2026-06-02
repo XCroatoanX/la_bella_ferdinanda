@@ -16,6 +16,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +28,7 @@ import com.luciad.imageio.webp.WebPWriteParam;
 
 @Service
 public class ImageService {
+    private static final Logger log = LoggerFactory.getLogger(ImageService.class);
     private static final long MAX_SINGLE_FILE_SIZE_BYTES = 15L * 1024 * 1024;
     private static final long MAX_TOTAL_FILE_SIZE_BYTES = 250L * 1024 * 1024;
     private static final Set<String> ALLOWED_CONTENT_TYPES = Set.of("image/jpeg", "image/png", "image/webp");
@@ -51,12 +54,12 @@ public class ImageService {
                 Image imageEntity = new Image(webpFileName, "image/webp",
                         webpBytes);
                 imagesList.add(imageEntity);
-                System.out.println("SUCCESS: Image " + image.getOriginalFilename() + " converted to WebP and added");
+                log.info("Converted image {} to WebP", image.getOriginalFilename());
             } else {
                 Image imageEntity = new Image(image.getOriginalFilename(), image.getContentType(),
                         image.getBytes());
                 imagesList.add(imageEntity);
-                System.out.println("SUCCESS: Image " + image.getOriginalFilename() + " added");
+                log.info("Added image {}", image.getOriginalFilename());
             }
 
         }
@@ -178,25 +181,24 @@ public class ImageService {
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
-            ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(outputStream);
-            writer.setOutput(imageOutputStream);
+            try (ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(outputStream)) {
+                writer.setOutput(imageOutputStream);
 
-            // Compress image
-            WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
-            writeParam.setCompressionMode(WebPWriteParam.MODE_EXPLICIT);
-            writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
-            writeParam.setCompressionQuality(0.8f);
+                // Compress image
+                WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
+                writeParam.setCompressionMode(WebPWriteParam.MODE_EXPLICIT);
+                writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSY_COMPRESSION]);
+                writeParam.setCompressionQuality(0.8f);
 
-            writer.write(null, new IIOImage(bufferedImage, null, null), writeParam);
-
-            writer.dispose();
-            imageOutputStream.close();
-            outputStream.close();
+                writer.write(null, new IIOImage(bufferedImage, null, null), writeParam);
+            } finally {
+                writer.dispose();
+            }
 
             return outputStream.toByteArray();
 
         } catch (IOException e) {
-            System.err.println("ERROR: Failed to convert image to WebP: " + e.getMessage());
+            log.error("Failed to convert image {} to WebP", image.getOriginalFilename(), e);
             throw e;
         }
     }

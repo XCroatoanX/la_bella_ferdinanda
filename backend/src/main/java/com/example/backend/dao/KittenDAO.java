@@ -1,7 +1,6 @@
 package com.example.backend.dao;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -35,22 +34,11 @@ public class KittenDAO {
     }
 
     public List<KittenMinDTO> getAllKittensMin() {
-        List<Kitten> kittens = kittenRepository.findAll();
-        List<KittenMinDTO> kittenMinDTO = new ArrayList<>();
-        for (Kitten kitten : kittens) {
-            kittenMinDTO.add(new KittenMinDTO(
-                    kitten.getId(),
-                    kitten.getName(),
-                    kitten.getColor(),
-                    kitten.getAge(),
-                    kitten.getSex(),
-                    kitten.getArticle(),
-                    kitten.getStatus(),
-                    kitten.isKitten(),
-                    kitten.getLitter(),
-                    kitten.getImages().getFirst()));
-        }
-        return kittenMinDTO;
+        return kittenRepository.findAll().stream()
+                .map(kitten -> new KittenMinDTO(kitten.getId(), kitten.getName(), kitten.getColor(),
+                        kitten.getAge(), kitten.getSex(), kitten.getArticle(), kitten.getStatus(),
+                        kitten.isKitten(), kitten.getLitter(), kitten.getImages().getFirst()))
+                .toList();
     }
 
     @Transactional
@@ -95,7 +83,7 @@ public class KittenDAO {
             kitten.get().setStatus(kittenDTO.status);
             kitten.get().setLitter(kittenDTO.litter);
             if (kitten.get().getImages() == null) {
-                kitten.get().setImages(new ArrayList<>(imageList));
+                kitten.get().setImages(imageList);
             } else {
                 kitten.get().getImages().clear();
                 kitten.get().getImages().addAll(imageList);

@@ -1,9 +1,9 @@
 package com.example.backend.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.io.IOException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,6 +26,7 @@ import com.example.backend.dto.CatMinDTO;
 import com.example.backend.models.Cat;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200", "https://labellaferdinanda.netlify.app",
@@ -64,34 +65,30 @@ public class CatController {
     }
 
     @PostMapping(consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> createCat(@RequestPart("cat") CatDTO catDTO,
+    public ResponseEntity<?> createCat(@Valid @RequestPart("cat") CatDTO catDTO,
             @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.catDAO.createCat(catDTO, file);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Created cat: " + catDTO.name);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Created cat: " + catDTO.name()));
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode())
                     .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
-        } catch (Exception e) {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error creating cat: " + e.getMessage());
         }
     }
 
     @PutMapping(value = "/{id}", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
-    public ResponseEntity<?> updateCat(@PathVariable UUID id, @RequestPart("cat") CatDTO catDTO,
+    public ResponseEntity<?> updateCat(@PathVariable UUID id, @Valid @RequestPart("cat") CatDTO catDTO,
             @RequestPart("imagefile") MultipartFile[] file) {
         try {
             this.catDAO.updateCat(catDTO, file, id);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Updated cat: " + catDTO.name);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Updated cat: " + catDTO.name()));
         } catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode())
                     .body(e.getReason() == null ? "Upload validation failed" : e.getReason());
-        } catch (Exception e) {
+        } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error updating cat: " + e.getMessage());
         }
@@ -101,13 +98,9 @@ public class CatController {
     public ResponseEntity<Map<String, String>> deleteCat(@PathVariable UUID id) {
         try {
             this.catDAO.deleteCatById(id);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Deleted Cat: " + id);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(Map.of("message", "Deleted Cat: " + id));
         } catch (EntityNotFoundException e) {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", e.getMessage()));
         }
     }
 }

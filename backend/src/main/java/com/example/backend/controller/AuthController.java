@@ -17,8 +17,9 @@ import com.example.backend.config.JWTUtil;
 import com.example.backend.dao.AdminRepository;
 import com.example.backend.dto.AuthenticationDTO;
 import com.example.backend.dto.LoginResponse;
-import com.example.backend.models.Admin;
 import com.example.backend.services.CredentialValidator;
+
+import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin(origins = { "http://localhost:4200", "https://labellaferdinanda.netlify.app", "https://labellaferdinanda.nl", "https://www.labellaferdinanda.nl" })
@@ -39,23 +40,21 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<LoginResponse> register(@RequestBody AuthenticationDTO authenticationDTO) {
-        if (!validator.isValidUsername(authenticationDTO.username)) {
+    public ResponseEntity<LoginResponse> register(@Valid @RequestBody AuthenticationDTO authenticationDTO) {
+        if (!validator.isValidUsername(authenticationDTO.username())) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "No valid username provided");
         }
-        if (!validator.isValidPassword(authenticationDTO.password)) {
+        if (!validator.isValidPassword(authenticationDTO.password())) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "No valid password provided");
         }
-        Admin admin = adminDAO.findByUsername(authenticationDTO.username);
-
-        if (admin != null) {
+        if (adminDAO.findByUsername(authenticationDTO.username()).isPresent()) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Can not register with this username");
         }
-        String encodedPassword = passwordEncoder.encode(authenticationDTO.password);
-        Admin registeredAdmin = new Admin(authenticationDTO.username, encodedPassword);
+        String encodedPassword = passwordEncoder.encode(authenticationDTO.password());
+        Admin registeredAdmin = new Admin(authenticationDTO.username(), encodedPassword);
         adminDAO.save(registeredAdmin);
         String token = jwtUtil.generateToken(registeredAdmin.getUsername());
         LoginResponse loginResponse = new LoginResponse(registeredAdmin.getUsername(), token);
@@ -63,17 +62,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody AuthenticationDTO authenticationDTO) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody AuthenticationDTO authenticationDTO) {
         try {
             UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(
-                    authenticationDTO.username,
-                    authenticationDTO.password);
+                    authenticationDTO.username(),
+                    authenticationDTO.password());
 
             authenticationManager.authenticate(authInputToken);
 
-            String token = jwtUtil.generateToken(authenticationDTO.username);
+            String token = jwtUtil.generateToken(authenticationDTO.username());
 
-            Admin admin = adminDAO.findByUsername(authenticationDTO.username);
+            var admin = adminDAO.findByUsername(authenticationDTO.username())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "No valid credentials"));
             LoginResponse loginResponse = new LoginResponse(admin.getUsername(), token);
 
             return ResponseEntity.ok(loginResponse);

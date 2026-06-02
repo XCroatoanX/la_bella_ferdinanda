@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.UUID;
 
-@Entity(name = "Image")
+@Entity
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,7 +20,7 @@ public class Image {
         this.image = image;
     }
 
-    public Image() {
+    protected Image() {
     }
 
     public String getName() {

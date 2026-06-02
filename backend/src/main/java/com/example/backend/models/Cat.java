@@ -14,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 
-@Entity(name = "Cat")
+@Entity
 public class Cat {
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
@@ -49,15 +49,11 @@ public class Cat {
                 this.images = images;
         }
 
-        public Cat() {
+        protected Cat() {
         }
 
         public UUID getId() {
                 return id;
-        }
-
-        public void setId(UUID id) {
-                this.id = id;
         }
 
         public String getName() {

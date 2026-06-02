@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.UUID;
 
-@Entity(name = "Admin")
+@Entity
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -20,7 +20,7 @@ public class Admin {
         this.password = password;
     }
 
-    public Admin() {
+    protected Admin() {
 
     }
 
