@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
 import {KittenService} from '../../services/kitten.service';
 
@@ -10,6 +10,7 @@ import {ItemCardKittenComponent} from "../item-card-kitten/item-card-kitten.comp
   selector: 'app-kittens-list',
   imports: [AdminPanelHeaderComponent, ItemCardKittenComponent],
   templateUrl: './kittens-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './kittens-list.component.scss'
 })
 export class KittensListComponent implements OnInit {

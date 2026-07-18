@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {Router, RouterModule} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
@@ -8,6 +8,7 @@ import {ToastrService} from 'ngx-toastr';
   selector: 'app-admin-panel-header',
   imports: [NgOptimizedImage, RouterModule],
   templateUrl: './admin-panel-header.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './admin-panel-header.component.scss'
 })
 export class AdminPanelHeaderComponent {

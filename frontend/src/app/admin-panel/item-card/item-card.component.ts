@@ -1,22 +1,22 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CatKit} from '../../models/catkit.model';
-import {CatService} from '../../services/cat.service';
-import {KittenService} from '../../services/kitten.service';
-import {ToastrService} from 'ngx-toastr';
-import {CommonModule} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CatKit } from '../../models/catkit.model';
+import { CatService } from '../../services/cat.service';
+import { KittenService } from '../../services/kitten.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-item-card',
   imports: [CommonModule, RouterLink],
   templateUrl: './item-card.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./item-card.component.scss']
 })
 export class ItemCardComponent implements OnInit {
-  @Input() animal: CatKit;
+  @Input({ required: true }) animal!: CatKit;
   public isLoading: boolean = false;
   public imageSrc: string = '';
-  public isKitten: boolean;
 
   constructor(
     private catService: CatService,
@@ -43,7 +43,7 @@ export class ItemCardComponent implements OnInit {
     if (imageBase64.startsWith('data:image/')) {
       this.imageSrc = imageBase64;
     } else {
-      const mimeType = this.animal.image.type;
+      const mimeType = this.animal.image?.type ?? 'image/jpeg';
       this.imageSrc = `data:${mimeType};base64,${imageBase64}`;
     }
   }
@@ -60,7 +60,7 @@ export class ItemCardComponent implements OnInit {
 
     deleteRequest.subscribe({
       next: () => {
-        this.toastr.success(successMessage, 'Success!', {timeOut: 3000});
+        this.toastr.success(successMessage, 'Success!', { timeOut: 3000 });
         setTimeout(() => {
           window.location.reload();
         }, 3000);

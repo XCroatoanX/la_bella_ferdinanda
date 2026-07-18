@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {CoreModule} from "../core/core.module";
 import {KittenService} from "../services/kitten.service";
 import {ToastrService} from "ngx-toastr";
@@ -11,6 +11,7 @@ import {CatKit} from '../models/catkit.model';
     CoreModule,
   ],
   templateUrl: './kitten-preview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './kitten-preview.component.scss'
 })
 export class KittenPreviewComponent {

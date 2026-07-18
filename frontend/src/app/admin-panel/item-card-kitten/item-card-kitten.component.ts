@@ -1,10 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CatKit} from "../../models/catkit.model";
-import {CatService} from "../../services/cat.service";
-import {KittenService} from "../../services/kitten.service";
-import {ToastrService} from "ngx-toastr";
-import {RouterLink} from "@angular/router";
-import {CommonModule} from "@angular/common";
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CatKit } from "../../models/catkit.model";
+import { CatService } from "../../services/cat.service";
+import { KittenService } from "../../services/kitten.service";
+import { ToastrService } from "ngx-toastr";
+import { RouterLink } from "@angular/router";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'app-item-card-kitten',
@@ -12,13 +12,13 @@ import {CommonModule} from "@angular/common";
     CommonModule, RouterLink
   ],
   templateUrl: './item-card-kitten.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './item-card-kitten.component.scss'
 })
 export class ItemCardKittenComponent implements OnInit {
-  @Input() animal: CatKit;
+  @Input({ required: true }) animal!: CatKit;
   public isLoading: boolean = false;
   public imageSrc: string = '';
-  public isKitten: boolean;
 
   constructor(
     private catService: CatService,
@@ -45,7 +45,7 @@ export class ItemCardKittenComponent implements OnInit {
     if (imageBase64.startsWith('data:image/')) {
       this.imageSrc = imageBase64;
     } else {
-      const mimeType = this.animal.image.type;
+      const mimeType = this.animal.image?.type ?? 'image/jpeg';
       this.imageSrc = `data:${mimeType};base64,${imageBase64}`;
     }
   }
@@ -62,7 +62,7 @@ export class ItemCardKittenComponent implements OnInit {
 
     deleteRequest.subscribe({
       next: () => {
-        this.toastr.success(successMessage, 'Success!', {timeOut: 3000});
+        this.toastr.success(successMessage, 'Success!', { timeOut: 3000 });
         setTimeout(() => {
           window.location.reload();
         }, 3000);

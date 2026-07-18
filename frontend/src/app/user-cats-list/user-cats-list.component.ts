@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CoreModule} from "../core/core.module";
 import {RouterLink} from "@angular/router";
 import {CatKit} from "../models/catkit.model";
@@ -12,6 +12,7 @@ import {ToastrService} from "ngx-toastr";
     RouterLink
   ],
   templateUrl: './user-cats-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './user-cats-list.component.scss'
 })
 export class UserCatsListComponent implements OnInit {

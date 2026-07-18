@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {Router} from '@angular/router';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
-import {CatService} from '../../services/cat.service';
-import {ToastrService} from 'ngx-toastr';
-import {CatKit} from '../../models/catkit.model';
-import {handleCatKitError} from "../../utils/error-handler";
+import { CatService } from '../../services/cat.service';
+import { ToastrService } from 'ngx-toastr';
+import { CatKit } from '../../models/catkit.model';
+import { handleCatKitError } from "../../utils/error-handler";
 
 @Component({
   selector: 'app-create-cat',
@@ -17,9 +17,10 @@ import {handleCatKitError} from "../../utils/error-handler";
     CommonModule,
   ],
   templateUrl: './create-cat.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./create-cat.component.scss']
 })
-export class CreateCatComponent implements OnInit {
+export class CreateCatComponent {
   public catForm: FormGroup;
   public imagePreviews: string[] = [];
   public selectedFiles: File[] = [];
@@ -31,9 +32,6 @@ export class CreateCatComponent implements OnInit {
     private catService: CatService,
     private toastr: ToastrService,
   ) {
-  }
-
-  ngOnInit(): void {
     this.catForm = this.fb.group({
       name: [''],
       color: [''],
@@ -68,7 +66,7 @@ export class CreateCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const {name, color, age, sex, status, description} = this.catForm.value;
+    const { name, color, age, sex, status, description } = this.catForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
     let statusValue: string = status === '1' ? 'Available' : status === '2' ? 'Reserved / Under discussion' : status === '2' ? 'Sold' : 'Not for sale';
@@ -83,7 +81,7 @@ export class CreateCatComponent implements OnInit {
 
     formData.append(
       'cat',
-      new Blob([JSON.stringify(cat)], {type: 'application/json'}),
+      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
     );
 
     this.selectedFiles.forEach((file) => {
@@ -101,7 +99,9 @@ export class CreateCatComponent implements OnInit {
         this.imagePreviews = [];
         this.selectedFiles = [];
       },
-      error: (error) => handleCatKitError(error)
+      error: (error) => handleCatKitError(error, this.toastr, () => {
+        this.isLoading = false;
+      })
     });
   }
 }

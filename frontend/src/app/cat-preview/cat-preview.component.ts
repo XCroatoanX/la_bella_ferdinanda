@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {CatService} from "../services/cat.service";
@@ -13,6 +13,7 @@ import {Image} from "../models/image.model";
     CoreModule
   ],
   templateUrl: './cat-preview.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./cat-preview.component.scss']
 })
 export class CatPreviewComponent implements OnInit {

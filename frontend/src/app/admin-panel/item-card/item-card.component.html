@@ -37,13 +37,8 @@
     }
   </div>
   <div class="d-inline-flex p-3">
-    <button
-      type="button"
-      class="btn btn-danger delete-button"
-      [ngClass]="{ disabled: isLoading }"
-      [disabled]="isLoading"
-      (click)="deleteAnimal()"
-    >
+    <button type="button" class="btn btn-danger delete-button" [ngClass]="{ disabled: isLoading }"
+      [disabled]="isLoading" (click)="deleteAnimal()">
       <div class="d-flex align-items-center justify-content-center">
         @if (isLoading) {
         <strong role="status"> Loading, please don't close page </strong>
@@ -53,15 +48,11 @@
         }
       </div>
     </button>
-    <button
-      type="button"
-      class="btn btn-primary ms-2"
-      [routerLink]="[
+    <button type="button" class="btn btn-primary ms-2" [routerLink]="[
         '/admin',
-        isKitten ? 'edit-kitten' : 'edit-cat',
+        animal.isKitten ? 'edit-kitten' : 'edit-cat',
         animal.id
-      ]"
-    >
+      ]">
       Edit
     </button>
   </div>

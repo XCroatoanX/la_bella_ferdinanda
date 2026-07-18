@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import {NgOptimizedImage} from "@angular/common";
 
@@ -6,6 +6,7 @@ import {NgOptimizedImage} from "@angular/common";
     selector: 'app-about-breed',
     imports: [CoreModule, NgOptimizedImage],
     templateUrl: './about-breed.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './about-breed.component.scss'
 })
 export class AboutBreedComponent {

@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {CatService} from '../../services/cat.service';
-import {ToastrService} from 'ngx-toastr';
-import {CatKit} from '../../models/catkit.model';
-import {CommonModule} from '@angular/common';
-import {handleHttpError} from "../../utils/error-handler";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { CatService } from '../../services/cat.service';
+import { ToastrService } from 'ngx-toastr';
+import { CatKit } from '../../models/catkit.model';
+import { CommonModule } from '@angular/common';
+import { handleHttpError } from "../../utils/error-handler";
 
 @Component({
   selector: 'app-edit-cat',
@@ -18,6 +18,7 @@ import {handleHttpError} from "../../utils/error-handler";
     RouterLink,
   ],
   templateUrl: './edit-cat.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./edit-cat.component.scss']
 })
 export class EditCatComponent implements OnInit {
@@ -34,12 +35,19 @@ export class EditCatComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
   ) {
+    this.catForm = this.fb.group({
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
+    });
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.catId = params.get('id');
-      this.initializeForm();
       if (this.catId) {
         this.fetchCatData(this.catId);
       }
@@ -74,7 +82,7 @@ export class EditCatComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const {name, color, age, sex, description, status} = this.catForm.value;
+    const { name, color, age, sex, description, status } = this.catForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -90,7 +98,7 @@ export class EditCatComponent implements OnInit {
 
     formData.append(
       'cat',
-      new Blob([JSON.stringify(cat)], {type: 'application/json'}),
+      new Blob([JSON.stringify(cat)], { type: 'application/json' }),
     );
 
     this.selectedFiles.forEach((file, index) => {
@@ -105,11 +113,17 @@ export class EditCatComponent implements OnInit {
       }
 
       const ext = imgObj.mimeType.split('/')[1]; // "webp", "jpeg", etc.
-      const blob = new Blob([byteArrays], {type: imgObj.mimeType});
+      const blob = new Blob([byteArrays], { type: imgObj.mimeType });
       formData.append('imagefile', blob, imgObj.filename);
     });
 
-    this.catService.updateCat(formData, this.catId).subscribe({
+    const catId = this.catId;
+    if (!catId) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.catService.updateCat(formData, catId).subscribe({
       next: (response) => {
         this.isLoading = false;
         this.toastr.success(cat.name + ' updated successfully', '', {
@@ -127,17 +141,6 @@ export class EditCatComponent implements OnInit {
     });
   }
 
-  private initializeForm(): void {
-    this.catForm = this.fb.group({
-      name: [''],
-      color: [''],
-      age: [''],
-      sex: [''],
-      description: [''],
-      status: [''],
-    });
-  }
-
   private fetchCatData(catId: string): void {
     this.catService.getCatById(catId).subscribe({
       next: (cat: CatKit) => {
@@ -149,7 +152,7 @@ export class EditCatComponent implements OnInit {
           description: cat.article,
           status: cat.status === 'Available' ? '1' : cat.status === 'Reserved / Under discussion' ? '2' : cat.status === 'Sold' ? '3' : '4',
         });
-        this.imagePreviews = cat.images.map((image) => ({
+        this.imagePreviews = (cat.images ?? []).map((image) => ({
           preview: `data:${image.type};base64,${image.image}`,
           mimeType: image.type,
           filename: image.name || `image_${Math.random().toString(36).slice(2)}`,

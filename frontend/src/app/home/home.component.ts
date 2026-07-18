@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CoreModule} from '../core/core.module';
 import {RouterLink} from '@angular/router';
 import {NgOptimizedImage} from "@angular/common";
@@ -8,6 +8,7 @@ import {NgOptimizedImage} from "@angular/common";
   selector: 'app-home',
   imports: [CoreModule, RouterLink, NgOptimizedImage],
   templateUrl: './home.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {

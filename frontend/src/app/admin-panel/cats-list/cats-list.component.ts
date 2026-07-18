@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
 import {CatService} from '../../services/cat.service';
 import {CatKit} from '../../models/catkit.model';
@@ -10,6 +10,7 @@ import {ToastrService} from 'ngx-toastr';
   selector: 'app-cats-list',
   imports: [AdminPanelHeaderComponent, ItemCardComponent],
   templateUrl: './cats-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './cats-list.component.scss'
 })
 export class CatsListComponent implements OnInit {

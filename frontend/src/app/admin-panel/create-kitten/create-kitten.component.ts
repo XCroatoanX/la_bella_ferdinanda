@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {NgClass} from '@angular/common';
-import {Router} from '@angular/router';
-import {KittenService} from '../../services/kitten.service';
-import {ToastrService} from 'ngx-toastr';
-import {CatKit} from '../../models/catkit.model';
-import {handleCatKitError} from "../../utils/error-handler";
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { Router } from '@angular/router';
+import { KittenService } from '../../services/kitten.service';
+import { ToastrService } from 'ngx-toastr';
+import { CatKit } from '../../models/catkit.model';
+import { handleCatKitError } from "../../utils/error-handler";
 
 @Component({
   selector: 'app-create-kitten',
@@ -16,9 +16,10 @@ import {handleCatKitError} from "../../utils/error-handler";
     NgClass
   ],
   templateUrl: './create-kitten.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './create-kitten.component.scss'
 })
-export class CreateKittenComponent implements OnInit {
+export class CreateKittenComponent {
   public kittenForm: FormGroup;
   public imagePreviews: string[] = [];
   public selectedFiles: File[] = [];
@@ -30,9 +31,6 @@ export class CreateKittenComponent implements OnInit {
     private kittenService: KittenService,
     private toastr: ToastrService,
   ) {
-  }
-
-  ngOnInit(): void {
     this.kittenForm = this.fb.group({
       name: [''],
       color: [''],
@@ -68,7 +66,7 @@ export class CreateKittenComponent implements OnInit {
     this.isLoading = true;
     const formData = new FormData();
 
-    const {name, color, age, sex, description, status, litter} = this.kittenForm.value;
+    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -84,7 +82,7 @@ export class CreateKittenComponent implements OnInit {
 
     formData.append(
       'kitten',
-      new Blob([JSON.stringify(kitten)], {type: 'application/json'}),
+      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
     );
 
     this.selectedFiles.forEach((file) => {
@@ -101,7 +99,9 @@ export class CreateKittenComponent implements OnInit {
         this.imagePreviews = [];
         this.selectedFiles = [];
       },
-      error: (error) => handleCatKitError(error),
+      error: (error) => handleCatKitError(error, this.toastr, () => {
+        this.isLoading = false;
+      }),
     });
   }
 }

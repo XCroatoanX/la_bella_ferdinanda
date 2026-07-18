@@ -7,8 +7,9 @@ import { ToastrModule } from 'ngx-toastr';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr
 } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,9 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     RouterModule.forRoot(routes),
     ToastrModule.forRoot(),
-    BrowserAnimationsModule,
+    // BrowserAnimationsModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

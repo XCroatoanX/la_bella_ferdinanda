@@ -1,14 +1,15 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators,} from '@angular/forms';
-import {AuthService} from '../../services/auth.service';
-import {Router, RouterModule} from '@angular/router';
-import {AuthResponse} from '../../models/auth-response.model';
-import {ToastrService} from 'ngx-toastr';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Router, RouterModule } from '@angular/router';
+import { AuthResponse } from '../../models/auth-response.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   imports: [FormsModule, RouterModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
@@ -22,9 +23,6 @@ export class LoginComponent {
     private router: Router,
     private toastr: ToastrService
   ) {
-  }
-
-  ngOnInit(): void {
     this.username = new FormControl('', [
       Validators.required,
       Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),

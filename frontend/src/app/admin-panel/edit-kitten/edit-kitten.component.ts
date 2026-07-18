@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule,} from '@angular/forms';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {KittenService} from '../../services/kitten.service';
-import {ToastrService} from 'ngx-toastr';
-import {CommonModule} from '@angular/common';
-import {CatKit} from '../../models/catkit.model';
-import {handleHttpError} from "../../utils/error-handler";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { KittenService } from '../../services/kitten.service';
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
+import { CatKit } from '../../models/catkit.model';
+import { handleHttpError } from "../../utils/error-handler";
 
 @Component({
   selector: 'app-edit-kitten',
@@ -18,6 +18,7 @@ import {handleHttpError} from "../../utils/error-handler";
     RouterLink,
   ],
   templateUrl: './edit-kitten.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./edit-kitten.component.scss']
 })
 export class EditKittenComponent implements OnInit {
@@ -34,12 +35,20 @@ export class EditKittenComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
   ) {
+    this.kittenForm = this.fb.group({
+      name: [''],
+      color: [''],
+      age: [''],
+      sex: [''],
+      description: [''],
+      status: [''],
+      litter: [''],
+    });
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.kittenId = params.get('id');
-      this.initializeForm();
       if (this.kittenId) {
         this.fetchKittenData(this.kittenId);
       }
@@ -69,7 +78,7 @@ export class EditKittenComponent implements OnInit {
     this.isLoading = true;
 
     const formData = new FormData();
-    const {name, color, age, sex, description, status, litter} = this.kittenForm.value;
+    const { name, color, age, sex, description, status, litter } = this.kittenForm.value;
 
     const sexValue: string = sex === '1' ? 'Male' : 'Female';
 
@@ -86,7 +95,7 @@ export class EditKittenComponent implements OnInit {
 
     formData.append(
       'kitten',
-      new Blob([JSON.stringify(kitten)], {type: 'application/json'}),
+      new Blob([JSON.stringify(kitten)], { type: 'application/json' }),
     );
 
     this.imagePreviews.forEach((preview, index) => {
@@ -97,12 +106,18 @@ export class EditKittenComponent implements OnInit {
         byteArrays[i] = byteCharacters.charCodeAt(i);
       }
 
-      const blob = new Blob([byteArrays], {type: 'image/jpeg'});
+      const blob = new Blob([byteArrays], { type: 'image/jpeg' });
       formData.append('imagefile', blob, `image${index + 1}.jpg`);
     });
 
 
-    this.kittenService.updateKitten(formData, this.kittenId).subscribe({
+    const kittenId = this.kittenId;
+    if (!kittenId) {
+      this.isLoading = false;
+      return;
+    }
+
+    this.kittenService.updateKitten(formData, kittenId).subscribe({
       next: (response) => {
         this.isLoading = false;
         this.toastr.success(kitten.name + ' updated successfully', '', {
@@ -120,18 +135,6 @@ export class EditKittenComponent implements OnInit {
     });
   }
 
-  private initializeForm(): void {
-    this.kittenForm = this.fb.group({
-      name: [''],
-      color: [''],
-      age: [''],
-      sex: [''],
-      description: [''],
-      status: [''],
-      litter: [''],
-    });
-  }
-
   private fetchKittenData(kittenId: string): void {
     this.kittenService.getKittenById(kittenId).subscribe({
       next: (kitten: CatKit) => {
@@ -144,7 +147,7 @@ export class EditKittenComponent implements OnInit {
           status: kitten.status === 'Available' ? '1' : kitten.status === 'Reserved / Under discussion' ? '2' : kitten.status === 'Sold' ? '3' : '4',
           litter: kitten.litter,
         });
-        this.imagePreviews = kitten.images.map(
+        this.imagePreviews = (kitten.images ?? []).map(
           (image) => `data:${image.type};base64,${image.image}`,
         );
       },
