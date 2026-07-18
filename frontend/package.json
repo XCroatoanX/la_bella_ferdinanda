@@ -20,7 +20,7 @@
     "@angular/platform-browser": "22.0.7",
     "@angular/platform-browser-dynamic": "22.0.7",
     "@angular/router": "22.0.7",
-    "@npmcli/package-json": "^5.2.0",
+    "@npmcli/package-json": "^8.0.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "frontend": "file:../frontend",
@@ -30,7 +30,7 @@
     "socket.io-adapter": "^2.5.1",
     "tslib": "^2.6.3",
     "ws": "^8.17.1",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.16.2"
   },
   "devDependencies": {
     "@angular/build": "^22.0.7",

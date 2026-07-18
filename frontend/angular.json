@@ -33,7 +33,6 @@
             "styles": [
               "./node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.scss",
-              "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/bootstrap-icons/font/bootstrap-icons.scss",
               "./node_modules/ngx-lightbox/lightbox.css"
             ],
@@ -105,7 +104,6 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/bootstrap/dist/scss/bootstrap.scss",
-              "./node_modules/ngx-toastr/toastr.css",
               "./node_modules/bootstrap-icons/font/bootstrap-icons.scss",
               "./node_modules/ngx-lightbox/lightbox.css"
             ],
