@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angul
 import { Router } from '@angular/router';
 import { CommonModule, NgClass } from '@angular/common';
 import { CatService } from '../../services/cat.service';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 import { CatKit } from '../../models/catkit.model';
 import { handleCatKitError } from "../../utils/error-handler";
 
@@ -30,7 +30,7 @@ export class CreateCatComponent {
     private fb: FormBuilder,
     private router: Router,
     private catService: CatService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
   ) {
     this.catForm = this.fb.group({
       name: [''],

@@ -1,10 +1,10 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
-import {CatService} from '../../services/cat.service';
-import {CatKit} from '../../models/catkit.model';
-import {ItemCardComponent} from "../item-card/item-card.component";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-header.component';
+import { CatService } from '../../services/cat.service';
+import { CatKit } from '../../models/catkit.model';
+import { ItemCardComponent } from "../item-card/item-card.component";
 
-import {ToastrService} from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-cats-list',
@@ -17,7 +17,7 @@ export class CatsListComponent implements OnInit {
   cats: CatKit[] = [];
   loading: boolean = false;
 
-  constructor(private catService: CatService, private toastr: ToastrService) {
+  constructor(private catService: CatService, private toastr: NotificationService) {
   }
 
   ngOnInit(): void {

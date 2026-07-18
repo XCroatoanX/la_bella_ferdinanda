@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { AuthResponse } from '../../models/auth-response.model';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,7 @@ export class LoginComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: NotificationService
   ) {
     this.username = new FormControl('', [
       Validators.required,

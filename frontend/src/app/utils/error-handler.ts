@@ -1,7 +1,7 @@
 // src/app/utils/error-handler.ts
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../services/notification.service';
 
-export function handleHttpError(error: any, toastr: ToastrService) {
+export function handleHttpError(error: any, toastr: NotificationService) {
   switch (error.status) {
     case 400:
       toastr.error('Bad Request: ' + (error.error || 'Please check your input.'), 'Error', { timeOut: 3000 });
@@ -23,7 +23,7 @@ export function handleHttpError(error: any, toastr: ToastrService) {
 
 export function handleCatKitError(
   error: any,
-  toastr: ToastrService,
+  toastr: NotificationService,
   onComplete?: () => void,
 ): void {
   onComplete?.();

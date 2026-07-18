@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {RouterLink} from "@angular/router";
-import {CatKit} from "../models/catkit.model";
-import {CatService} from "../services/cat.service";
-import {ToastrService} from "ngx-toastr";
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { RouterLink } from "@angular/router";
+import { CatKit } from "../models/catkit.model";
+import { CatService } from "../services/cat.service";
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-user-cats-list',
@@ -20,7 +20,7 @@ export class UserCatsListComponent implements OnInit {
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private catService: CatService, private toastr: ToastrService) {
+  constructor(private catService: CatService, private toastr: NotificationService) {
   }
 
   ngOnInit(): void {

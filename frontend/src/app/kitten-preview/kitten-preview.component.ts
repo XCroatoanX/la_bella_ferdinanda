@@ -1,9 +1,9 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {KittenService} from "../services/kitten.service";
-import {ToastrService} from "ngx-toastr";
-import {ActivatedRoute} from "@angular/router";
-import {CatKit} from '../models/catkit.model';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { KittenService } from "../services/kitten.service";
+import { NotificationService } from '../services/notification.service';
+import { ActivatedRoute } from "@angular/router";
+import { CatKit } from '../models/catkit.model';
 
 @Component({
   selector: 'app-kitten-preview',
@@ -21,7 +21,7 @@ export class KittenPreviewComponent {
 
   constructor(
     private kittenService: KittenService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
     private route: ActivatedRoute
   ) {
   }

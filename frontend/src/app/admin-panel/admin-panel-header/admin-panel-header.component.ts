@@ -1,8 +1,8 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {AuthService} from '../../services/auth.service';
-import {Router, RouterModule} from '@angular/router';
-import {NgOptimizedImage} from '@angular/common';
-import {ToastrService} from 'ngx-toastr';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
+import { Router, RouterModule } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-admin-panel-header',
@@ -15,7 +15,7 @@ export class AdminPanelHeaderComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: NotificationService
   ) {
   }
 
@@ -36,6 +36,6 @@ export class AdminPanelHeaderComponent {
   }
 
   public showNotification(): void {
-    this.toastr.info('This feature is not available yet.', 'Coming soon!', {timeOut: 3000});
+    this.toastr.info('This feature is not available yet.', 'Coming soon!', { timeOut: 3000 });
   }
 }

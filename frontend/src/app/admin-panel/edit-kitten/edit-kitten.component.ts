@@ -3,7 +3,7 @@ import { AdminPanelHeaderComponent } from '../admin-panel-header/admin-panel-hea
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { CatKit } from '../../models/catkit.model';
 import { handleHttpError } from "../../utils/error-handler";
@@ -32,7 +32,7 @@ export class EditKittenComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private kittenService: KittenService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
     private route: ActivatedRoute,
   ) {
     this.kittenForm = this.fb.group({

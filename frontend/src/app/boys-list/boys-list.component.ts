@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {CatKit} from "../models/catkit.model";
-import {CatService} from "../services/cat.service";
-import {ToastrService} from "ngx-toastr";
-import {RouterLink} from "@angular/router";
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { CatKit } from "../models/catkit.model";
+import { CatService } from "../services/cat.service";
+import { NotificationService } from '../services/notification.service';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-boys-list',
@@ -20,7 +20,7 @@ export class BoysListComponent implements OnInit {
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private catService: CatService, private toastr: ToastrService) {
+  constructor(private catService: CatService, private toastr: NotificationService) {
   }
 
   ngOnInit(): void {

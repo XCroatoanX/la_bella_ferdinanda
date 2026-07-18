@@ -1,9 +1,9 @@
-import {Component, HostListener, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {CoreModule} from "../core/core.module";
-import {ToastrService} from "ngx-toastr";
-import {KittenService} from "../services/kitten.service";
-import {RouterLink} from "@angular/router";
-import {CatKit} from '../models/catkit.model';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { CoreModule } from "../core/core.module";
+import { NotificationService } from '../services/notification.service';
+import { KittenService } from "../services/kitten.service";
+import { RouterLink } from "@angular/router";
+import { CatKit } from '../models/catkit.model';
 
 @Component({
   selector: 'app-user-kittens-list',
@@ -20,7 +20,7 @@ export class UserKittensListComponent implements OnInit {
   isLoading: boolean = true;
   isMobile: boolean = false;
 
-  constructor(private kittenService: KittenService, private toastr: ToastrService) {
+  constructor(private kittenService: KittenService, private toastr: NotificationService) {
   }
 
   ngOnInit(): void {

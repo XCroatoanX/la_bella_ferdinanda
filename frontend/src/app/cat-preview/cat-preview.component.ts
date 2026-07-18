@@ -1,11 +1,11 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ToastrService} from "ngx-toastr";
-import {CatService} from "../services/cat.service";
-import {CatKit} from "../models/catkit.model";
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { NotificationService } from '../services/notification.service';
+import { CatService } from "../services/cat.service";
+import { CatKit } from "../models/catkit.model";
 
-import {CoreModule} from "../core/core.module";
-import {Image} from "../models/image.model";
+import { CoreModule } from "../core/core.module";
+import { Image } from "../models/image.model";
 
 @Component({
   selector: 'app-cat-preview',
@@ -23,7 +23,7 @@ export class CatPreviewComponent implements OnInit {
 
   constructor(
     private catService: CatService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
     private route: ActivatedRoute
   ) {
   }

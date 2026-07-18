@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angul
 import { NgClass } from '@angular/common';
 import { Router } from '@angular/router';
 import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 import { CatKit } from '../../models/catkit.model';
 import { handleCatKitError } from "../../utils/error-handler";
 
@@ -29,7 +29,7 @@ export class CreateKittenComponent {
     private fb: FormBuilder,
     private router: Router,
     private kittenService: KittenService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
   ) {
     this.kittenForm = this.fb.group({
       name: [''],

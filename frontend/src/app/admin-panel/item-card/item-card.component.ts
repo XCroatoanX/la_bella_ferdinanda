@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core
 import { CatKit } from '../../models/catkit.model';
 import { CatService } from '../../services/cat.service';
 import { KittenService } from '../../services/kitten.service';
-import { ToastrService } from 'ngx-toastr';
+import { NotificationService } from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -21,7 +21,7 @@ export class ItemCardComponent implements OnInit {
   constructor(
     private catService: CatService,
     private kittenService: KittenService,
-    private toastr: ToastrService,
+    private toastr: NotificationService,
   ) {
   }
 
