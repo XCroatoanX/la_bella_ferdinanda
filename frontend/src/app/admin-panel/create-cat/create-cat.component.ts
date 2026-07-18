@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AdminPanelHeaderComponent} from '../admin-panel-header/admin-panel-header.component';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
 import {Router} from '@angular/router';
-import {CommonModule, NgClass} from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import {CatService} from '../../services/cat.service';
 import {ToastrService} from 'ngx-toastr';
 import {CatKit} from '../../models/catkit.model';
