@@ -9,7 +9,6 @@ import {
   withXhr
 } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +18,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     MatSnackBarModule,
   ],
   providers: [
-    provideAnimationsAsync(),
     provideHttpClient(withXhr(), withInterceptorsFromDi()),
   ],
   bootstrap: [AppComponent],
